@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Router, Switch } from 'react-router-dom';
+import { Route, Router, Switch, Redirect } from 'react-router-dom';
 
 import Auth from '../Auth';
 import history from '../history';
@@ -28,8 +28,10 @@ class Home extends React.Component {
         <Router  history={history}>
           <div>
             <Switch history={history}>
+              <Route path="/" exact component={Dashboard} />
               <Route path="/home/" exact component={Dashboard} />
               <Route path="/home/demo" exact component={Demo} />
+              <Redirect from='/home/*' to='/home' />
             </Switch>
           </div>
         </Router>
