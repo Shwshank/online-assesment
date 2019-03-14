@@ -1,7 +1,7 @@
 import React from 'react';
-// import { Router, BrowserRouter } from 'react-router-dom';
 import Auth from './Auth';
 import history from './history';
+import {apiTest} from '../api/APIendpoint';
 
 class Login extends React.Component {
 
@@ -18,6 +18,12 @@ class Login extends React.Component {
 
   onLogin = () => {
     console.log(this.state);
+    apiTest().then( res=>{
+      console.log(res);
+    }, err=>{
+      console.log("err "+err);
+    })
+
   }
 
   emailChanged = async(event) => {
