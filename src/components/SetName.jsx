@@ -6,9 +6,9 @@ import { setName } from "../actions";
 class SetName extends React {
   render = () => {
     return (
-      <div>
+      <React.Fragment>
         <h3>Set Name</h3>
-      </div>
+      </React.Fragment>
     );
   };
 }
