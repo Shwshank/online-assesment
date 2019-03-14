@@ -1,14 +1,13 @@
-import React from 'react';
+import React from "react";
 // import { Router, BrowserRouter } from 'react-router-dom';
 
 class ExamSet extends React.Component {
-
   render() {
-    return(
-      <div>
-       <p>Exam Set</p>
+    return (
+      <div className="col-lg-12">
+        <p>Exam Set</p>
       </div>
-    )
+    );
   }
 }
 
