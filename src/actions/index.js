@@ -1,7 +1,7 @@
-export const setName = (value = "") =>{
+export const setUser = (value="") => {
 
   return({
-    type: 'SET_NAME',
+    type: 'SET_USER',
     payload: value
-  })
+  });
 };

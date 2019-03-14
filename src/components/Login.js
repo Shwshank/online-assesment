@@ -1,7 +1,7 @@
 import React from 'react';
 import Auth from './Auth';
 import history from './history';
-import {apiTest} from '../api/APIendpoint';
+import {login} from '../api/APIendpoint';
 
 class Login extends React.Component {
 
@@ -17,13 +17,16 @@ class Login extends React.Component {
   }
 
   onLogin = () => {
-    console.log(this.state);
-    apiTest().then( res=>{
-      console.log(res);
-    }, err=>{
-      console.log("err "+err);
+    // console.log(this.state);
+    login(this.state.email, this.state.password).then(res=>{
+      // console.log(res);
+      if(res) {
+        localStorage.setItem("token", "true");
+        history.push('/home');
+      } else {
+        alert("Invalid credentials!")
+      }
     })
-
   }
 
   emailChanged = async(event) => {

@@ -1,11 +1,14 @@
 import React from 'react';
 import { Route, Router, Switch, Redirect } from 'react-router-dom';
 
+import Demo from './Demo';
+import User from './User';
 import Auth from '../Auth';
-import history from '../history';
 import Header from './Header';
 import Footer from './Footer';
-import Demo from './Demo';
+import ExamSet from './ExamSet';
+import history from '../history';
+import Questions from './Questions';
 import Dashboard from './Dashboard';
 
 class Home extends React.Component {
@@ -28,8 +31,12 @@ class Home extends React.Component {
         <Router  history={history}>
           <div>
             <Switch history={history}>
-              <Route path="/" exact component={Dashboard} />
-              <Route path="/home/" exact component={Dashboard} />
+              <Route path="/" exact component={User} />
+              <Route path="/home/" exact component={User} />
+              <Route path="/home/user" exact component={User} />
+              <Route path="/home/questions" exact component={Questions} />
+              <Route path="/home/examSet" exact component={ExamSet} />
+              <Route path="/home/dashboard" exact component={Dashboard} />
               <Route path="/home/demo" exact component={Demo} />
               <Redirect from='/home/*' to='/home' />
             </Switch>

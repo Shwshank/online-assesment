@@ -1,4 +1,15 @@
 {
+  "login": {
+      "email": "admin@qcin.org",
+      "password": "1234"
+  },
+  "users": {
+      "userData":[
+        {"name":"User Name1", "email":"useremail1@some.com", "phone":"", "status":"Taken", "marks":"10", "timeStamp":"22-2-2019"},
+        {"name":"User Name2", "email":"useremail2@some.com", "phone":"", "status":"Assigned", "marks":"", "timeStamp":""},
+        {"name":"User Name3", "email":"useremail3@some.com", "phone":"", "status":"", "marks":"", "timeStamp":""}
+      ]
+  },
   "posts": [
     { "id": 1, "title": "json-server", "author": "typicode" }
   ],
@@ -6,4 +17,5 @@
     { "id": 1, "body": "some comment", "postId": 1 }
   ],
   "profile": { "name": "typicode" }
+
 }
