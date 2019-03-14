@@ -5,3 +5,11 @@ export const setUser = (value="") => {
     payload: value
   });
 };
+
+export const deleteUser = (value) =>{
+
+  return({
+    type: 'DELETE_USER',
+    payload: value
+  });
+}

@@ -8,17 +8,44 @@ const userReducer = () => {
   ];
 };
 
-const setUser = (state=[], action) => {
-
+const setUserReducer = (state=[], action) => {
+  console.log(state);
   switch(action.type) {
     case 'SET_USER' :
-      return [...state, action.payload];
+        return [...state, action.payload]
+
+    case 'DELETE_USER' :{
+
+      let temp = state;
+      temp.splice(0, action.payload)
+      console.log(temp);
+      return [...temp]
+    }
+
     default:
-     return [...state]
+       return [...state]
+  }
+}
+
+const deleteUserReducer = (state=[], action) =>{
+
+  console.log(state);
+  console.log(action);
+  switch(action.type) {
+    case 'DELETE_USER' :{
+
+      let temp = state;
+      temp.splice(0, action.payload)
+      console.log(temp);
+      return [...temp]
+    }
+    default:
+      return[...state]
   }
 }
 
 export default combineReducers({
-  users: userReducer,
-  setUser: setUser
+  userReducer: userReducer,
+  setUserReducer: setUserReducer,
+  deleteUserReducer: deleteUserReducer
 })
