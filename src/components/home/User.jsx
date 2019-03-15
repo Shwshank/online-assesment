@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setUser, deleteUser } from '../../actions';
+import { setUser, setUsers, deleteUser } from '../../actions';
 
 class User extends React.Component {
 
@@ -8,6 +8,10 @@ class User extends React.Component {
     super(props);
     this.state = { email:"", name:"", phone:"", status:"", marks:"", timeStamp:""};
     console.log(props);
+  }
+
+  componentDidMount() {
+    this.props.setUsers();
   }
 
   renderUser() {
@@ -32,7 +36,7 @@ class User extends React.Component {
   }
 
   deleteUser(i) {
-    console.log(i);
+    // console.log(i);
     console.log(this.props);
     this.props.deleteUser(i-1);
   }
@@ -105,10 +109,10 @@ class User extends React.Component {
 
 const mapStateToProps = (state) => {
 
-  return { users: state.setUserReducer.concat(state.userReducer) };
+  return { users: state.userReducer};
 };
 
 export default connect(
   mapStateToProps,
-  { setUser, deleteUser }
+  { setUser, setUsers, deleteUser }
 )(User);
