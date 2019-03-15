@@ -8,7 +8,8 @@ import "./styles.scss";
 import Reducers from './reducers';
 import App from './components/App';
 
-const composeEnhancers = compose || window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
   Reducers,
   composeEnhancers(applyMiddleware(reduxThunk))

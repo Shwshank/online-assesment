@@ -1,7 +1,40 @@
 import React from 'react';
-// import { Router, BrowserRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getQuestions } from '../../actions';
 
 class Questions extends React.Component {
+
+  constructor(props) {
+    super(props);
+    console.log(props);
+  }
+
+  renderQuestions() {
+    if(this.props.questions) {
+      let i=0;
+      return this.props.questions.map(ques=>{
+        i++;
+        return(
+          <tr key={ques.question+i+""} >
+            <td>{i}</td>
+            <td>{ques.question}</td>
+            <td>{ques.ans}</td>
+            <td>{ques.option1}</td>
+            <td>{ques.option2}</td>
+            <td>{ques.option3}</td>
+            <td>{ques.option4}</td>
+            <td>{ques.marks}</td>
+            <td>{ques.section}</td>
+          </tr>
+        )
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.props.getQuestions();
+    console.log(this.props);
+  }
 
   render() {
     return(
@@ -12,21 +45,17 @@ class Questions extends React.Component {
            <tr>
              <th scope="col">#</th>
              <th scope="col">Question</th>
-             <th scope="col">Options</th>
              <th scope="col">Answer/s</th>
-             <th scope="col">Section</th>
+             <th scope="col">Option1</th>
+             <th scope="col">Option2</th>
+             <th scope="col">Option3</th>
+             <th scope="col">Option4</th>
              <th scope="col">Marks</th>
+             <th scope="col">Section</th>
            </tr>
          </thead>
          <tbody>
-           <tr>
-             <th scope="row">1</th>
-             <td>Mark</td>
-             <td>Otto</td>
-             <td>@mdo</td>
-             <td>Mark</td>
-             <td>Otto</td>
-           </tr>
+           {this.renderQuestions()}
          </tbody>
         </table>
       </div>
@@ -34,4 +63,12 @@ class Questions extends React.Component {
   }
 }
 
-export default Questions;
+const mapStateToProps = (state) => {
+
+  return { questions: state.questionReducer, users: state.userReducer};
+};
+
+export default connect(
+  mapStateToProps,
+  { getQuestions }
+)(Questions);

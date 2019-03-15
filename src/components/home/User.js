@@ -10,7 +10,7 @@ class User extends React.Component {
     console.log(props);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.setUsers();
   }
 
@@ -20,15 +20,15 @@ class User extends React.Component {
       return this.props.users.map(u=>{
         i++;
         return (
-          <tr key={u.name+u.email+""}>
-          <td>{i}</td>
-          <td>{u.name}</td>
-          <td>{u.email}</td>
-          <td>{u.phone}</td>
-          <td>{u.status}</td>
-          <td>{u.marks}</td>
-          <td>{u.timeStamp}</td>
-          <td><button onClick={this.deleteUser.bind(this,i)}> Delete </button> </td>
+          <tr key={u.name+u.email+i+""}>
+            <td>{i}</td>
+            <td>{u.name}</td>
+            <td>{u.email}</td>
+            <td>{u.phone}</td>
+            <td>{u.status}</td>
+            <td>{u.marks}</td>
+            <td>{u.timeStamp}</td>
+            <td><button onClick={this.deleteUser.bind(this,i)}> Delete </button> </td>
           </tr>
         )
       })
@@ -109,7 +109,7 @@ class User extends React.Component {
 
 const mapStateToProps = (state) => {
 
-  return { users: state.userReducer};
+  return { users: state.userReducer, questions: state.questionReducer};
 };
 
 export default connect(

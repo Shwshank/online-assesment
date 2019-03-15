@@ -1,11 +1,18 @@
 import React from 'react';
 import history from '../history';
-// import { Router, BrowserRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { clearStore } from '../../actions';
 
 class Header extends React.Component {
 
-  logout() {
-  history.push('/logout');
+  constructor(props) {
+    super(props);
+    console.log(props);
+  }
+
+  logout = () => {
+    this.props.clearStore();
+    history.push('/logout');
   }
 
   goToUser() {
@@ -34,4 +41,12 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+
+  return { users: state.userReducer};
+};
+
+export default connect(
+  mapStateToProps,
+  { clearStore }
+)(Header);

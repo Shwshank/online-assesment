@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { combineReducers } from 'redux';
 
 const userReducer = (state=[], action) => {
@@ -8,7 +9,10 @@ const userReducer = (state=[], action) => {
         return [...state, action.payload]
 
     case 'SET_USERS' : {
-        return [...state, ...action.payload]
+        action.payload = _.uniqBy(action.payload, 'name')
+        state = [...state, ...action.payload]
+        state = _.uniqBy(state, 'name')
+        return [...state]
     }
 
     case 'DELETE_USER' :{
@@ -19,11 +23,33 @@ const userReducer = (state=[], action) => {
       return [...temp]
     }
 
+    case 'CLEARSTORE' : {
+      state = [];
+      return state
+    }
+
     default:
        return [...state]
+    }
+}
+
+const questionReducer = (state=[], action) =>{
+
+  switch (action.type) {
+
+    case 'GET_QUESTIONS':{
+      action.payload = _.uniqBy(action.payload, 'question')
+      state = [...state, ...action.payload]
+      state = _.uniqBy(state, 'question')
+      return [...state]
+    }
+
+    default:
+      return[...state]
   }
 }
 
 export default combineReducers({
-  userReducer: userReducer
+  userReducer: userReducer,
+  questionReducer: questionReducer
 })
