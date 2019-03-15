@@ -14,3 +14,8 @@ import baseURL from './baseURL';
       return false
     }
   }
+
+  export const getUsers = async() =>{
+    const response = await baseURL.get('/users');
+    return response.data.userData;
+  }

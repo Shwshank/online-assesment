@@ -1,3 +1,5 @@
+import { getUsers } from '../api/APIendpoint';
+
 export const setUser = (value="") => {
 
   return({
@@ -5,3 +7,25 @@ export const setUser = (value="") => {
     payload: value
   });
 };
+
+export const setUsers = () => async dispatch => {
+
+  let users = [];
+
+  getUsers().then(res=>{
+    users = res;
+    // console.log(res);
+    dispatch({
+      type: 'SET_USERS',
+      payload:users
+    });
+  })
+}
+
+export const deleteUser = (value) =>{
+
+  return({
+    type: 'DELETE_USER',
+    payload: value
+  });
+}

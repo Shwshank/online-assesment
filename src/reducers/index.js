@@ -1,24 +1,29 @@
 import { combineReducers } from 'redux';
 
-const userReducer = () => {
-  return [
-    {name:"User Name1", email:"useremail1@some.com", phone:"", status:"Taken", marks:"10", timeStamp:"22-2-2019"},
-    {name:"User Name2", email:"useremail2@some.com", phone:"", status:"Assigned", marks:"", timeStamp:""},
-    {"name":"User Name3", "email":"useremail3@some.com", phone:"", status:"", marks:"", timeStamp:""}
-  ];
-};
-
-const setUser = (state=[], action) => {
+const userReducer = (state=[], action) => {
 
   switch(action.type) {
+
     case 'SET_USER' :
-      return [...state, action.payload];
+        return [...state, action.payload]
+
+    case 'SET_USERS' : {
+        return [...state, ...action.payload]
+    }
+
+    case 'DELETE_USER' :{
+      // console.log(action.payload);
+      let temp = state;
+      temp.splice(action.payload, 1)
+      // console.log(temp);
+      return [...temp]
+    }
+
     default:
-     return [...state]
+       return [...state]
   }
 }
 
 export default combineReducers({
-  users: userReducer,
-  setUser: setUser
+  userReducer: userReducer
 })
