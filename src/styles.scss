@@ -1,5 +1,24 @@
 $primaryColor: #78ad38;
+$borderColor: #ccc;
 
-h1, h2 {
+h1,
+h2 {
   color: $primaryColor;
+}
+.header {
+  border-bottom: 1px solid $borderColor;
+  padding: 5px 0;
+  margin: 0 0 45px;
+  box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.2);
+  .logo {
+    max-height: 60px;
+  }
+}
+
+.content {
+  min-height: 500px;
+}
+.footer {
+  border-top: 1px solid $borderColor;
+  padding-top: 15px;
 }

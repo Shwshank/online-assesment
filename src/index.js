@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
+import "bootstrap/dist/css/bootstrap.css";
 
 import "./styles.scss";
 import Reducers from './reducers';
@@ -16,8 +17,8 @@ const store = createStore(
 );
 
 ReactDOM.render(
-  <Provider store = {store}>
-    <App/>
+  <Provider store={store}>
+    <App />
   </Provider>,
-   document.getElementById('root')
- );
+  document.getElementById("root")
+);
