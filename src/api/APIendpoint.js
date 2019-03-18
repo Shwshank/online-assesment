@@ -19,3 +19,13 @@ import baseURL from './baseURL';
     const response = await baseURL.get('/users');
     return response.data.userData;
   }
+
+  export const getAllQuestions = async() =>{
+    const response = await baseURL.get('/questions');
+    return response.data;
+  }
+
+  export const getAllExamSets = async() =>{
+    const response = await baseURL.get('/examSets');
+    return response.data;
+  }
