@@ -44,6 +44,15 @@ export const getQuestions = () => async dispatch => {
   })
 }
 
+export const getExamSet = (set={}) => {
+
+  console.log(set);
+  return({
+    type: 'ONE_EXAMSET',
+    payload: set
+  })
+}
+
 export const getExamSets = () => async dispatch => {
   let examSet = [];
 

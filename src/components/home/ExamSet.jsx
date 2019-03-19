@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getExamSets } from '../../actions';
+import { getExamSet, getExamSets } from '../../actions';
 import ExamSetting from './ExamSetting';
 
 class ExamSet extends React.Component {
@@ -28,7 +28,7 @@ class ExamSet extends React.Component {
             <td>{exam.question_array.length}</td>
             <td>{exam.time}hr</td>
             <td>
-              <button onClick={this.examDetails.bind(this, exam.set_id, i)}> Details </button>
+              <button onClick={this.examDetails.bind(this, exam, exam.set_id, i)}> Details </button>
             </td>
           </tr>
         )
@@ -36,9 +36,10 @@ class ExamSet extends React.Component {
     }
   }
 
-  examDetails = async(set_id,i )=> {
+  examDetails = async(exam, set_id, i )=> {
     console.log(i);
     console.log(set_id);
+    this.props.getExamSet(exam)
   }
 
   render() {
@@ -82,5 +83,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-  { getExamSets }
+  { getExamSet, getExamSets }
 )(ExamSet);
