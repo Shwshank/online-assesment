@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 
 const userReducer = (state=[], action) => {
 
@@ -86,6 +87,7 @@ const oneExamSetReducer = (state=[], action) =>{
 }
 
 export default combineReducers({
+  formReducer: formReducer,
   userReducer: userReducer,
   examSetReducer: examSetReducer,
   questionReducer: questionReducer,

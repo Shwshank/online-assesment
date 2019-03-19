@@ -9,6 +9,7 @@ class ExamSet extends React.Component {
   constructor(props) {
     super(props);
     console.log(props);
+    this.state = {examset:{}}
   }
 
   componentDidMount() {
@@ -39,7 +40,9 @@ class ExamSet extends React.Component {
   examDetails = async(exam, set_id, i )=> {
     console.log(i);
     console.log(set_id);
-    this.props.getExamSet(exam)
+    this.setState({
+      examSet: exam
+    })
   }
 
   render() {
@@ -48,7 +51,7 @@ class ExamSet extends React.Component {
          <div className="container-fluid" >
             <div className="row" >
 
-              <div className="col-lg-12">
+              <div className="col-12">
               <h4>Exam Set</h4>
                 <table className="table">
                   <thead>
@@ -66,8 +69,8 @@ class ExamSet extends React.Component {
                </table>
               </div>
 
-              <div className="col-6" >
-                <ExamSetting></ExamSetting>
+              <div className="col-12" >
+                <ExamSetting examSetDetails={this.state.examSet}></ExamSetting>
               </div>
             </div>
          </div>

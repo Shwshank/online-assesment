@@ -16,8 +16,8 @@
     {"question_id":"13", "question": "Some question here3", "ans": "Option 3", "option1": "Option 1", "option2": "Option 2", "option3": "Option 3", "option4": "Option 4", "marks": "2", "section": "Quant" }
   ],
   "examSets" : [
-    {"set_id": "101", "name": "Some name1 here", "time": "1", "question_array":["1","2"]},
-    {"set_id": "102", "name": "Some name2 here", "time": "2", "question_array":["3","1"]}
+    {"set_id": "101", "name": "Some name1 here", "time": "1", "question_array":["11","12"]},
+    {"set_id": "102", "name": "Some name2 here", "time": "2", "question_array":["13","11"]}
   ],
   "posts": [
     { "id": 1, "title": "json-server", "author": "typicode" }

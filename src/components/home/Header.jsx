@@ -42,7 +42,7 @@ class Header extends React.Component {
                     <NavLink
                       to="/home/user"
                       className="nav-link"
-                      onClick={this.goToUser}
+                      
                     >
                       User
                     </NavLink>

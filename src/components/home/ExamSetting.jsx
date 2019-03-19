@@ -1,6 +1,8 @@
+import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
-import { getExamSet } from '../../actions';
+import { Link } from 'react-router-dom';
+import { getQuestions } from '../../actions';
 
 class ExamSetting extends React.Component {
 
@@ -11,79 +13,92 @@ class ExamSetting extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getExamSet();
+    this.props.getQuestions();
     console.log(this.props);
   }
 
-  newSet(){
-    console.log("Magic yet to be happen");
+  componentDidUpdate = () =>{
+    console.log(this.props.examSetDetails);
   }
 
-  renderSet() {
+  renderView() {
+    if(this.props.examSetDetails){
 
-    console.log(this.props.oneExamSet);
-    if(this.props.oneExamSet) {
-      if(this.props.oneExamSet[0].name) {
-        let i = 0;
+      // filter questions from question reducer
+      let questionsOnSet = _.filter(this.props.questions, (v) => _.includes(this.props.examSetDetails.question_array, v.question_id));
 
-        return this.props.oneExamSet.map(set=>{
-          i++;
+      return(
+        <div>
+        <Link
+        to={`/home/examSetSettingForm/${this.props.examSetDetails.set_id}`}
+        className="nav-link"
+        > Edit </Link>
 
-          return(
+          <p>Name : {this.props.examSetDetails.name} </p> <p>Time: {this.props.examSetDetails.time} hr</p> <br/>
+          {this.displaySetQuestions(questionsOnSet)} <br/>
 
-            <div key={set.name+i+""}>
 
-             <input
-               className="form-control"
-               id="name"
-               type="text"
-               value={this.state.name}
-               onChange={this.setNameChanged}
-             />
-             <br/>
-
-             <input
-               className="form-control"
-               id="name"
-               type="text"
-               value={this.state.time}
-               onChange={this.setTimeChanged}
-             />
-             <br/>
-
-             <button onClick={this.saveSet.bind(this,set)} > Save  </button>
-            </div>
-          )
-        })
-      }
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          <p> Select a set </p>
+        </div>
+      )
     }
   }
 
-  saveSet(set) {
-    console.log("Set to be save "+set);
-    console.log(this.state);
+  displaySetQuestions(questionsOnSet) {
+    if(questionsOnSet.length) {
+      return(
+        <table className="table">
+          <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Question</th>
+            <th scope="col">Answer/s</th>
+            <th scope="col">Option1</th>
+            <th scope="col">Option2</th>
+            <th scope="col">Option3</th>
+            <th scope="col">Option4</th>
+            <th scope="col">Marks</th>
+            <th scope="col">Section</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderQuestions(questionsOnSet)}
+          </tbody>
+        </table>
+      )
+    }
   }
 
-  setNameChanged = async event => {
-    await this.setState({
-      name: event.target.value
+  renderQuestions(questionsOnSet) {
+    let i=0;
+    return questionsOnSet.map(ques=>{
+      i++;
+      return(
+        <tr key={ques.question+i+""} >
+          <td>{i}</td>
+          <td>{ques.question}</td>
+          <td>{ques.ans}</td>
+          <td>{ques.option1}</td>
+          <td>{ques.option2}</td>
+          <td>{ques.option3}</td>
+          <td>{ques.option4}</td>
+          <td>{ques.marks}</td>
+          <td>{ques.section}</td>
+        </tr>
+      )
     });
-  };
-
-  setTimeChanged = async event => {
-    await this.setState({
-      time: event.target.value
-    });
-  };
+  }
 
   render() {
     return(
       <div>
         <h4>Setting</h4>
-        <button onClick={this.newSet} > + Exam Set </button>
-        <div>
-          {this.renderSet()}
-        </div>
+        {this.renderView()}
       </div>
     )
   }
@@ -91,10 +106,10 @@ class ExamSetting extends React.Component {
 
 const mapStateToProps = (state) => {
 
-  return { oneExamSet: state.oneExamSetReducer};
+  return { questions: state.questionReducer};
 };
 
 export default connect(
   mapStateToProps,
-  { getExamSet }
+  { getQuestions }
 )(ExamSetting);
