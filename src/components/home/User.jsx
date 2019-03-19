@@ -1,8 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { setUser, setUsers, deleteUser } from "../../actions";
+import Pagination from "../common/pagination";
+import { paginate } from "../../utils/paginate";
 
 class User extends React.Component {
+  counter = 1;
   state = {
     toggle: true
   };
@@ -14,7 +17,9 @@ class User extends React.Component {
       phone: "",
       status: "",
       marks: "",
-      timeStamp: ""
+      timeStamp: "",
+      pageSize: 2,
+      currentPage: 1
     };
     console.log(props);
   }
@@ -23,33 +28,33 @@ class User extends React.Component {
     this.props.setUsers();
   }
 
-  renderUser() {
-    if (this.props.users) {
-      let i = 0;
-      return this.props.users.map(u => {
-        i++;
-        return (
-          <tr key={u.name + u.email + i + ""}>
-            <td>{i}</td>
-            <td>{u.name}</td>
-            <td>{u.email}</td>
-            <td>{u.phone}</td>
-            <td>{u.status}</td>
-            <td>{u.marks}</td>
-            <td>{u.timeStamp}</td>
-            <td>
-              <button
-                className="btn btn-danger"
-                onClick={this.deleteUser.bind(this, i)}
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-        );
-      });
-    }
-  }
+  // renderUser() {
+  //   if (this.props.users) {
+  //     let i = 0;
+  //     return this.props.users.map(u => {
+  //       i++;
+  //       return (
+  //         <tr key={u.name + u.email + i + ""}>
+  //           <td>{i}</td>
+  //           <td>{u.name}</td>
+  //           <td>{u.email}</td>
+  //           <td>{u.phone}</td>
+  //           <td>{u.status}</td>
+  //           <td>{u.marks}</td>
+  //           <td>{u.timeStamp}</td>
+  //           <td>
+  //             <button
+  //               className="btn btn-danger"
+  //               onClick={this.deleteUser.bind(this, i)}
+  //             >
+  //               Delete
+  //             </button>
+  //           </td>
+  //         </tr>
+  //       );
+  //     });
+  //   }
+  // }
 
   deleteUser(i) {
     // console.log(i);
@@ -98,7 +103,17 @@ class User extends React.Component {
     classes += !this.state.toggle ? "" : " toggleActive";
     return classes;
   }
+  handlePageChange = page => {
+    this.setState({ currentPage: page });
+  };
+
   render() {
+    const users = paginate(
+      this.props.users,
+      this.state.currentPage,
+      this.state.pageSize
+    );
+
     // console.log(this.props);
     let classes = this.toggleClasses();
     return (
@@ -107,17 +122,20 @@ class User extends React.Component {
           <h4
             className="col-lg-6"
             onClick={this.handleToggle}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", marginBottom: 20 }}
           >
             User
           </h4>
           <form className="col-lg-6">
-            <input
-              type="file"
-              multiple=""
-              className="fileUpload float-right"
-              style={{ width: 100 }}
-            />
+            <div className="upload">
+              <i className="fa fa-upload" aria-hidden="true" />
+              <input
+                type="file"
+                multiple=""
+                className="fileUpload"
+                style={{ width: 100 }}
+              />
+            </div>
           </form>
         </div>
         <div className="row">
@@ -190,8 +208,34 @@ class User extends React.Component {
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-              <tbody>{this.renderUser()}</tbody>
+              <tbody>
+                {users.map(user => (
+                  <tr key={user.name + user.email}>
+                    <td>{this.counter++}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.phone}</td>
+                    <td>{user.status}</td>
+                    <td>{user.marks}</td>
+                    <td>{user.timeStamp}</td>
+                    <td>
+                      <button
+                        className="btn btn-danger"
+                        onClick={this.deleteUser.bind(this)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
+            <Pagination
+              itemCounts={this.props.users.length}
+              pageSize={this.state.pageSize}
+              currentPage={this.state.currentPage}
+              onPageChange={this.handlePageChange}
+            />
           </div>
         </div>
       </React.Fragment>

@@ -50,12 +50,15 @@ class ExamSet extends React.Component {
       <React.Fragment>
         <div className="row">
           <form style={{ width: "100%" }}>
-            <input
-              type="file"
-              multiple=""
-              className="fileUpload float-right"
-              style={{ width: 100 }}
-            />
+            <div className="upload">
+              <i className="fa fa-upload" aria-hidden="true" />
+              <input
+                type="file"
+                multiple=""
+                className="fileUpload"
+                style={{ width: 100 }}
+              />
+            </div>
           </form>
 
           <div className="col-lg-6">

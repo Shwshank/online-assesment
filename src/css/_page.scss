@@ -9,3 +9,23 @@ main.content {
 .toggleActive {
   display: none;
 }
+.upload {
+  display: inline-block;
+  float: right;
+}
+i.fa.fa-upload {
+  position: absolute;
+  color: $white;
+  padding: 10px 42px;
+  background: $blue;
+}
+.card-header {
+  background-color: $header;
+  color: $default;
+}
+th {
+  background-color: $header;
+}
+.page-link {
+  cursor: pointer;
+}
