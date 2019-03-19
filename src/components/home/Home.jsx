@@ -30,18 +30,16 @@ class Home extends React.Component {
         <Router history={history}>
           <main className="content">
             <div className="container">
-              <div className="row">
-                <Switch history={history}>
-                  <Route path="/" exact component={User} />
-                  <Route path="/home/" exact component={User} />
-                  <Route path="/home/user" exact component={User} />
-                  <Route path="/home/questions" exact component={Questions} />
-                  <Route path="/home/examSet" exact component={ExamSet} />
-                  <Route path="/home/dashboard" exact component={Dashboard} />
-                  <Route path="/home/demo" exact component={Demo} />
-                  <Redirect from="/home/*" to="/home" />
-                </Switch>
-              </div>
+              <Switch history={history}>
+                <Route path="/" exact component={User} />
+                <Route path="/home/" exact component={User} />
+                <Route path="/home/user" exact component={User} />
+                <Route path="/home/questions" exact component={Questions} />
+                <Route path="/home/examSet" exact component={ExamSet} />
+                <Route path="/home/dashboard" exact component={Dashboard} />
+                <Route path="/home/demo" exact component={Demo} />
+                <Redirect from="/home/*" to="/home" />
+              </Switch>
             </div>
           </main>
         </Router>

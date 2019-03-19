@@ -1,12 +1,11 @@
 import React from "react";
 import history from "../history";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { clearStore } from '../../actions';
+import { clearStore } from "../../actions";
 // import { Router, BrowserRouter } from 'react-router-dom';
 
 class Header extends React.Component {
-
   constructor(props) {
     super(props);
     console.log(props);
@@ -14,8 +13,8 @@ class Header extends React.Component {
 
   logout = () => {
     this.props.clearStore();
-    history.push('/logout');
-  }
+    history.push("/logout");
+  };
 
   goToUser() {
     history.push("/home/user");
@@ -37,7 +36,7 @@ class Header extends React.Component {
             </div>
             <div className="col">
               <nav>
-                <ul className="nav">
+                <ul className="nav float-right">
                   <li className="nav-item">
                     <NavLink
                       to="/home/user"
@@ -84,9 +83,8 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-
-  return { users: state.userReducer};
+const mapStateToProps = state => {
+  return { users: state.userReducer };
 };
 
 export default connect(

@@ -1,25 +1,26 @@
-import React from 'react';
+import React from "react";
 // import { connect } from 'react-redux';
 
 class ExamSetting extends React.Component {
-
   constructor(props) {
     super(props);
     console.log(props);
   }
 
-  newSet(){
+  newSet() {
     console.log("Magic yet to be happen");
   }
 
   render() {
-    return(
-      <div>
+    return (
+      <React.Fragment>
         <h4>Setting</h4>
-        <button onClick={this.newSet} > + Exam Set </button>
-      </div>
-    )
+        <button className="btn btn-primary" onClick={this.newSet}>
+          + Exam Set
+        </button>
+      </React.Fragment>
+    );
   }
-};
+}
 
-export default ExamSetting
+export default ExamSetting;

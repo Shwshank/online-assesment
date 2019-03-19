@@ -1,9 +1,8 @@
 import React from "react";
-import { connect } from 'react-redux';
-import { getQuestions } from '../../actions';
+import { connect } from "react-redux";
+import { getQuestions } from "../../actions";
 
 class Questions extends React.Component {
-
   constructor(props) {
     super(props);
     console.log(props);
@@ -15,12 +14,12 @@ class Questions extends React.Component {
   }
 
   renderQuestions() {
-    if(this.props.questions) {
-      let i=0;
-      return this.props.questions.map(ques=>{
+    if (this.props.questions) {
+      let i = 0;
+      return this.props.questions.map(ques => {
         i++;
-        return(
-          <tr key={ques.question+i+""} >
+        return (
+          <tr key={ques.question + i + ""}>
             <td>{i}</td>
             <td>{ques.question}</td>
             <td>{ques.ans}</td>
@@ -31,41 +30,49 @@ class Questions extends React.Component {
             <td>{ques.marks}</td>
             <td>{ques.section}</td>
           </tr>
-        )
+        );
       });
     }
   }
 
   render() {
     return (
-      <div className="col-lg-12">
-        <h4>Questions</h4>
-        <table className="table">
-          <thead>
-            <tr>
-            <th scope="col">#</th>
-            <th scope="col">Question</th>
-            <th scope="col">Answer/s</th>
-            <th scope="col">Option1</th>
-            <th scope="col">Option2</th>
-            <th scope="col">Option3</th>
-            <th scope="col">Option4</th>
-            <th scope="col">Marks</th>
-            <th scope="col">Section</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderQuestions()}
-          </tbody>
-        </table>
+      <div className="row">
+        <form style={{ width: "100%" }}>
+          <input
+            type="file"
+            multiple=""
+            className="fileUpload float-right"
+            style={{ width: 100 }}
+          />
+        </form>
+
+        <div className="col-lg-12">
+          <h4>Questions</h4>
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Question</th>
+                <th scope="col">Answer/s</th>
+                <th scope="col">Option1</th>
+                <th scope="col">Option2</th>
+                <th scope="col">Option3</th>
+                <th scope="col">Option4</th>
+                <th scope="col">Marks</th>
+                <th scope="col">Section</th>
+              </tr>
+            </thead>
+            <tbody>{this.renderQuestions()}</tbody>
+          </table>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-
-  return { questions: state.questionReducer, users: state.userReducer};
+const mapStateToProps = state => {
+  return { questions: state.questionReducer, users: state.userReducer };
 };
 
 export default connect(
