@@ -38,8 +38,8 @@ class ExamSet extends React.Component {
   }
 
   examDetails = async(exam, set_id, i )=> {
-    console.log(i);
-    console.log(set_id);
+    console.log(exam);
+    this.props.getExamSet(exam);
     this.setState({
       examSet: exam
     })

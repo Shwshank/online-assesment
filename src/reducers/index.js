@@ -54,10 +54,6 @@ const examSetReducer = (state=[], action) =>{
 
   switch (action.type) {
 
-    case 'ONE_EXAMSET':{
-      return state
-    }
-
     case 'GET_EXAMSET':{
       action.payload = _.uniqBy(action.payload, 'set_id')
       state = [...state, ...action.payload]
@@ -70,19 +66,19 @@ const examSetReducer = (state=[], action) =>{
   }
 }
 
-const oneExamSetReducer = (state=[], action) =>{
-
-  console.log(state);
-  console.log(action);
+const oneExamSetReducer = (state={}, action) =>{
 
   switch (action.type) {
-
     case 'ONE_EXAMSET':{
-      return [action.payload]
+      let temp = action.payload
+      if(temp[0].set_id){
+        state = action.payload[0]
+      }
+      console.log(state);
+      return state
     }
-
     default:
-      return [state]
+    return state
   }
 }
 

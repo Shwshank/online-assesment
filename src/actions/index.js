@@ -45,11 +45,10 @@ export const getQuestions = () => async dispatch => {
 }
 
 export const getExamSet = (set={}) => {
-
-  console.log(set);
+  // console.log(set);
   return({
     type: 'ONE_EXAMSET',
-    payload: set
+    payload: [set]
   })
 }
 

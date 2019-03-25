@@ -32,7 +32,7 @@ class Home extends React.Component {
           <main className="content">
             <div className="container">
               <div className="row">
-                <Switch history={history}>
+                <Switch>
                   <Route path="/" exact component={User} />
                   <Route path="/home/" exact component={User} />
                   <Route path="/home/user" exact component={User} />

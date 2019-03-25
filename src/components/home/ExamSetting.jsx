@@ -21,6 +21,11 @@ class ExamSetting extends React.Component {
     console.log(this.props.examSetDetails);
   }
 
+  handleLinkClick(set_id) {
+    console.log(set_id);
+
+  }
+
   renderView() {
     if(this.props.examSetDetails){
 
@@ -29,14 +34,15 @@ class ExamSetting extends React.Component {
 
       return(
         <div>
-        <Link
-        to={`/home/examSetSettingForm/${this.props.examSetDetails.set_id}`}
-        className="nav-link"
-        > Edit </Link>
+
+          <Link
+          onClick={this.handleLinkClick.bind(this, this.props.examSetDetails.set_id)}
+          to={`/home/examSetSettingForm/${this.props.examSetDetails.set_id}`}
+          className="nav-link"
+          > Edit </Link>
 
           <p>Name : {this.props.examSetDetails.name} </p> <p>Time: {this.props.examSetDetails.time} hr</p> <br/>
           {this.displaySetQuestions(questionsOnSet)} <br/>
-
 
         </div>
       )
