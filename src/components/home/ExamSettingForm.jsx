@@ -1,4 +1,4 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { getExamSet, getQuestions, editExamSet } from '../../actions';
@@ -7,7 +7,7 @@ class ExamSettingForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state={exam:{}, questions:[]}
+    this.state={name:""}
     this.nonSetQuestions = [];
   }
 
@@ -29,14 +29,24 @@ class ExamSettingForm extends React.Component {
     if(this.props.exam) {
       return(
         <div>
-          Name: {this.props.exam.name} <br/>
+          Name:
+          <input  type="text" value={this.props.exam.name} onChange={this.setNameChanged} />
+          <br/>
           Set ID: {this.props.exam.set_id}
           <hr/>
           {this.displayQuestions()}
         </div>
       );
-
     }
+  }
+
+  setNameChanged = async(event) => {
+    console.log(event.target.value);
+    this.props.exam.name = event.target.value
+    await this.setState({
+      name: event.target.value
+    });
+    // this.props.onSubmit(this.state.value);
   }
 
   displayQuestions() {
@@ -123,7 +133,7 @@ class ExamSettingForm extends React.Component {
 
       return(
       <div style={{overflow: 'auto'}} >
-        <h4>Questions</h4>
+        <h4>All other questions</h4>
         <table className="table">
           <thead>
             <tr>
@@ -207,6 +217,14 @@ class ExamSettingForm extends React.Component {
     this.props.editExamSet(this.props.exam)
   }
 
+  updateExamSet = () => {
+    // console.log(this.props.exam);
+    if(window.confirm("Are you sure to save the changes?")) {
+      this.props.editExamSet(this.props.exam);
+      this.props.history.push('/home/examSet');
+    }
+  }
+
   render() {
     return(
       <div>
@@ -220,11 +238,16 @@ class ExamSettingForm extends React.Component {
           <div className="col-6" >
             {this.displayNonSetQuestions()}
           </div>
-
         </div>
+
+        <br/>
+          <button onClick={this.updateExamSet} > Update Exam Set </button>
+        <br/>
+
       </div>
     );
   }
+
 }
 
 const mapStateToProps = (state) => {
