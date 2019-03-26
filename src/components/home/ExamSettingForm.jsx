@@ -17,6 +17,7 @@ class ExamSettingForm extends React.Component {
   }
 
   componentDidUpdate() {
+    console.log(this.props);
     console.log(this.props.exam);
     console.log(this.props.questions);
   }
