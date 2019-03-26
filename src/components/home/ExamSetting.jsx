@@ -8,7 +8,7 @@ class ExamSetting extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
     this.state={set_id:"", name:"", time:"", question:[]}
   }
 
@@ -18,11 +18,11 @@ class ExamSetting extends React.Component {
   }
 
   componentDidUpdate = () =>{
-    console.log(this.props.examSetDetails);
+    // console.log(this.props.examSetDetails);
   }
 
   handleLinkClick(set_id) {
-    console.log(set_id);
+    // console.log(set_id);
 
   }
 

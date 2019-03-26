@@ -8,7 +8,7 @@ class ExamSet extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
     this.state = {examset:{}}
   }
 
@@ -38,7 +38,7 @@ class ExamSet extends React.Component {
   }
 
   examDetails = async(exam, set_id, i )=> {
-    console.log(exam);
+    // console.log(exam);
     this.props.getExamSet(exam);
     this.setState({
       examSet: exam

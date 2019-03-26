@@ -44,6 +44,14 @@ export const getQuestions = () => async dispatch => {
   })
 }
 
+export const editExamSet = (updatedExamSet) => {
+
+  return({
+    type: "EDIT_EXAM_SET",
+    payload: updatedExamSet
+  })
+}
+
 export const getExamSet = (set={}) => {
   // console.log(set);
   return({
