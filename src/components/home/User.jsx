@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { setUser, setUsers, deleteUser } from "../../actions";
-import Pagination from "../common/pagination";
-import { paginate } from "../../utils/paginate";
+
 
 class User extends React.Component {
   counter = 1;
@@ -11,55 +10,52 @@ class User extends React.Component {
   };
   constructor(props) {
     super(props);
-    this.state = {
-      email: "",
-      name: "",
-      phone: "",
-      status: "",
-      marks: "",
-      timeStamp: "",
-      pageSize: 2,
-      currentPage: 1
-    };
-    console.log(props);
+    this.state = { email:"", name:"", phone:"", status:"", marks:"", timeStamp:""};
+    // console.log(props);
+
   }
 
   componentWillMount() {
     this.props.setUsers();
   }
 
-  // renderUser() {
-  //   if (this.props.users) {
-  //     let i = 0;
-  //     return this.props.users.map(u => {
-  //       i++;
-  //       return (
-  //         <tr key={u.name + u.email + i + ""}>
-  //           <td>{i}</td>
-  //           <td>{u.name}</td>
-  //           <td>{u.email}</td>
-  //           <td>{u.phone}</td>
-  //           <td>{u.status}</td>
-  //           <td>{u.marks}</td>
-  //           <td>{u.timeStamp}</td>
-  //           <td>
-  //             <button
-  //               className="btn btn-danger"
-  //               onClick={this.deleteUser.bind(this, i)}
-  //             >
-  //               Delete
-  //             </button>
-  //           </td>
-  //         </tr>
-  //       );
-  //     });
-  //   }
-  // }
+  renderUser() {
+    if (this.props.users) {
+      let i = 0;
+      return this.props.users.map(u => {
+        i++;
+        return (
+          <tr key={u.name + u.email + i + ""}>
+            <td>{i}</td>
+            <td>{u.name}</td>
+            <td>{u.email}</td>
+            <td>{u.phone}</td>
+            <td>{u.status}</td>
+            <td>{u.marks}</td>
+            <td>{u.timeStamp}</td>
+            <td>
+              <button
+                className="btn btn-danger"
+                onClick={this.deleteUser.bind(this, i)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        );
+      });
+    }
+  }
 
   deleteUser(i) {
     // console.log(i);
+
     console.log(this.props);
     this.props.deleteUser(i - 1);
+
+    // console.log(this.props);
+    this.props.deleteUser(i-1);
+
   }
 
   createNewUser = async () => {
@@ -108,11 +104,7 @@ class User extends React.Component {
   };
 
   render() {
-    const users = paginate(
-      this.props.users,
-      this.state.currentPage,
-      this.state.pageSize
-    );
+  
 
     // console.log(this.props);
     let classes = this.toggleClasses();
@@ -209,33 +201,10 @@ class User extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {users.map(user => (
-                  <tr key={user.name + user.email}>
-                    <td>{this.counter++}</td>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.phone}</td>
-                    <td>{user.status}</td>
-                    <td>{user.marks}</td>
-                    <td>{user.timeStamp}</td>
-                    <td>
-                      <button
-                        className="btn btn-danger"
-                        onClick={this.deleteUser.bind(this)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {this.renderUser()}
               </tbody>
             </table>
-            <Pagination
-              itemCounts={this.props.users.length}
-              pageSize={this.state.pageSize}
-              currentPage={this.state.currentPage}
-              onPageChange={this.handlePageChange}
-            />
+
           </div>
         </div>
       </React.Fragment>

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 
 const userReducer = (state=[], action) => {
 
@@ -60,13 +61,44 @@ const examSetReducer = (state=[], action) =>{
       return [...state]
     }
 
+    case 'EDIT_EXAM_SET' : {
+      // console.log(action.payload);
+      let index =_.findIndex(state, {set_id: action.payload.set_id})
+      console.log(index);
+      if(index === -1) {
+        state.push(action.payload)
+      } else {
+        // exam set present
+        state[index] = action.payload
+      }
+      return [...state]
+    }
+
     default:
       return[...state]
   }
 }
 
+const oneExamSetReducer = (state={}, action) =>{
+
+  switch (action.type) {
+    case 'ONE_EXAMSET':{
+      let temp = action.payload
+      if(temp[0].set_id){
+        state = action.payload[0]
+      }
+      // console.log(state);
+      return state
+    }
+    default:
+    return state
+  }
+}
+
 export default combineReducers({
+  formReducer: formReducer,
   userReducer: userReducer,
   examSetReducer: examSetReducer,
-  questionReducer: questionReducer
+  questionReducer: questionReducer,
+  oneExamSetReducer: oneExamSetReducer
 })

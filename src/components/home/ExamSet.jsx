@@ -1,18 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getExamSets } from "../../actions";
-import ExamSetting from "./ExamSetting";
+import { getExamSet, getExamSets } from '../../actions';
+import ExamSetting from './ExamSetting';
 
 class ExamSet extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
+    this.state = {examset:{}}
   }
 
   componentDidMount() {
     this.props.getExamSets();
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   renderExamSets() {
@@ -27,61 +28,62 @@ class ExamSet extends React.Component {
             <td>{exam.question_array.length}</td>
             <td>{exam.time}hr</td>
             <td>
-              <button
-                className="btn btn-success"
-                onClick={this.examDetails.bind(this, exam.set_id, i)}
-              >
-                Details
-              </button>
+              <button onClick={this.examDetails.bind(this, exam, exam.set_id, i)}> Details </button>
             </td>
           </tr>
         );
       });
     }
   }
+  examDetails = async(exam, set_id, i )=> {
+    // console.log(exam);
+    this.props.getExamSet(exam);
+    this.setState({
+      examSet: exam
+    })
+  }
 
-  examDetails = async (set_id, i) => {
-    console.log(i);
-    console.log(set_id);
-  };
+  newExamSet = () => {
+    // New Exam Set
+    let set_id = Math.floor(Math.random() *  8999) + 1000;
+    let exam = {set_id:""+set_id, name: "Exam set "+set_id, time: "1", question_array:[]}
+    this.props.getExamSet(exam);
+    this.props.history.push('/home/examSetSettingForm/123');
+  }
 
   render() {
     return (
-      <React.Fragment>
-        <div className="row">
-          <form style={{ width: "100%" }}>
-            <div className="upload">
-              <i className="fa fa-upload" aria-hidden="true" />
-              <input
-                type="file"
-                multiple=""
-                className="fileUpload"
-                style={{ width: 100 }}
-              />
+        <div>
+         <div className="container-fluid" >
+            <div className="row" >
+
+              <div className="col-12">
+              <h4>Exam Set</h4>
+              <br/>
+                <button onClick={this.newExamSet} > New Set </button>
+              <br/>
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Set Name</th>
+                      <th scope="col">Questions</th>
+                      <th scope="col">Time</th>
+                      <th scope="col">Details</th>
+                    </tr>
+                  </thead>
+                <tbody>
+                  {this.renderExamSets()}
+                </tbody>
+               </table>
+              </div>
+
+              <div className="col-12" >
+                <ExamSetting examSetDetails={this.state.examSet}></ExamSetting>
+              </div>
             </div>
-          </form>
-
-          <div className="col-lg-6">
-            <h4>Exam Set</h4>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Set Name</th>
-                  <th scope="col">Questions</th>
-                  <th scope="col">Time</th>
-                  <th scope="col">Details</th>
-                </tr>
-              </thead>
-              <tbody>{this.renderExamSets()}</tbody>
-            </table>
-          </div>
-
-          <div className="col-lg-6">
-            <ExamSetting />
-          </div>
-        </div>
-      </React.Fragment>
+         </div>
+      </div>
     );
   }
 }
@@ -92,5 +94,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getExamSets }
+  { getExamSet, getExamSets }
 )(ExamSet);
