@@ -21,13 +21,5 @@
   "examSets" : [
     {"set_id": "101", "name": "Some name1 here", "time": "1", "question_array":["11","12"]},
     {"set_id": "102", "name": "Some name2 here", "time": "2", "question_array":["13","11"]}
-  ],
-  "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
-  ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
-  ],
-  "profile": { "name": "typicode" }
-
+  ]
 }
