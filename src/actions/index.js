@@ -52,6 +52,14 @@ export const editExamSet = (updatedExamSet) => {
   })
 }
 
+export const editUser = (user, exam) => {
+
+  return({
+    type: "EDIT_USER",
+    payload: {user: user, set_id: exam.set_id}
+  })
+}
+
 export const getExamSet = (set={}) => {
   // console.log(set);
   return({
