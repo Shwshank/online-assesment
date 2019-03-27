@@ -5,9 +5,10 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 import "bootstrap/dist/css/bootstrap.css";
 
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web and AsyncStorage for react-native
+import { createLogger } from 'redux-logger'
+import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore, persistReducer } from 'redux-persist'
 
 import "./styles.scss";
 import Reducers from './reducers';
@@ -18,13 +19,22 @@ const persistConfig = {
   storage,
 }
 
+const logger = createLogger({
+  collapsed: true,
+  duration : true,
+  timestamp : true,
+  level : 'info',
+  logErrors : true,
+  diff : true
+});
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const persistedReducer = persistReducer(persistConfig, Reducers)
 
 const store = createStore(
   persistedReducer,
-  composeEnhancers(applyMiddleware(reduxThunk))
+  composeEnhancers(applyMiddleware(reduxThunk, logger))
 );
 
 let persistor = persistStore(store)

@@ -14,7 +14,7 @@ class ExamSetting extends React.Component {
 
   componentDidMount() {
     this.props.getQuestions();
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   componentDidUpdate = () =>{

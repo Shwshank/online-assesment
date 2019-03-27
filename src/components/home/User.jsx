@@ -7,7 +7,7 @@ class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = { email:"", name:"", phone:"", status:"", marks:"", timeStamp:""};
-    console.log(props);
+    // console.log(props);
   }
 
   componentWillMount() {
@@ -37,7 +37,7 @@ class User extends React.Component {
 
   deleteUser(i) {
     // console.log(i);
-    console.log(this.props);
+    // console.log(this.props);
     this.props.deleteUser(i-1);
   }
 

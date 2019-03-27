@@ -4,14 +4,14 @@ import { getQuestions } from '../../actions';
 
 class Questions extends React.Component {
 
-  constructor(props) {
-    super(props);
-    console.log(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   console.log(props);
+  // }
 
   componentDidMount() {
     this.props.getQuestions();
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   renderQuestions() {

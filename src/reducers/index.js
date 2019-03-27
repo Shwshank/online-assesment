@@ -64,7 +64,13 @@ const examSetReducer = (state=[], action) =>{
     case 'EDIT_EXAM_SET' : {
       // console.log(action.payload);
       let index =_.findIndex(state, {set_id: action.payload.set_id})
-      state[index] = action.payload
+      console.log(index);
+      if(index === -1) {
+        state.push(action.payload)
+      } else {
+        // exam set present
+        state[index] = action.payload
+      }
       return [...state]
     }
 

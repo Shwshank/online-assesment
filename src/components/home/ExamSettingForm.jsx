@@ -7,7 +7,7 @@ class ExamSettingForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state={name:""}
+    this.state={name:"", time:""}
     this.nonSetQuestions = [];
   }
 
@@ -19,9 +19,7 @@ class ExamSettingForm extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(this.props);
-    // console.log(this.props.exam);
-    // console.log(this.props.questions);
+    // console.log(this.props);
     this.displayExamDetails()
   }
 
@@ -31,6 +29,9 @@ class ExamSettingForm extends React.Component {
         <div>
           Name:
           <input  type="text" value={this.props.exam.name} onChange={this.setNameChanged} />
+          <br/>
+          Time:
+          <input  type="text" value={this.props.exam.time} onChange={this.setTimeChanged} />
           <br/>
           Set ID: {this.props.exam.set_id}
           <hr/>
@@ -46,7 +47,14 @@ class ExamSettingForm extends React.Component {
     await this.setState({
       name: event.target.value
     });
-    // this.props.onSubmit(this.state.value);
+  }
+
+  setTimeChanged = async(event) => {
+    console.log(event.target.value);
+    this.props.exam.time = event.target.value
+    await this.setState({
+      time: event.target.value
+    });
   }
 
   displayQuestions() {
@@ -182,7 +190,7 @@ class ExamSettingForm extends React.Component {
     let unique1 = arr1.filter((o) => arr2.indexOf(o) === -1);
     let unique2 = arr2.filter((o) => arr1.indexOf(o) === -1);
     this.nonSetQuestions = unique1.concat(unique2);
-    console.log(this.nonSetQuestions);
+    // console.log(this.nonSetQuestions);
 
     if(this.nonSetQuestions) {
       let i=0;

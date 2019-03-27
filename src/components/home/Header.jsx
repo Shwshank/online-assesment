@@ -9,7 +9,8 @@ class Header extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
+    this.state={value:''}
   }
 
   logout = () => {
@@ -42,7 +43,7 @@ class Header extends React.Component {
                     <NavLink
                       to="/home/user"
                       className="nav-link"
-                      
+
                     >
                       User
                     </NavLink>

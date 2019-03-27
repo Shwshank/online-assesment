@@ -1,4 +1,7 @@
 {
+  "dns":{
+
+  },
   "login": {
       "email": "admin@qcin.org",
       "password": "1234"

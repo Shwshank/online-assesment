@@ -14,7 +14,7 @@ class ExamSet extends React.Component {
 
   componentDidMount() {
     this.props.getExamSets();
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   renderExamSets() {
@@ -45,6 +45,14 @@ class ExamSet extends React.Component {
     })
   }
 
+  newExamSet = () => {
+    // New Exam Set
+    let set_id = Math.floor(Math.random() *  8999) + 1000;
+    let exam = {set_id:""+set_id, name: "Exam set "+set_id, time: "1", question_array:[]}
+    this.props.getExamSet(exam);
+    this.props.history.push('/home/examSetSettingForm/123');
+  }
+
   render() {
     return(
       <div>
@@ -53,6 +61,9 @@ class ExamSet extends React.Component {
 
               <div className="col-12">
               <h4>Exam Set</h4>
+              <br/>
+                <button onClick={this.newExamSet} > New Set </button>
+              <br/>
                 <table className="table">
                   <thead>
                     <tr>
