@@ -26,12 +26,6 @@ const userReducer = (state=[], action) => {
 
     case 'EDIT_USER' : {
       let index =_.findIndex(state, {user_id: action.payload.user.user_id})
-      console.log(index);
-      action.payload.user.set_id = action.payload.set_id;
-      action.payload.user.status = "Assigned"
-      action.payload.user.marks = ""
-      action.payload.user.timeStamp = ""
-      console.log(action.payload.user);
       state[index] = action.payload.user
       return [...state]
     }
