@@ -13,8 +13,13 @@ main.content {
   display: inline-block;
   float: right;
 }
-i.fa.fa-upload {
+.fileUpload {
+  width: 100px;
   position: absolute;
+  opacity: 0;
+  right: 0;
+}
+i.fa.fa-upload {
   color: $white;
   padding: 10px 42px;
   background: #dc3545;
