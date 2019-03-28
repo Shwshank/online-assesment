@@ -1,4 +1,4 @@
-import { getUsers, getAllQuestions, getAllExamSets } from '../api/APIendpoint';
+import { getUsers, getAllQuestions, getAllExamSets, getExamUserConformationDetails } from '../api/APIendpoint';
 
 export const setUser = (value="") => {
 
@@ -85,12 +85,25 @@ export const getExamSets = () => async dispatch => {
   })
 }
 
+export const getExamUserDetails =()=> async dispatch => {
+  let userDetails = {}
+
+  getExamUserConformationDetails().then(res=>{
+    userDetails = res;
+    dispatch({
+      type: 'GET_EXAM_USER',
+      payload: userDetails
+    })
+  })
+}
 
 export function clearStore(){
   return {
     type:"CLEARSTORE"
   };
 }
+
+
 
 // export const getQuestions = (questions="") =>{
 //
