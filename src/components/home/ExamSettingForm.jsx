@@ -259,7 +259,7 @@ class ExamSettingForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { questions: state.questionReducer, exam: state.oneExamSetReducer};
+  return { questions: state.question, exam: state.oneExamSet};
 };
 
 export default connect(

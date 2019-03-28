@@ -110,7 +110,7 @@ class ExamSetting extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { questions: state.questionReducer};
+  return { questions: state.question};
 };
 
 export default connect(
