@@ -6,7 +6,7 @@ h2 {
 main.content {
   min-height: 500px;
 }
-.toggleActive {
+.toggleActive + form + .hide {
   display: none;
 }
 .upload {
@@ -17,14 +17,14 @@ i.fa.fa-upload {
   position: absolute;
   color: $white;
   padding: 10px 42px;
-  background: $blue;
+  background: #dc3545;
 }
 .card-header {
-  background-color: $header;
+  background-color: #f7f8fa;
   color: $default;
 }
 th {
-  background-color: $header;
+  background-color: #f7f8fa;
 }
 .page-link {
   cursor: pointer;

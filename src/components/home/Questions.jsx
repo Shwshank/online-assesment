@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { getQuestions } from "../../actions";
 
 class Questions extends React.Component {
-
   componentDidMount() {
     this.props.getQuestions();
     // console.log(this.props);
@@ -33,8 +32,8 @@ class Questions extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <form style={{ width: "100%" }}>
+      <React.Fragment>
+        <form className="col-lg-12">
           <div className="upload">
             <i className="fa fa-upload" aria-hidden="true" />
             <input
@@ -65,13 +64,13 @@ class Questions extends React.Component {
             <tbody>{this.renderQuestions()}</tbody>
           </table>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return { questions: state.question, users: state.user};
+const mapStateToProps = state => {
+  return { questions: state.question, users: state.user };
 };
 
 export default connect(

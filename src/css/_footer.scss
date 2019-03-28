@@ -1,6 +1,10 @@
 .footer {
   border-top: 1px solid $borderColor;
   padding-top: 15px;
-  background: #7ba825;
+  background: #dc3545;
   color: $white;
+  height: 73px;
+  p {
+    margin: 10px 0 0;
+  }
 }

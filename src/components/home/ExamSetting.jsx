@@ -1,14 +1,14 @@
-import _ from 'lodash';
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { getQuestions } from '../../actions';
+import _ from "lodash";
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { getQuestions } from "../../actions";
 
 class ExamSetting extends React.Component {
   constructor(props) {
     super(props);
     // console.log(props);
-    this.state={set_id:"", name:"", time:"", question:[]}
+    this.state = { set_id: "", name: "", time: "", question: [] };
   }
 
   componentDidMount() {
@@ -16,75 +16,77 @@ class ExamSetting extends React.Component {
     // console.log(this.props);
   }
 
-  componentDidUpdate = () =>{
+  componentDidUpdate = () => {
     // console.log(this.props.examSetDetails);
-  }
+  };
 
   handleLinkClick(set_id) {
     // console.log(set_id);
-
   }
 
   renderView() {
-    if(this.props.examSetDetails){
-
+    if (this.props.examSetDetails) {
       // filter questions from question reducer
-      let questionsOnSet = _.filter(this.props.questions, (v) => _.includes(this.props.examSetDetails.question_array, v.question_id));
+      let questionsOnSet = _.filter(this.props.questions, v =>
+        _.includes(this.props.examSetDetails.question_array, v.question_id)
+      );
 
-      return(
+      return (
         <div>
-
           <Link
-          onClick={this.handleLinkClick.bind(this, this.props.examSetDetails.set_id)}
-          to={`/home/examSetSettingForm/${this.props.examSetDetails.set_id}`}
-          className="nav-link"
-          > Edit </Link>
-
-          <p>Name : {this.props.examSetDetails.name} </p> <p>Time: {this.props.examSetDetails.time} hr</p> <br/>
-          {this.displaySetQuestions(questionsOnSet)} <br/>
-
+            onClick={this.handleLinkClick.bind(
+              this,
+              this.props.examSetDetails.set_id
+            )}
+            to={`/home/examSetSettingForm/${this.props.examSetDetails.set_id}`}
+            className="btn btn-danger btn-sm"
+            style={{ width: 70 }}
+          >
+            Edit
+          </Link>
+          <p>Name : {this.props.examSetDetails.name} </p>
+          <p>Time: {this.props.examSetDetails.time}</p>
+          {this.displaySetQuestions(questionsOnSet)}
         </div>
-      )
+      );
     } else {
-      return(
+      return (
         <div>
           <p> Select a set </p>
         </div>
-      )
+      );
     }
   }
 
   displaySetQuestions(questionsOnSet) {
-    if(questionsOnSet.length) {
-      return(
+    if (questionsOnSet.length) {
+      return (
         <table className="table">
           <thead>
             <tr>
-            <th scope="col">#</th>
-            <th scope="col">Question</th>
-            <th scope="col">Answer/s</th>
-            <th scope="col">Option1</th>
-            <th scope="col">Option2</th>
-            <th scope="col">Option3</th>
-            <th scope="col">Option4</th>
-            <th scope="col">Marks</th>
-            <th scope="col">Section</th>
+              <th scope="col">#</th>
+              <th scope="col">Question</th>
+              <th scope="col">Answer/s</th>
+              <th scope="col">Option1</th>
+              <th scope="col">Option2</th>
+              <th scope="col">Option3</th>
+              <th scope="col">Option4</th>
+              <th scope="col">Marks</th>
+              <th scope="col">Section</th>
             </tr>
           </thead>
-          <tbody>
-            {this.renderQuestions(questionsOnSet)}
-          </tbody>
+          <tbody>{this.renderQuestions(questionsOnSet)}</tbody>
         </table>
-      )
+      );
     }
   }
 
   renderQuestions(questionsOnSet) {
-    let i=0;
-    return questionsOnSet.map(ques=>{
+    let i = 0;
+    return questionsOnSet.map(ques => {
       i++;
-      return(
-        <tr key={ques.question+i+""} >
+      return (
+        <tr key={ques.question + i + ""}>
           <td>{i}</td>
           <td>{ques.question}</td>
           <td>{ques.ans}</td>
@@ -95,7 +97,7 @@ class ExamSetting extends React.Component {
           <td>{ques.marks}</td>
           <td>{ques.section}</td>
         </tr>
-      )
+      );
     });
   }
 
@@ -105,12 +107,12 @@ class ExamSetting extends React.Component {
         <h4>Setting</h4>
         {this.renderView()}
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => {
-  return { questions: state.question};
+const mapStateToProps = state => {
+  return { questions: state.question };
 };
 
 export default connect(
