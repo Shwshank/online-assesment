@@ -3,14 +3,10 @@ import { connect } from "react-redux";
 import { getQuestions } from "../../actions";
 
 class Questions extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log(props);
-  }
 
   componentDidMount() {
     this.props.getQuestions();
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   renderQuestions() {
@@ -74,8 +70,8 @@ class Questions extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { questions: state.questionReducer, users: state.userReducer };
+const mapStateToProps = (state) => {
+  return { questions: state.question, users: state.user};
 };
 
 export default connect(

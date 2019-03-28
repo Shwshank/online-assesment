@@ -44,6 +44,35 @@ export const getQuestions = () => async dispatch => {
   })
 }
 
+export const editExamSet = (updatedExamSet) => {
+
+  return({
+    type: "EDIT_EXAM_SET",
+    payload: updatedExamSet
+  })
+}
+
+export const editUser = (user, exam) => {
+
+  user.set_id = exam.set_id;
+  user.status = "Assigned"
+  user.marks = ""
+  user.timeStamp = ""
+
+  return({
+    type: "EDIT_USER",
+    payload: {user: user}
+  })
+}
+
+export const getExamSet = (set={}) => {
+  // console.log(set);
+  return({
+    type: 'ONE_EXAMSET',
+    payload: [set]
+  })
+}
+
 export const getExamSets = () => async dispatch => {
   let examSet = [];
 

@@ -1,8 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import { setUser, setUsers, deleteUser } from "../../actions";
-import Pagination from "../common/pagination";
-import { paginate } from "../../utils/paginate";
+import React from 'react';
+import Select from 'react-select';
+import { connect } from 'react-redux';
+import { setUser, setUsers, deleteUser, getExamSets, editUser } from '../../actions';
 
 class User extends React.Component {
   counter = 1;
@@ -11,55 +10,75 @@ class User extends React.Component {
   };
   constructor(props) {
     super(props);
-    this.state = {
-      email: "",
-      name: "",
-      phone: "",
-      status: "",
-      marks: "",
-      timeStamp: "",
-      pageSize: 2,
-      currentPage: 1
-    };
-    console.log(props);
+    this.state = { email:"", name:"", phone:"", status:"", marks:"", timeStamp:"", user:"", examSet:""};
+
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.props.getExamSets();
     this.props.setUsers();
   }
 
-  // renderUser() {
-  //   if (this.props.users) {
-  //     let i = 0;
-  //     return this.props.users.map(u => {
-  //       i++;
-  //       return (
-  //         <tr key={u.name + u.email + i + ""}>
-  //           <td>{i}</td>
-  //           <td>{u.name}</td>
-  //           <td>{u.email}</td>
-  //           <td>{u.phone}</td>
-  //           <td>{u.status}</td>
-  //           <td>{u.marks}</td>
-  //           <td>{u.timeStamp}</td>
-  //           <td>
-  //             <button
-  //               className="btn btn-danger"
-  //               onClick={this.deleteUser.bind(this, i)}
-  //             >
-  //               Delete
-  //             </button>
-  //           </td>
-  //         </tr>
-  //       );
-  //     });
-  //   }
-  // }
+  renderUser() {
+
+    this.props.examSet.map(exam => exam.label = exam.set_id+" : "+exam.name)
+    this.props.examSet.map(exam => exam.value = exam.set_id)
+
+    if(this.props.users){
+      let i = 0;
+      return this.props.users.map(u => {
+        i++;
+        return (
+          <tr key={u.name + u.email + i + ""}>
+            <td>{i}</td>
+            <td>{u.name}</td>
+            <td>{u.email}</td>
+            <td>{u.phone}</td>
+            <td>
+              { (u.status==="Assigned")? u.status+", Exam :"+u.set_id : "" }
+            </td>
+            <td>
+              { u.marks? u.marks+", Exam : "+u.set_id :  "" }
+            </td>
+            <td>{u.timeStamp}</td>
+            <td>
+
+              <Select options={this.props.examSet}
+              onChange={opt => this.assignExamDropdown(opt, u)}/>
+
+              &nbsp;&nbsp;
+              <button onClick={this.assignExam}> Assign </button>
+              &nbsp;&nbsp;
+              <button onClick={this.deleteUser.bind(this, i)}> Delete User </button>
+
+            </td>
+          </tr>
+        );
+      });
+    }
+  }
+
+  assignExamDropdown( opt, user ) {
+    // console.log(opt.set_id);
+    // console.log(user.user_id);
+    this.setState({
+      user: user,
+      examSet: opt
+    })
+  }
+
+  assignExam = ()=>{
+    // console.log(this.state);
+    if(window.confirm(" Are you sure to assign "+this.state.user.name+" the "+ this.state.examSet.name + " Exam set")){
+      this.props.editUser(this.state.user, this.state.examSet)
+    }
+  }
 
   deleteUser(i) {
-    // console.log(i);
-    console.log(this.props);
-    this.props.deleteUser(i - 1);
+
+    if(window.confirm("Are you sure to delete this user? ")){
+      this.props.deleteUser(i-1);
+    }
   }
 
   createNewUser = async () => {
@@ -108,13 +127,7 @@ class User extends React.Component {
   };
 
   render() {
-    const users = paginate(
-      this.props.users,
-      this.state.currentPage,
-      this.state.pageSize
-    );
 
-    // console.log(this.props);
     let classes = this.toggleClasses();
     return (
       <React.Fragment>
@@ -209,33 +222,10 @@ class User extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {users.map(user => (
-                  <tr key={user.name + user.email}>
-                    <td>{this.counter++}</td>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.phone}</td>
-                    <td>{user.status}</td>
-                    <td>{user.marks}</td>
-                    <td>{user.timeStamp}</td>
-                    <td>
-                      <button
-                        className="btn btn-danger"
-                        onClick={this.deleteUser.bind(this)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {this.renderUser()}
               </tbody>
             </table>
-            <Pagination
-              itemCounts={this.props.users.length}
-              pageSize={this.state.pageSize}
-              currentPage={this.state.currentPage}
-              onPageChange={this.handlePageChange}
-            />
+
           </div>
         </div>
       </React.Fragment>
@@ -243,11 +233,11 @@ class User extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { users: state.userReducer, questions: state.questionReducer };
+const mapStateToProps = (state) => {
+  return { users: state.user, questions: state.question, examSet: state.examSet};
 };
 
 export default connect(
   mapStateToProps,
-  { setUser, setUsers, deleteUser }
+  { setUser, setUsers, deleteUser, getExamSets, editUser }
 )(User);
