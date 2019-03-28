@@ -18,7 +18,7 @@ class User extends React.Component {
 
   renderUser() {
 
-    this.props.examSet.map(exam => exam.label = exam.name)
+    this.props.examSet.map(exam => exam.label = exam.set_id+" : "+exam.name)
     this.props.examSet.map(exam => exam.value = exam.set_id)
 
     if(this.props.users){
@@ -56,8 +56,8 @@ class User extends React.Component {
   }
 
   assignExamDropdown( opt, user ) {
-    console.log(opt.set_id);
-    console.log(user.user_id);
+    // console.log(opt.set_id);
+    // console.log(user.user_id);
     this.setState({
       user: user,
       examSet: opt
@@ -145,7 +145,7 @@ class User extends React.Component {
 
 const mapStateToProps = (state) => {
 
-  return { users: state.userReducer, questions: state.questionReducer, examSet: state.examSetReducer};
+  return { users: state.user, questions: state.question, examSet: state.examSet};
 };
 
 export default connect(

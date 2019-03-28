@@ -92,7 +92,7 @@ class ExamSet extends React.Component {
 
 const mapStateToProps = (state) => {
 
-  return { examSet: state.examSetReducer};
+  return { examSet: state.examSet};
 };
 
 export default connect(

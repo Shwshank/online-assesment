@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
+import { reducer as form } from 'redux-form';
 
-const userReducer = (state=[], action) => {
+const user = (state=[], action) => {
 
   switch(action.type) {
 
@@ -40,7 +40,7 @@ const userReducer = (state=[], action) => {
     }
 }
 
-const questionReducer = (state=[], action) =>{
+const question = (state=[], action) =>{
 
   switch (action.type) {
 
@@ -56,7 +56,7 @@ const questionReducer = (state=[], action) =>{
   }
 }
 
-const examSetReducer = (state=[], action) =>{
+const examSet = (state=[], action) =>{
 
   switch (action.type) {
 
@@ -85,7 +85,7 @@ const examSetReducer = (state=[], action) =>{
   }
 }
 
-const oneExamSetReducer = (state={}, action) =>{
+const oneExamSet = (state={}, action) =>{
 
   switch (action.type) {
     case 'ONE_EXAMSET':{
@@ -102,9 +102,9 @@ const oneExamSetReducer = (state={}, action) =>{
 }
 
 export default combineReducers({
-  formReducer: formReducer,
-  userReducer: userReducer,
-  examSetReducer: examSetReducer,
-  questionReducer: questionReducer,
-  oneExamSetReducer: oneExamSetReducer
+  form: form,
+  user: user,
+  examSet: examSet,
+  question: question,
+  oneExamSet: oneExamSet
 })
