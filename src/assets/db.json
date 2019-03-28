@@ -1,7 +1,4 @@
 {
-  "dns":{
-
-  },
   "login": {
       "email": "admin@qcin.org",
       "password": "1234"
@@ -21,5 +18,7 @@
   "examSets" : [
     {"set_id": "101", "name": "Some name1 here", "time": "1", "question_array":["11","12"]},
     {"set_id": "102", "name": "Some name2 here", "time": "2", "question_array":["13","11"]}
-  ]
+  ],
+  "startExamMetaData" :
+    {"user_id":"u121", "name":"User Name1", "email":"useremail1@some.com", "phone":"", "status":"Taken", "marks":"10", "timeStamp":"22-2-2019", "set_id": "102"}
 }

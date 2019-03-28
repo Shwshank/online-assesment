@@ -3,10 +3,11 @@ import { Route, Router, Redirect, Switch } from "react-router-dom";
 
 // import SetName from './SetName';
 // import Login from './Login';
+import Login from "./Login";
 import Logout from "./Logout";
 import Home from "./home/Home";
 import history from "./history";
-import Login from "./Login";
+import Exam from "./exam/Exam";
 
 class App extends React.Component {
   render() {
@@ -18,6 +19,7 @@ class App extends React.Component {
             <Route path="/home" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
+            <Route path="/exam" component={Exam} />
             <Redirect from="*" to="/login" />
           </Switch>
         </Router>
