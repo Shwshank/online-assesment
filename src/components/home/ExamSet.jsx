@@ -27,6 +27,7 @@ class ExamSet extends React.Component {
             <td>{exam.name}</td>
             <td>{exam.question_array.length}</td>
             <td>{exam.time}hr</td>
+            <td>{exam.total_marks}</td>
             <td>
               <button
                 className="btn btn-primary btn-sm"
@@ -55,7 +56,8 @@ class ExamSet extends React.Component {
       set_id: "" + set_id,
       name: "Exam set " + set_id,
       time: "1",
-      question_array: []
+      question_array: [],
+      total_marks: 0
     };
     this.props.getExamSet(exam);
     this.props.history.push("/home/examSetSettingForm/123");
@@ -80,6 +82,7 @@ class ExamSet extends React.Component {
                 <th scope="col">Set Name</th>
                 <th scope="col">Questions</th>
                 <th scope="col">Time</th>
+                <th scope="col">Marks</th>
                 <th scope="col">Details</th>
               </tr>
             </thead>

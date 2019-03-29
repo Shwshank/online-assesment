@@ -8,7 +8,7 @@ class ExamSetting extends React.Component {
   constructor(props) {
     super(props);
     // console.log(props);
-    this.state = { set_id: "", name: "", time: "", question: [] };
+    this.state = { set_id: "", name: "", time: "", question: [], total_marks: 0 };
   }
 
   componentDidMount() {
@@ -46,6 +46,7 @@ class ExamSetting extends React.Component {
           </Link>
           <p>Name : {this.props.examSetDetails.name} </p>
           <p>Time: {this.props.examSetDetails.time}</p>
+          <p>Marks: {this.props.examSetDetails.total_marks}</p>
           {this.displaySetQuestions(questionsOnSet)}
         </div>
       );
@@ -66,11 +67,13 @@ class ExamSetting extends React.Component {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Question</th>
-              <th scope="col">Answer/s</th>
               <th scope="col">Option1</th>
               <th scope="col">Option2</th>
               <th scope="col">Option3</th>
               <th scope="col">Option4</th>
+              <th scope="col">Option5</th>
+              <th scope="col">Answer/s</th>
+              <th scope="col">Level</th>
               <th scope="col">Marks</th>
               <th scope="col">Section</th>
             </tr>
@@ -89,11 +92,13 @@ class ExamSetting extends React.Component {
         <tr key={ques.question + i + ""}>
           <td>{i}</td>
           <td>{ques.question}</td>
+          <td>{ques.option_a}</td>
+          <td>{ques.option_b}</td>
+          <td>{ques.option_c}</td>
+          <td>{ques.option_d}</td>
+          <td>{ques.option_e}</td>
           <td>{ques.ans}</td>
-          <td>{ques.option1}</td>
-          <td>{ques.option2}</td>
-          <td>{ques.option3}</td>
-          <td>{ques.option4}</td>
+          <td>{ques.difficulty_level}</td>
           <td>{ques.marks}</td>
           <td>{ques.section}</td>
         </tr>

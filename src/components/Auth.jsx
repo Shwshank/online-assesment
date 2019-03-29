@@ -1,7 +1,7 @@
 const Auth = () =>{
 
   let token = localStorage.getItem("token");
-  console.log(token);
+  // console.log(token);
 
   if(token)
     return true;

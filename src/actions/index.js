@@ -1,12 +1,22 @@
-import { getUsers, getAllQuestions, getAllExamSets, getExamUserConformationDetails } from '../api/APIendpoint';
+import { getUsers, addNewUser, editUserAPI, deleteUserAPI, getAllQuestions, getAllExamSets, updateExamSet, getExamUserConformationDetails } from '../api/APIendpoint';
 
-export const setUser = (value="") => {
 
-  return({
-    type: 'SET_USER',
-    payload: value
-  });
-};
+export const setUser = (newUser={}) => async dispatch => {
+  console.log(newUser);
+
+  addNewUser(newUser).then(res=>{
+    console.log(res);
+
+    dispatch({
+      type: 'SET_USER',
+      payload: newUser
+    })
+  }, err=>{
+    console.log(err);
+  })
+}
+
+
 
 export const setUsers = () => async dispatch => {
 
@@ -22,12 +32,19 @@ export const setUsers = () => async dispatch => {
   })
 }
 
-export const deleteUser = (value) =>{
+export const deleteUser = (user, position) => async dispatch =>{
 
-  return({
-    type: 'DELETE_USER',
-    payload: value
-  });
+  console.log(position);
+  deleteUserAPI({user_id: user.user_id}).then(res=>{
+    console.log(res);
+    dispatch({
+      type: 'DELETE_USER',
+      payload: position
+    });
+  }, err=>{
+    console.log(err);
+  })
+
 }
 
 export const getQuestions = () => async dispatch => {
@@ -44,25 +61,37 @@ export const getQuestions = () => async dispatch => {
   })
 }
 
-export const editExamSet = (updatedExamSet) => {
+export const editExamSet = (updatedExamSet) => async dispatch => {
 
-  return({
-    type: "EDIT_EXAM_SET",
-    payload: updatedExamSet
+  updateExamSet(updatedExamSet).then(res=>{
+
+    dispatch({
+      type: "EDIT_EXAM_SET",
+      payload: updatedExamSet
+    }, err=>{
+      console.log(err);
+    })
   })
+
 }
 
-export const editUser = (user, exam) => {
+export const editUser = (user, exam) => async dispatch => {
 
   user.set_id = exam.set_id;
   user.status = "Assigned"
   user.marks = ""
   user.timeStamp = ""
 
-  return({
-    type: "EDIT_USER",
-    payload: {user: user}
+  editUserAPI(user).then(res=>{
+    dispatch({
+      type: "EDIT_USER",
+      payload: {user: user}
+    })
+
+  }, err=>{
+    console.log(err);
   })
+
 }
 
 export const getExamSet = (set={}) => {

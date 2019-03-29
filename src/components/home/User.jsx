@@ -15,6 +15,7 @@ class User extends React.Component {
     toggle: true
   };
   constructor(props) {
+
     super(props);
     this.state = {
       email: "",
@@ -52,7 +53,7 @@ class User extends React.Component {
             <td>
               {u.status === "Assigned" ? u.status + ", Exam :" + u.set_id : ""}
             </td>
-            <td>{u.marks ? u.marks + ", Exam : " + u.set_id : ""}</td>
+            <td>{(parseInt(u.marks)>0) ? u.marks + ", Exam : " + u.set_id : ""}</td>
             <td>{u.timeStamp}</td>
             <td>
               <Select
@@ -69,7 +70,7 @@ class User extends React.Component {
               </button>
 
               <button
-                onClick={this.deleteUser.bind(this, i)}
+                onClick={this.deleteUser.bind(this, i, u)}
                 className="btn btn-danger btn-sm float-right"
                 style={{ margin: "5px 0px 0px 0px" }}
               >
@@ -91,7 +92,7 @@ class User extends React.Component {
     });
   }
 
-  assignExam = () => {
+  assignExam = async () => {
     // console.log(this.state);
     if (
       window.confirm(
@@ -102,19 +103,32 @@ class User extends React.Component {
           " Exam set"
       )
     ) {
-      this.props.editUser(this.state.user, this.state.examSet);
+      await this.props.editUser(this.state.user, this.state.examSet);
     }
   };
 
-  deleteUser(i) {
+  deleteUser = async(i, u)=>{
+    console.log(u);
     if (window.confirm("Are you sure to delete this user? ")) {
-      this.props.deleteUser(i - 1);
+      await this.props.deleteUser(u, i - 1);
     }
   }
 
   createNewUser = async () => {
-    console.log(this.state);
-    this.props.setUser(this.state);
+    // console.log(this.state);
+
+    let user = {};
+    user.name = this.state.name;
+    user.email = this.state.email;
+    user.phone = this.state.phone;
+    user.set_id = "";
+    user.status = "";
+    user.marks =" ";
+    user.timeStamp = "";
+
+
+    await this.props.setUser(user);
+    alert("Created!")
     await this.setState({
       email: "",
       name: "",
@@ -123,7 +137,7 @@ class User extends React.Component {
       marks: "",
       timeStamp: ""
     });
-    console.log(this.props);
+    // console.log(this.props);
   };
 
   nameChanged = async event => {
