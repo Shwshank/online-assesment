@@ -50,15 +50,15 @@ class Questions extends React.Component {
           <table className="table">
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Question</th>
-                <th scope="col">Answer/s</th>
-                <th scope="col">Option1</th>
-                <th scope="col">Option2</th>
-                <th scope="col">Option3</th>
-                <th scope="col">Option4</th>
-                <th scope="col">Marks</th>
-                <th scope="col">Section</th>
+                <th>#</th>
+                <th>Question</th>
+                <th>Answer/s</th>
+                <th>Option1</th>
+                <th>Option2</th>
+                <th>Option3</th>
+                <th>Option4</th>
+                <th>Marks</th>
+                <th>Section</th>
               </tr>
             </thead>
             <tbody>{this.renderQuestions()}</tbody>
