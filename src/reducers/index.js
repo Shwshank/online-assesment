@@ -113,11 +113,24 @@ const examUser = (state={}, action) => {
   }
 }
 
+const examSetForUser = (state={}, action) => {
+  
+  switch(action.type) {
+    case 'GET_SET_FOR_EXAM': {
+      state = action.payload
+      return state
+    }
+    default:
+    return state
+  }
+}
+
 export default combineReducers({
   form: form,
   user: user,
   examSet: examSet,
   examUser: examUser,
   question: question,
-  oneExamSet: oneExamSet
+  oneExamSet: oneExamSet,
+  examSetForUser: examSetForUser
 })

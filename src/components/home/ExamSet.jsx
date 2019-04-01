@@ -41,6 +41,7 @@ class ExamSet extends React.Component {
       });
     }
   }
+
   examDetails = async (exam, set_id, i) => {
     // console.log(exam);
     this.props.getExamSet(exam);

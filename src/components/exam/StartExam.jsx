@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { clearExamSetForExam } from "../../actions";
+
 class StartExam extends React.Component {
 
   constructor(props) {
@@ -30,16 +32,49 @@ class StartExam extends React.Component {
         }
       ]
     }
-
-    this.state =  {examJSON: examJSON}
+    this.state =  {examJSON: examJSON};
   }
 
-  onSiteChanged=(i, option)=>{
+  componentDidMount() {
+    console.log(this.props.examSetForUser);
+  }
+
+  totalMarks = 0;
+  resultArray = [];
+
+  onSiteChanged=(i, question, ans, marks, selected)=>{
     console.log(i);
-    console.log(option);
+    console.log(selected);
+    console.log(ans);
+    console.log(parseInt(marks));
+    let result = {
+      sno: i,
+      question: question,
+      ans: ans,
+      selected: selected,
+      marks: marks
+    }
+
+    let presentFlag = false;
+    let pos = 0;
+    for(let j=0; j<this.resultArray.length; j++) {
+        if(this.resultArray[j].sno === i) {
+          presentFlag = true;
+          pos = j;
+          break;
+        }
+    }
+
+    if(presentFlag) {
+      this.resultArray[pos].selected = selected
+    } else {
+      this.resultArray.push(result);
+    }
+
+    console.log(this.resultArray);
   }
 
-  renderOptions = (i, options)=>{
+  renderOptions = (i, question, ans, marks, options)=>{
     let y=0;
 
     return options.map(option=>{
@@ -47,9 +82,11 @@ class StartExam extends React.Component {
       return (
         <div key={y}>
           &nbsp; &nbsp; {y}.
-          <input type="radio" name={i}
-                                   value={option}
-                                   onChange={this.onSiteChanged.bind(this,i, option)} />
+          <input type="radio"
+                name={i}
+                value={option}
+                onChange={this.onSiteChanged.bind(this,i, question, ans, marks, option)}
+                />
           {option}
 
         </div>
@@ -60,19 +97,54 @@ class StartExam extends React.Component {
   renderQuestion = ()=>{
     let i=0;
 
-    return this.state.examJSON.question.map(ques=>{
-      i++;
+    if(this.props.examSetForUser.template_data) {
+
+      return this.props.examSetForUser.template_data.map(ques=>{
+        i++;
+        return(
+          <div key={i}>
+            {i}. {ques.question}
+              <br/>
+              {this.renderOptions(i, ques.question, ques.ans, ques.marks, ques.options)}
+              <br/>
+            <hr/>
+          </div>
+        )
+      })
+
+    } else {
       return(
-        <div key={i}>
-          {i}. {ques.question}
-            <br/>
-            {this.renderOptions(i, ques.option)}
-            <br/>
-          <hr/>
+        <div>
+         <h4>Opps! seems like you have completed the exam. Please contact administrator</h4>
         </div>
       )
-    })
+    }
 
+  }
+
+  submitExam=()=>{
+    if(window.confirm("Are you sure to submit the exam?")) {
+      for(let j=0; j<this.resultArray.length; j++) {
+        if(this.resultArray[j].ans === this.resultArray[j].selected) {
+          this.totalMarks += parseInt(this.resultArray[j].marks)
+        }
+      }
+      this.props.clearExamSetForExam()
+      console.log(this.totalMarks);
+      this.props.history.push("/exam/ExamResult/"+this.totalMarks);
+    }
+  }
+
+  displaySubmitButton() {
+    if(this.props.examSetForUser.template_data){
+      return(
+        <div>
+        <button onClick={this.submitExam}>
+        Submit
+        </button>
+        </div>
+      )
+    }
   }
 
   render() {
@@ -81,17 +153,22 @@ class StartExam extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-12" />
-            {this.props.examUser.name}
             {this.renderQuestion()}
           </div>
         </div>
+
+        {this.displaySubmitButton()}
+
       </main>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return { examUser: state.examUser };
+  return { examUser: state.examUser, examSetForUser: state.examSetForUser  };
 };
 
-export default connect(mapStateToProps)(StartExam);
+export default connect(
+  mapStateToProps,
+  {clearExamSetForExam}
+)(StartExam);

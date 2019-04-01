@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getExamUserDetails } from "../../actions";
+import { getExamUserDetails, getExamSetForExam } from "../../actions";
 
 class IntroPage extends React.Component {
   componentDidMount() {
@@ -9,6 +9,7 @@ class IntroPage extends React.Component {
   }
 
   startExam(user) {
+    this.props.getExamSetForExam();
     console.log(user);
     if (user.user_id)
       if (window.confirm("Are you sure to start the exam now?")) {
@@ -60,10 +61,10 @@ class IntroPage extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { examUser: state.examUser };
+  return { examUser: state.examUser, examSetForUser: state.examSetForUser  };
 };
 
 export default connect(
   mapStateToProps,
-  { getExamUserDetails }
+  { getExamUserDetails, getExamSetForExam }
 )(IntroPage);

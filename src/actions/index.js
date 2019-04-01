@@ -1,4 +1,5 @@
-import { getUsers, addNewUser, editUserAPI, deleteUserAPI, getAllQuestions, getAllExamSets, updateExamSet, getExamUserConformationDetails } from '../api/APIendpoint';
+import { getUsers, addNewUser, editUserAPI, deleteUserAPI, getAllQuestions, getAllExamSets, updateExamSet, getExamUserConformationDetails, getExamSetForExamAPI } from '../api/APIendpoint';
+
 import history from "../components/history";
 
 
@@ -143,25 +144,28 @@ export const getExamUserDetails =()=> async dispatch => {
   })
 }
 
+export const getExamSetForExam = () => async dispatch =>{
+  let set = {}
+
+  getExamSetForExamAPI().then(res=>{
+    console.log(res);
+    set = res
+      dispatch({
+      type: 'GET_SET_FOR_EXAM',
+      payload: set
+    })
+  })
+}
+
+export const clearExamSetForExam = () => {
+  let set = {}
+  return({
+    type: 'GET_SET_FOR_EXAM',
+    payload: set
+  })
+}
 export function clearStore(){
   return {
     type:"CLEARSTORE"
   };
 }
-
-
-
-// export const getQuestions = (questions="") =>{
-//
-//   questions = [
-//     {question: "Some question here", ans: "Option 2", option1: "Option 1", option2: "Option 2", option3: "Option 3", option4: "Option 4", marks: "2", section: "Quant" },
-//     {question: "Some question here", ans: "Option 2", option1: "Option 1", option2: "Option 2", option3: "Option 3", option4: "Option 4", marks: "2", section: "Quant" },
-//     {question: "Some question here", ans: "Option 2", option1: "Option 1", option2: "Option 2", option3: "Option 3", option4: "Option 4", marks: "2", section: "Quant" }
-//   ]
-//
-//   return({
-//     type: 'GET_QUESTIONS',
-//     payload: questions
-//   })
-//
-// };

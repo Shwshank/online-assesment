@@ -62,3 +62,8 @@ export const getExamUserConformationDetails = async() =>{
   const response = await baseURL.get('/startExamMetaData');
   return response.data;
 }
+
+export const getExamSetForExamAPI = async() => {
+  const response = await baseURL.get('/setId=3884&userId=8387b0f2a74a4e7e862ddc3d2603130c');
+  return response.data;
+}
