@@ -1,4 +1,5 @@
 import { getUsers, addNewUser, editUserAPI, deleteUserAPI, getAllQuestions, getAllExamSets, updateExamSet, getExamUserConformationDetails } from '../api/APIendpoint';
+import history from "../components/history";
 
 
 export const setUser = (newUser={}) => async dispatch => {
@@ -29,6 +30,22 @@ export const setUsers = () => async dispatch => {
       type: 'SET_USERS',
       payload:users
     });
+  })
+}
+
+export const setUsers1 = () => async dispatch => {
+
+  let users = [];
+
+  getUsers().then(res=>{
+    users = res;
+    // console.log(res);
+    dispatch({
+      type: 'SET_USERS',
+      payload:users
+    });
+    console.log("/home");
+    history.push("/home");
   })
 }
 

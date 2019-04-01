@@ -40,47 +40,47 @@ class User extends React.Component {
     );
     this.props.examSet.map(exam => (exam.value = exam.set_id));
 
-    if (this.props.users) {
-      let i = 0;
-      return this.props.users.map(u => {
-        i++;
-        return (
-          <tr key={u.name + u.email + i + ""}>
-            <td>{i}</td>
-            <td>{u.name}</td>
-            <td>{u.email}</td>
-            <td>{u.phone}</td>
-            <td>
-              {u.status === "Assigned" ? u.status + ", Exam :" + u.set_id : ""}
-            </td>
-            <td>{(parseInt(u.marks)>0) ? u.marks + ", Exam : " + u.set_id : ""}</td>
-            <td>{u.timeStamp}</td>
-            <td>
-              <Select
-                options={this.props.examSet}
-                onChange={opt => this.assignExamDropdown(opt, u)}
-              />
 
-              <button
-                onClick={this.assignExam}
-                className="btn btn-primary btn-sm"
-                style={{ margin: "5px 0px 0px 0px" }}
-              >
-                Assign
-              </button>
+    let i = 0;
+    return this.props.users.map(u => {
+      i++;
+      return (
+        <tr key={u.name + u.email + i + ""}>
+          <td>{i}</td>
+          <td>{u.name}</td>
+          <td>{u.email}</td>
+          <td>{u.phone}</td>
+          <td>
+            {u.status === "Assigned" ? u.status + ", Exam :" + u.set_id : ""}
+          </td>
+          <td>{(parseInt(u.marks)>0) ? u.marks + ", Exam : " + u.set_id : ""}</td>
+          <td>{u.timeStamp}</td>
+          <td>
+            <Select
+              options={this.props.examSet}
+              onChange={opt => this.assignExamDropdown(opt, u)}
+            />
 
-              <button
-                onClick={this.deleteUser.bind(this, i, u)}
-                className="btn btn-danger btn-sm float-right"
-                style={{ margin: "5px 0px 0px 0px" }}
-              >
-                Delete User
-              </button>
-            </td>
-          </tr>
-        );
-      });
-    }
+            <button
+              onClick={this.assignExam}
+              className="btn btn-primary btn-sm"
+              style={{ margin: "5px 0px 0px 0px" }}
+            >
+              Assign
+            </button>
+
+            <button
+              onClick={this.deleteUser.bind(this, i, u)}
+              className="btn btn-danger btn-sm float-right"
+              style={{ margin: "5px 0px 0px 0px" }}
+            >
+              Delete User
+            </button>
+          </td>
+        </tr>
+      );
+    });
+
   }
 
   assignExamDropdown(opt, user) {
