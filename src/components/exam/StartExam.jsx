@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { RadioGroup, RadioButton } from 'react-radio-buttons';
 
 class StartExam extends React.Component {
 
@@ -35,15 +34,25 @@ class StartExam extends React.Component {
     this.state =  {examJSON: examJSON}
   }
 
-  renderOptions = (options)=>{
+  onSiteChanged=(i, option)=>{
+    console.log(i);
+    console.log(option);
+  }
+
+  renderOptions = (i, options)=>{
     let y=0;
 
     return options.map(option=>{
       y++;
-      return(
-        <RadioButton value={option} key={y}>
-          {y}.{option}
-        </RadioButton>
+      return (
+        <div key={y}>
+          &nbsp; &nbsp; {y}.
+          <input type="radio" name={i}
+                                   value={option}
+                                   onChange={this.onSiteChanged.bind(this,i, option)} />
+          {option}
+
+        </div>
       )
     })
   }
@@ -56,18 +65,14 @@ class StartExam extends React.Component {
       return(
         <div key={i}>
           {i}. {ques.question}
-          <RadioGroup onChange={ this.onChange.bind("i",i) } horizontal>
-            {this.renderOptions(ques.option)}
-          </RadioGroup>
+            <br/>
+            {this.renderOptions(i, ques.option)}
+            <br/>
           <hr/>
         </div>
       )
     })
-  }
 
-  onChange = (y,i) =>{
-    console.log(i);
-    console.log(y);
   }
 
   render() {
