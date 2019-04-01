@@ -205,7 +205,7 @@ class User extends React.Component {
           onClick={this.handleToggle}
           style={{ cursor: "pointer", marginBottom: 20 }}
         >
-          User <span />
+          User <span id="triangle-down" />
         </h4>
         <form className="col-lg-6">
           <div className="upload">

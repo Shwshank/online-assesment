@@ -6,6 +6,9 @@ h2 {
 main.content {
   min-height: 500px;
 }
+.toggleActive {
+  position: relative;
+}
 .toggleActive + form + .hide {
   display: none;
 }
@@ -13,8 +16,13 @@ main.content {
   display: inline-block;
   float: right;
 }
-i.fa.fa-upload {
+.fileUpload {
+  width: 100px;
   position: absolute;
+  opacity: 0;
+  right: 0;
+}
+i.fa.fa-upload {
   color: $white;
   padding: 10px 42px;
   background: #dc3545;
@@ -28,4 +36,21 @@ th {
 }
 .page-link {
   cursor: pointer;
+}
+#triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid #dc3545;
+  top: 12px;
+  position: absolute;
+  left: 70px;
+  transition: all 0.5s;
+  transform: rotate(0deg);
+}
+.toggleActive {
+  #triangle-down {
+    transform: rotate(-90deg);
+  }
 }
