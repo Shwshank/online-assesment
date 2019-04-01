@@ -140,6 +140,7 @@ class ExamSettingForm extends React.Component {
                 className="btn btn-danger btn-sm"
                 onClick={this.deleteQuestion.bind(this, ques, i - 1)}
               >
+                <i className="fa fa-trash" aria-hidden="true" />
                 Delete
               </button>
             </td>
@@ -232,6 +233,7 @@ class ExamSettingForm extends React.Component {
                 className="btn btn-primary btn-sm"
                 onClick={this.addQuestion.bind(this, ques, i - 1)}
               >
+                <i className="fa fa-plus" aria-hidden="true" />
                 Add
               </button>
             </td>
@@ -268,6 +270,7 @@ class ExamSettingForm extends React.Component {
             className="btn btn-danger btn-sm"
             style={{ marginBottom: 15 }}
           >
+            <i className="fa fa-wrench" aria-hidden="true" />
             Update Exam Set
           </button>
         </div>

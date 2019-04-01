@@ -32,6 +32,7 @@ class ExamSet extends React.Component {
                 className="btn btn-primary btn-sm"
                 onClick={this.examDetails.bind(this, exam, exam.set_id, i)}
               >
+                <i className="fa fa-info-circle" aria-hidden="true" />
                 Details
               </button>
             </td>
@@ -71,16 +72,17 @@ class ExamSet extends React.Component {
             className="btn btn-primary btn-sm"
             style={{ marginBottom: 15 }}
           >
+            <i className="fa fa-cog" aria-hidden="true" />
             New Set
           </button>
           <table className="table">
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Set Name</th>
-                <th scope="col">Questions</th>
-                <th scope="col">Time</th>
-                <th scope="col">Details</th>
+                <th>#</th>
+                <th>Set Name</th>
+                <th>Questions</th>
+                <th>Time</th>
+                <th>Details</th>
               </tr>
             </thead>
             <tbody>{this.renderExamSets()}</tbody>

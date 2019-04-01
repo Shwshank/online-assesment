@@ -2,18 +2,18 @@
   border-bottom: 1px solid $borderColor;
   margin: 0 0 25px;
   box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.2);
-  background: #dc3545;
+  background: $primaryBgColor;
 
   .logo {
     max-height: 60px;
   }
   .nav-link {
     padding: 1.5rem 1rem;
-    color: #fff;
+    color: $defaultTextColor;
     transition: all 0.5s;
     &.active {
-      color: #dc3545;
-      background: #fff;
+      color: $primaryBgColor;
+      background: $defaultTextColor;
     }
   }
 }

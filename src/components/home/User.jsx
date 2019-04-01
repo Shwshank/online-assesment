@@ -73,6 +73,7 @@ class User extends React.Component {
                 className="btn btn-danger btn-sm float-right"
                 style={{ margin: "5px 0px 0px 0px" }}
               >
+                <i className="fa fa-trash" aria-hidden="true" />
                 Delete User
               </button>
             </td>
@@ -225,6 +226,7 @@ class User extends React.Component {
                     className="btn btn-primary"
                     onClick={this.createNewUser}
                   >
+                    <i className="fa fa-plus" aria-hidden="true" />
                     Create User
                   </button>
                 </form>
