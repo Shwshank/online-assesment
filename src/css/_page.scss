@@ -1,10 +1,10 @@
 h1,
 h2 {
-  color: $primaryColor;
+  color: $secondaryTextColor;
 }
 
 main.content {
-  min-height: 500px;
+  min-height: 80vh;
 }
 .toggleActive {
   position: relative;
@@ -23,16 +23,16 @@ main.content {
   right: 0;
 }
 i.fa.fa-upload {
-  color: $white;
+  color: $defaultTextColor;
   padding: 10px 42px;
-  background: #dc3545;
+  background: $primaryBgColor;
 }
 .card-header {
-  background-color: #f7f8fa;
-  color: $default;
+  background-color: $cardHeaderBg;
+  color: $secondaryTextColor;
 }
 th {
-  background-color: #f7f8fa;
+  background-color: $cardHeaderBg;
 }
 .page-link {
   cursor: pointer;
@@ -42,7 +42,7 @@ th {
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 10px solid #dc3545;
+  border-top: 10px solid $primaryBgColor;
   top: 12px;
   position: absolute;
   left: 70px;
@@ -53,4 +53,13 @@ th {
   #triangle-down {
     transform: rotate(-90deg);
   }
+}
+.fa-sign-in,
+.fa-trash,
+.fa-plus,
+.fa-cog,
+.fa-info-circle,
+.fa-pencil,
+.fa-wrench {
+  margin-right: 10px;
 }

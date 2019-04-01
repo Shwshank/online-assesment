@@ -40,7 +40,6 @@ class User extends React.Component {
     );
     this.props.examSet.map(exam => (exam.value = exam.set_id));
 
-
     let i = 0;
     return this.props.users.map(u => {
       i++;
@@ -74,13 +73,13 @@ class User extends React.Component {
               className="btn btn-danger btn-sm float-right"
               style={{ margin: "5px 0px 0px 0px" }}
             >
+            <i className="fa fa-trash" aria-hidden="true" />
               Delete User
             </button>
           </td>
         </tr>
       );
     });
-
   }
 
   assignExamDropdown(opt, user) {
@@ -226,7 +225,6 @@ class User extends React.Component {
             </div>
             <div className="card-body">
               <div className="login">
-
                 <div className="form-group">
                   <label htmlFor="name">Name:</label>
                   <input
@@ -267,6 +265,7 @@ class User extends React.Component {
                 >
                   Create User
                 </button>
+
               </div>
             </div>
           </div>

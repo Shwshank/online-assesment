@@ -82,6 +82,7 @@ class Login extends React.Component {
                   className="btn btn-primary"
                   onClick={this.onLogin}
                 >
+                  <i className="fa fa-sign-in" aria-hidden="true" />
                   Login
                 </Link>
               </form>

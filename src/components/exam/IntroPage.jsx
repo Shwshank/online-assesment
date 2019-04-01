@@ -20,7 +20,7 @@ class IntroPage extends React.Component {
   userDetails() {
     if (this.props.examUser.user_id) {
       return (
-        <main style={{ minHeight: 500 }}>
+        <main className="content">
           <div className="container">
             <div className="row">
               <div className="col-lg-12">

@@ -35,12 +35,16 @@ class StartExam extends React.Component {
     this.state =  {examJSON: examJSON};
   }
 
+  totalMarks = 0;
+  resultArray = [];
+
   componentDidMount() {
     console.log(this.props.examSetForUser);
   }
 
-  totalMarks = 0;
-  resultArray = [];
+  // componentWillUnmount() {
+  //   if(window.confirm("Are you sure to quit the exam?")) {}
+  // }
 
   onSiteChanged=(i, question, ans, marks, selected)=>{
     console.log(i);
@@ -104,6 +108,8 @@ class StartExam extends React.Component {
         return(
           <div key={i}>
             {i}. {ques.question}
+              <br/>
+                <b> Marks: {ques.marks} </b>
               <br/>
               {this.renderOptions(i, ques.question, ques.ans, ques.marks, ques.options)}
               <br/>

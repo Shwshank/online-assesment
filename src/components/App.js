@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Router, Redirect, Switch } from "react-router-dom";
-
 // import SetName from './SetName';
 // import Login from './Login';
 import Login from "./Login";

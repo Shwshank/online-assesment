@@ -42,6 +42,7 @@ class ExamSetting extends React.Component {
             className="btn btn-danger btn-sm"
             style={{ width: 70 }}
           >
+            <i className="fa fa-pencil" aria-hidden="true" />
             Edit
           </Link>
           <p>Name : {this.props.examSetDetails.name} </p>

@@ -1,10 +1,8 @@
-$primaryColor: #78ad38;
 $borderColor: #ccc;
-$blue: #007bff;
-$white: #fff;
-$header: #f3f3f3;
-$default: #000;
-
+$primaryBgColor: #dc3545;
+$defaultTextColor: #fff;
+$secondaryTextColor: #000;
+$cardHeaderBg: #f7f8fa;
 @import "header";
 @import "page";
 @import "footer";
