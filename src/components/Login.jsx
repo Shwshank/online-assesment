@@ -21,7 +21,6 @@ class Login extends React.Component {
     login(this.state.email, this.state.password).then(res => {
       // console.log(res);
       if (res) {
-        localStorage.setItem("token", "true");
         history.push("/home");
       } else {
         alert("Invalid credentials!");

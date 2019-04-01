@@ -158,18 +158,44 @@ class User extends React.Component {
       phone: event.target.value
     });
   };
+
   handleToggle = () => {
     let toggle = !this.state.toggle;
     this.setState({ toggle });
   };
+
   toggleClasses() {
     let classes = "col-lg-6";
     classes += !this.state.toggle ? " toggleActive" : "";
     return classes;
   }
+
   handlePageChange = page => {
     this.setState({ currentPage: page });
   };
+
+  createNewUser1 = async ()=>{
+    let user = {};
+    user.name = this.state.name;
+    user.email = this.state.email;
+    user.phone = this.state.phone;
+    user.set_id = "";
+    user.status = "";
+    user.marks =" ";
+    user.timeStamp = "";
+
+
+    await this.props.setUser(user);
+    alert("Created!")
+    await this.setState({
+      email: "",
+      name: "",
+      phone: "",
+      status: "",
+      marks: "",
+      timeStamp: ""
+    });
+  }
 
   render() {
     return (
@@ -200,48 +226,47 @@ class User extends React.Component {
             </div>
             <div className="card-body">
               <div className="login">
-                <form>
-                  <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input
-                      className="form-control"
-                      id="name"
-                      type="text"
-                      value={this.state.name}
-                      onChange={this.nameChanged}
-                      placeholder="Name"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                      className="form-control"
-                      id="email"
-                      type="email"
-                      value={this.state.email}
-                      onChange={this.emailChanged}
-                      placeholder="Email"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="Phone">phone:</label>
-                    <input
-                      className="form-control"
-                      id="phone"
-                      type="phone"
-                      value={this.state.phone}
-                      onChange={this.phoneChanged}
-                      placeholder="Phone"
-                    />
-                  </div>
 
-                  <button
-                    className="btn btn-primary"
-                    onClick={this.createNewUser}
-                  >
-                    Create User
-                  </button>
-                </form>
+                <div className="form-group">
+                  <label htmlFor="name">Name:</label>
+                  <input
+                    className="form-control"
+                    id="name"
+                    type="text"
+                    value={this.state.name}
+                    onChange={this.nameChanged}
+                    placeholder="Name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email:</label>
+                  <input
+                    className="form-control"
+                    id="email"
+                    type="email"
+                    value={this.state.email}
+                    onChange={this.emailChanged}
+                    placeholder="Email"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="Phone">phone:</label>
+                  <input
+                    className="form-control"
+                    id="phone"
+                    type="phone"
+                    value={this.state.phone}
+                    onChange={this.phoneChanged}
+                    placeholder="Phone"
+                  />
+                </div>
+
+                <button
+                  className="btn btn-primary"
+                  onClick={this.createNewUser1}
+                >
+                  Create User
+                </button>
               </div>
             </div>
           </div>

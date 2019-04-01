@@ -277,8 +277,6 @@ class ExamSettingForm extends React.Component {
       <React.Fragment>
         <div className="col-lg-12">
           {this.displayExamDetails()}
-          <hr/>
-          {this.displayNonSetQuestions()}
 
           <button
             onClick={this.updateExamSet}
@@ -287,6 +285,9 @@ class ExamSettingForm extends React.Component {
           >
             Update Exam Set
           </button>
+
+          <hr/>
+          {this.displayNonSetQuestions()}
         </div>
       </React.Fragment>
     );
