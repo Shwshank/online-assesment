@@ -2,7 +2,9 @@ h1,
 h2 {
   color: $secondaryTextColor;
 }
-
+label {
+  font-weight: 600;
+}
 main.content {
   min-height: 80vh;
 }
@@ -20,12 +22,13 @@ main.content {
   width: 100px;
   position: absolute;
   opacity: 0;
-  right: 0;
+  right: 15px;
 }
 i.fa.fa-upload {
   color: $defaultTextColor;
   padding: 10px 42px;
   background: $primaryBgColor;
+  cursor: pointer;
 }
 .card-header {
   background-color: $cardHeaderBg;

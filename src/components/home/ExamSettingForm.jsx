@@ -167,26 +167,36 @@ class ExamSettingForm extends React.Component {
   displayNonSetQuestions() {
     if (this.nonSetQuestions) {
       return (
-        <div style={{ overflow: "auto" }}>
-          <h4>All other questions</h4>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Question</th>
-                <th>Answer/s</th>
-                <th>Option1</th>
-                <th>Option2</th>
-                <th>Option3</th>
-                <th>Option4</th>
-                <th>Marks</th>
-                <th>Section</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>{this.renderNonSetQuestions()}</tbody>
-          </table>
-        </div>
+        <React.Fragment>
+          <button
+            onClick={this.updateExamSet}
+            className="btn btn-danger btn-sm"
+            style={{ marginBottom: 15 }}
+          >
+            <i className="fa fa-wrench" aria-hidden="true" />
+            Update Exam Set
+          </button>
+          <div style={{ overflow: "auto" }}>
+            <h4>All other questions</h4>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Question</th>
+                  <th>Answer/s</th>
+                  <th>Option1</th>
+                  <th>Option2</th>
+                  <th>Option3</th>
+                  <th>Option4</th>
+                  <th>Marks</th>
+                  <th>Section</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>{this.renderNonSetQuestions()}</tbody>
+            </table>
+          </div>
+        </React.Fragment>
       );
     } else {
       return <div>asfd</div>;
@@ -264,15 +274,6 @@ class ExamSettingForm extends React.Component {
           {this.displayExamDetails()}
 
           {this.displayNonSetQuestions()}
-
-          <button
-            onClick={this.updateExamSet}
-            className="btn btn-danger btn-sm"
-            style={{ marginBottom: 15 }}
-          >
-            <i className="fa fa-wrench" aria-hidden="true" />
-            Update Exam Set
-          </button>
         </div>
       </React.Fragment>
     );
