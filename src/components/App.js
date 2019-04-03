@@ -11,18 +11,18 @@ import Exam from "./exam/Exam";
 class App extends React.Component {
   render() {
     return (
-      <React.Fragment>
-        <Router history={history}>
+      <div data-test="app_fragment">
+        <Router history={history} data-test="router_with_history">
           <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/home" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/logout" component={Logout} />
-            <Route path="/exam" component={Exam} />
+            <Route data-test="/" path="/" exact component={Home} />
+            <Route data-test="home" path="/home" component={Home} />
+            <Route data-test="login" path="/login" component={Login} />
+            <Route data-test="logout" path="/logout" component={Logout} />
+            <Route data-test="exam" path="/exam" component={Exam} />
             <Redirect from="*" to="/login" />
           </Switch>
         </Router>
-      </React.Fragment>
+      </div>
     );
   }
 }

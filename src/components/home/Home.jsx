@@ -24,8 +24,8 @@ class Home extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Header />
+      <div data-test='home_div'>
+        <Header/>
         <Router history={history}>
           <main className="content">
             <div className="container">
@@ -43,8 +43,8 @@ class Home extends React.Component {
             </div>
           </main>
         </Router>
-        <Footer />
-      </React.Fragment>
+        <Footer/>
+      </div>
     );
   }
 }

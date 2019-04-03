@@ -1,4 +1,4 @@
-import { getUsers, addNewUser, editUserAPI, deleteUserAPI, getAllQuestions, getAllExamSets, updateExamSet, getExamUserConformationDetails, getExamSetForExamAPI } from '../api/APIendpoint';
+import { getUsers, addNewUser, editUserAPI, deleteUserAPI, getAllQuestions, getAllExamSets, updateExamSet, getExamSetForExamAPI } from '../api/APIendpoint';
 
 import history from "../components/history";
 
@@ -132,16 +132,25 @@ export const getExamSets = () => async dispatch => {
   })
 }
 
-export const getExamUserDetails =()=> async dispatch => {
-  let userDetails = {}
+// export const getExamUserDetails =()=> async dispatch => {
+//   let userDetails = {}
+//
+//   getExamUserConformationDetails().then(res=>{
+//     userDetails = res;
+//     dispatch({
+//       type: 'GET_EXAM_USER',
+//       payload: userDetails
+//     })
+//   })
+// }
 
-  getExamUserConformationDetails().then(res=>{
-    userDetails = res;
-    dispatch({
+export const getExamUserDetails =()=>{
+  let userDetails = {"user_id":"u121", "name":"User Name1", "email":"useremail1@some.com", "phone":"", "status":"Taken", "marks":"10", "timeStamp":"22-2-2019", "set_id": "102"}
+
+  return({
       type: 'GET_EXAM_USER',
       payload: userDetails
     })
-  })
 }
 
 export const getExamSetForExam = () => async dispatch =>{
