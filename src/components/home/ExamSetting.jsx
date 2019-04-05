@@ -46,7 +46,7 @@ class ExamSetting extends React.Component {
             Edit
           </Link>
           <p>
-            <strong>Name</strong> : {this.props.examSetDetails.name}{" "}
+            <strong>Name</strong> : {this.props.examSetDetails.name}
           </p>
           <p>
             <strong>Time</strong> : {this.props.examSetDetails.time}
