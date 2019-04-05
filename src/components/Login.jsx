@@ -3,6 +3,11 @@ import Auth from "./Auth";
 import history from "./history";
 import { login } from "../api/APIendpoint";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  getExamSets,
+  setUsers1
+} from "../actions";
 
 class Login extends React.Component {
   constructor(props) {
@@ -21,8 +26,9 @@ class Login extends React.Component {
     login(this.state.email, this.state.password).then(res => {
       // console.log(res);
       if (res) {
-        localStorage.setItem("token", "true");
-        history.push("/home");
+        this.props.getExamSets();
+        this.props.setUsers1();
+        // history.push("/home");
       } else {
         alert("Invalid credentials!");
       }
@@ -88,4 +94,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    users: state.user,
+    questions: state.question,
+    examSet: state.examSet
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { setUsers1, getExamSets}
+)(Login);

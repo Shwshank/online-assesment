@@ -1,6 +1,8 @@
 import React from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
+
+import UserTable from "./userTable";
 import {
   setUser,
   setUsers,
@@ -39,48 +41,48 @@ class User extends React.Component {
     );
     this.props.examSet.map(exam => (exam.value = exam.set_id));
 
-    if (this.props.users) {
-      let i = 0;
-      return this.props.users.map(u => {
-        i++;
-        return (
-          <tr key={u.name + u.email + i + ""}>
-            <td>{i}</td>
-            <td>{u.name}</td>
-            <td>{u.email}</td>
-            <td>{u.phone}</td>
-            <td>
-              {u.status === "Assigned" ? u.status + ", Exam :" + u.set_id : ""}
-            </td>
-            <td>{u.marks ? u.marks + ", Exam : " + u.set_id : ""}</td>
-            <td>{u.timeStamp}</td>
-            <td>
-              <Select
-                options={this.props.examSet}
-                onChange={opt => this.assignExamDropdown(opt, u)}
-              />
+    let i = 0;
+    return this.props.users.map(u => {
+      i++;
+      return (
+        <tr key={u.name + u.email + i + ""}>
+          <td>{i}</td>
+          <td>{u.name}</td>
+          <td>{u.email}</td>
+          <td>{u.phone}</td>
+          <td>
+            {u.status === "Assigned" ? u.status + ", Exam :" + u.set_id : ""}
+          </td>
+          <td>
+            {parseInt(u.marks) > 0 ? u.marks + ", Exam : " + u.set_id : ""}
+          </td>
+          <td>{u.timeStamp}</td>
+          <td>
+            <Select
+              options={this.props.examSet}
+              onChange={opt => this.assignExamDropdown(opt, u)}
+            />
 
-              <button
-                onClick={this.assignExam}
-                className="btn btn-primary btn-sm"
-                style={{ margin: "5px 0px 0px 0px" }}
-              >
-                Assign
-              </button>
+            <button
+              onClick={this.assignExam}
+              className="btn btn-primary btn-sm"
+              style={{ margin: "5px 0px 0px 0px" }}
+            >
+              Assign
+            </button>
 
-              <button
-                onClick={this.deleteUser.bind(this, i)}
-                className="btn btn-danger btn-sm float-right"
-                style={{ margin: "5px 0px 0px 0px" }}
-              >
-                <i className="fa fa-trash" aria-hidden="true" />
-                Delete User
-              </button>
-            </td>
-          </tr>
-        );
-      });
-    }
+            <button
+              onClick={this.deleteUser.bind(this, i, u)}
+              className="btn btn-danger btn-sm float-right"
+              style={{ margin: "5px 0px 0px 0px" }}
+            >
+              <i className="fa fa-trash" aria-hidden="true" />
+              Delete User
+            </button>
+          </td>
+        </tr>
+      );
+    });
   }
 
   assignExamDropdown(opt, user) {
@@ -92,7 +94,7 @@ class User extends React.Component {
     });
   }
 
-  assignExam = () => {
+  assignExam = async () => {
     // console.log(this.state);
     if (
       window.confirm(
@@ -103,19 +105,31 @@ class User extends React.Component {
           " Exam set"
       )
     ) {
-      this.props.editUser(this.state.user, this.state.examSet);
+      await this.props.editUser(this.state.user, this.state.examSet);
     }
   };
 
-  deleteUser(i) {
+  deleteUser = async (i, u) => {
+    console.log(u);
     if (window.confirm("Are you sure to delete this user? ")) {
-      this.props.deleteUser(i - 1);
+      await this.props.deleteUser(u, i - 1);
     }
-  }
+  };
 
   createNewUser = async () => {
-    console.log(this.state);
-    this.props.setUser(this.state);
+    // console.log(this.state);
+
+    let user = {};
+    user.name = this.state.name;
+    user.email = this.state.email;
+    user.phone = this.state.phone;
+    user.set_id = "";
+    user.status = "";
+    user.marks = " ";
+    user.timeStamp = "";
+
+    await this.props.setUser(user);
+    alert("Created!");
     await this.setState({
       email: "",
       name: "",
@@ -124,7 +138,7 @@ class User extends React.Component {
       marks: "",
       timeStamp: ""
     });
-    console.log(this.props);
+    // console.log(this.props);
   };
 
   nameChanged = async event => {
@@ -145,17 +159,42 @@ class User extends React.Component {
       phone: event.target.value
     });
   };
+
   handleToggle = () => {
     let toggle = !this.state.toggle;
     this.setState({ toggle });
   };
+
   toggleClasses() {
     let classes = "col-lg-6";
     classes += !this.state.toggle ? " toggleActive" : "";
     return classes;
   }
+
   handlePageChange = page => {
     this.setState({ currentPage: page });
+  };
+
+  createNewUser1 = async () => {
+    let user = {};
+    user.name = this.state.name;
+    user.email = this.state.email;
+    user.phone = this.state.phone;
+    user.set_id = "";
+    user.status = "";
+    user.marks = " ";
+    user.timeStamp = "";
+
+    await this.props.setUser(user);
+    alert("Created!");
+    await this.setState({
+      email: "",
+      name: "",
+      phone: "",
+      status: "",
+      marks: "",
+      timeStamp: ""
+    });
   };
 
   render() {
@@ -187,70 +226,53 @@ class User extends React.Component {
             </div>
             <div className="card-body">
               <div className="login">
-                <form>
-                  <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input
-                      className="form-control"
-                      id="name"
-                      type="text"
-                      value={this.state.name}
-                      onChange={this.nameChanged}
-                      placeholder="Name"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                      className="form-control"
-                      id="email"
-                      type="email"
-                      value={this.state.email}
-                      onChange={this.emailChanged}
-                      placeholder="Email"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="Phone">phone:</label>
-                    <input
-                      className="form-control"
-                      id="phone"
-                      type="phone"
-                      value={this.state.phone}
-                      onChange={this.phoneChanged}
-                      placeholder="Phone"
-                    />
-                  </div>
+                <div className="form-group">
+                  <label htmlFor="name">Name:</label>
+                  <input
+                    className="form-control"
+                    id="name"
+                    type="text"
+                    value={this.state.name}
+                    onChange={this.nameChanged}
+                    placeholder="Name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email:</label>
+                  <input
+                    className="form-control"
+                    id="email"
+                    type="email"
+                    value={this.state.email}
+                    onChange={this.emailChanged}
+                    placeholder="Email"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="Phone">phone:</label>
+                  <input
+                    className="form-control"
+                    id="phone"
+                    type="phone"
+                    value={this.state.phone}
+                    onChange={this.phoneChanged}
+                    placeholder="Phone"
+                  />
+                </div>
 
-                  <button
-                    className="btn btn-primary"
-                    onClick={this.createNewUser}
-                  >
-                    <i className="fa fa-plus" aria-hidden="true" />
-                    Create User
-                  </button>
-                </form>
+                <button
+                  className="btn btn-primary"
+                  onClick={this.createNewUser1}
+                >
+                  Create User
+                </button>
               </div>
             </div>
           </div>
         </div>
 
         <div className="col-lg-12">
-          <table className="table ">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Status</th>
-                <th>Marks</th>
-                <th>Exam Time</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>{this.renderUser()}</tbody>
-          </table>
+          <UserTable onUserTable={this.renderUser()} />
         </div>
       </React.Fragment>
     );

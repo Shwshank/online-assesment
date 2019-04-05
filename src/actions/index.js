@@ -1,12 +1,24 @@
-import { getUsers, getAllQuestions, getAllExamSets, getExamUserConformationDetails } from '../api/APIendpoint';
+import { getUsers, addNewUser, editUserAPI, deleteUserAPI, getAllQuestions, getAllExamSets, updateExamSet, getExamSetForExamAPI } from '../api/APIendpoint';
 
-export const setUser = (value="") => {
+import history from "../components/history";
 
-  return({
-    type: 'SET_USER',
-    payload: value
-  });
-};
+
+export const setUser = (newUser={}) => async dispatch => {
+  console.log(newUser);
+
+  addNewUser(newUser).then(res=>{
+    console.log(res);
+
+    dispatch({
+      type: 'SET_USER',
+      payload: newUser
+    })
+  }, err=>{
+    console.log(err);
+  })
+}
+
+
 
 export const setUsers = () => async dispatch => {
 
@@ -22,12 +34,35 @@ export const setUsers = () => async dispatch => {
   })
 }
 
-export const deleteUser = (value) =>{
+export const setUsers1 = () => async dispatch => {
 
-  return({
-    type: 'DELETE_USER',
-    payload: value
-  });
+  let users = [];
+
+  getUsers().then(res=>{
+    users = res;
+    // console.log(res);
+    dispatch({
+      type: 'SET_USERS',
+      payload:users
+    });
+    console.log("/home");
+    history.push("/home");
+  })
+}
+
+export const deleteUser = (user, position) => async dispatch =>{
+
+  console.log(position);
+  deleteUserAPI({user_id: user.user_id}).then(res=>{
+    console.log(res);
+    dispatch({
+      type: 'DELETE_USER',
+      payload: position
+    });
+  }, err=>{
+    console.log(err);
+  })
+
 }
 
 export const getQuestions = () => async dispatch => {
@@ -44,25 +79,37 @@ export const getQuestions = () => async dispatch => {
   })
 }
 
-export const editExamSet = (updatedExamSet) => {
+export const editExamSet = (updatedExamSet) => async dispatch => {
 
-  return({
-    type: "EDIT_EXAM_SET",
-    payload: updatedExamSet
+  updateExamSet(updatedExamSet).then(res=>{
+
+    dispatch({
+      type: "EDIT_EXAM_SET",
+      payload: updatedExamSet
+    }, err=>{
+      console.log(err);
+    })
   })
+
 }
 
-export const editUser = (user, exam) => {
+export const editUser = (user, exam) => async dispatch => {
 
   user.set_id = exam.set_id;
   user.status = "Assigned"
   user.marks = ""
   user.timeStamp = ""
 
-  return({
-    type: "EDIT_USER",
-    payload: {user: user}
+  editUserAPI(user).then(res=>{
+    dispatch({
+      type: "EDIT_USER",
+      payload: {user: user}
+    })
+
+  }, err=>{
+    console.log(err);
   })
+
 }
 
 export const getExamSet = (set={}) => {
@@ -85,37 +132,49 @@ export const getExamSets = () => async dispatch => {
   })
 }
 
-export const getExamUserDetails =()=> async dispatch => {
-  let userDetails = {}
+// export const getExamUserDetails =()=> async dispatch => {
+//   let userDetails = {}
+//
+//   getExamUserConformationDetails().then(res=>{
+//     userDetails = res;
+//     dispatch({
+//       type: 'GET_EXAM_USER',
+//       payload: userDetails
+//     })
+//   })
+// }
 
-  getExamUserConformationDetails().then(res=>{
-    userDetails = res;
-    dispatch({
+export const getExamUserDetails =()=>{
+  let userDetails = {"user_id":"u121", "name":"User Name1", "email":"useremail1@some.com", "phone":"", "status":"Taken", "marks":"10", "timeStamp":"22-2-2019", "set_id": "102"}
+
+  return({
       type: 'GET_EXAM_USER',
       payload: userDetails
+    })
+}
+
+export const getExamSetForExam = () => async dispatch =>{
+  let set = {}
+
+  getExamSetForExamAPI().then(res=>{
+    console.log(res);
+    set = res
+      dispatch({
+      type: 'GET_SET_FOR_EXAM',
+      payload: set
     })
   })
 }
 
+export const clearExamSetForExam = () => {
+  let set = {}
+  return({
+    type: 'GET_SET_FOR_EXAM',
+    payload: set
+  })
+}
 export function clearStore(){
   return {
     type:"CLEARSTORE"
   };
 }
-
-
-
-// export const getQuestions = (questions="") =>{
-//
-//   questions = [
-//     {question: "Some question here", ans: "Option 2", option1: "Option 1", option2: "Option 2", option3: "Option 3", option4: "Option 4", marks: "2", section: "Quant" },
-//     {question: "Some question here", ans: "Option 2", option1: "Option 1", option2: "Option 2", option3: "Option 3", option4: "Option 4", marks: "2", section: "Quant" },
-//     {question: "Some question here", ans: "Option 2", option1: "Option 1", option2: "Option 2", option3: "Option 3", option4: "Option 4", marks: "2", section: "Quant" }
-//   ]
-//
-//   return({
-//     type: 'GET_QUESTIONS',
-//     payload: questions
-//   })
-//
-// };

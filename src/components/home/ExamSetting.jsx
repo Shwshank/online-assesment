@@ -8,7 +8,13 @@ class ExamSetting extends React.Component {
   constructor(props) {
     super(props);
     // console.log(props);
-    this.state = { set_id: "", name: "", time: "", question: [] };
+    this.state = {
+      set_id: "",
+      name: "",
+      time: "",
+      question: [],
+      total_marks: 0
+    };
   }
 
   componentDidMount() {
@@ -32,7 +38,7 @@ class ExamSetting extends React.Component {
       );
 
       return (
-        <div>
+        <React.Fragment>
           <Link
             onClick={this.handleLinkClick.bind(
               this,
@@ -45,14 +51,20 @@ class ExamSetting extends React.Component {
             <i className="fa fa-pencil" aria-hidden="true" />
             Edit
           </Link>
+
           <p>
-            <strong>Name</strong> : {this.props.examSetDetails.name}
+            <strong>Name :</strong> {this.props.examSetDetails.name}
           </p>
           <p>
-            <strong>Time</strong> : {this.props.examSetDetails.time}
+            <strong>Time :</strong> {this.props.examSetDetails.time}
           </p>
+          <p>
+            <strong>Marks:</strong>
+            {this.props.examSetDetails.total_marks}
+          </p>
+
           {this.displaySetQuestions(questionsOnSet)}
-        </div>
+        </React.Fragment>
       );
     } else {
       return (
@@ -66,22 +78,26 @@ class ExamSetting extends React.Component {
   displaySetQuestions(questionsOnSet) {
     if (questionsOnSet.length) {
       return (
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Question</th>
-              <th scope="col">Answer/s</th>
-              <th scope="col">Option1</th>
-              <th scope="col">Option2</th>
-              <th scope="col">Option3</th>
-              <th scope="col">Option4</th>
-              <th scope="col">Marks</th>
-              <th scope="col">Section</th>
-            </tr>
-          </thead>
-          <tbody>{this.renderQuestions(questionsOnSet)}</tbody>
-        </table>
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Option1</th>
+                <th>Option2</th>
+                <th>Option3</th>
+                <th>Option4</th>
+                <th>Option5</th>
+                <th>Answer/s</th>
+                <th>Level</th>
+                <th>Marks</th>
+                <th>Section</th>
+              </tr>
+            </thead>
+            <tbody>{this.renderQuestions(questionsOnSet)}</tbody>
+          </table>
+        </div>
       );
     }
   }
@@ -94,11 +110,13 @@ class ExamSetting extends React.Component {
         <tr key={ques.question + i + ""}>
           <td>{i}</td>
           <td>{ques.question}</td>
+          <td>{ques.option_a}</td>
+          <td>{ques.option_b}</td>
+          <td>{ques.option_c}</td>
+          <td>{ques.option_d}</td>
+          <td>{ques.option_e}</td>
           <td>{ques.ans}</td>
-          <td>{ques.option1}</td>
-          <td>{ques.option2}</td>
-          <td>{ques.option3}</td>
-          <td>{ques.option4}</td>
+          <td>{ques.difficulty_level}</td>
           <td>{ques.marks}</td>
           <td>{ques.section}</td>
         </tr>
@@ -108,10 +126,10 @@ class ExamSetting extends React.Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <h4>Setting</h4>
         {this.renderView()}
-      </div>
+      </React.Fragment>
     );
   }
 }

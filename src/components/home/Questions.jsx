@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getQuestions } from "../../actions";
+import QuestionTable from "./questionTable";
 
 class Questions extends React.Component {
   componentDidMount() {
@@ -17,11 +18,13 @@ class Questions extends React.Component {
           <tr key={ques.question + i + ""}>
             <td>{i}</td>
             <td>{ques.question}</td>
+            <td>{ques.option_a}</td>
+            <td>{ques.option_b}</td>
+            <td>{ques.option_c}</td>
+            <td>{ques.option_d}</td>
+            <td>{ques.option_e}</td>
             <td>{ques.ans}</td>
-            <td>{ques.option1}</td>
-            <td>{ques.option2}</td>
-            <td>{ques.option3}</td>
-            <td>{ques.option4}</td>
+            <td>{ques.difficulty_level}</td>
             <td>{ques.marks}</td>
             <td>{ques.section}</td>
           </tr>
@@ -47,22 +50,7 @@ class Questions extends React.Component {
 
         <div className="col-lg-12">
           <h4>Questions</h4>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Question</th>
-                <th>Answer/s</th>
-                <th>Option1</th>
-                <th>Option2</th>
-                <th>Option3</th>
-                <th>Option4</th>
-                <th>Marks</th>
-                <th>Section</th>
-              </tr>
-            </thead>
-            <tbody>{this.renderQuestions()}</tbody>
-          </table>
+          <QuestionTable onQuestionTable={this.renderQuestions()} />
         </div>
       </React.Fragment>
     );

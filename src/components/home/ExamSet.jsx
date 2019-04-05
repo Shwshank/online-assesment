@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { getExamSet, getExamSets } from "../../actions";
 import ExamSetting from "./ExamSetting";
-
+import ExamSetTable from "../../components/home/examSetTable";
 class ExamSet extends React.Component {
   constructor(props) {
     super(props);
@@ -27,6 +27,7 @@ class ExamSet extends React.Component {
             <td>{exam.name}</td>
             <td>{exam.question_array.length}</td>
             <td>{exam.time}hr</td>
+            <td>{exam.total_marks}</td>
             <td>
               <button
                 className="btn btn-primary btn-sm"
@@ -41,6 +42,7 @@ class ExamSet extends React.Component {
       });
     }
   }
+
   examDetails = async (exam, set_id, i) => {
     // console.log(exam);
     this.props.getExamSet(exam);
@@ -56,7 +58,8 @@ class ExamSet extends React.Component {
       set_id: "" + set_id,
       name: "Exam set " + set_id,
       time: "1",
-      question_array: []
+      question_array: [],
+      total_marks: 0
     };
     this.props.getExamSet(exam);
     this.props.history.push("/home/examSetSettingForm/123");
@@ -75,18 +78,7 @@ class ExamSet extends React.Component {
             <i className="fa fa-cog" aria-hidden="true" />
             New Set
           </button>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Set Name</th>
-                <th>Questions</th>
-                <th>Time</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-            <tbody>{this.renderExamSets()}</tbody>
-          </table>
+          <ExamSetTable onExamSetTable={this.renderExamSets()} />
         </div>
 
         <div className="col-12">

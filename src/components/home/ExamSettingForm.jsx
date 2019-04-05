@@ -54,6 +54,9 @@ class ExamSettingForm extends React.Component {
                 <div className="form-group" style={{ marginBottom: 0 }}>
                   <label>Set ID:</label>
                   {this.props.exam.set_id}
+                  &nbsp; &nbsp; &nbsp; &nbsp;
+                  <label>Marks:</label>
+                  {this.props.exam.total_marks}
                 </div>
               </div>
             </div>
@@ -66,7 +69,7 @@ class ExamSettingForm extends React.Component {
   }
 
   setNameChanged = async event => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     this.props.exam.name = event.target.value;
     await this.setState({
       name: event.target.value
@@ -74,7 +77,7 @@ class ExamSettingForm extends React.Component {
   };
 
   setTimeChanged = async event => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     this.props.exam.time = event.target.value;
     await this.setState({
       time: event.target.value
@@ -83,26 +86,30 @@ class ExamSettingForm extends React.Component {
 
   displayQuestions() {
     return (
-      <div style={{ overflow: "auto" }}>
+      <React.Fragment>
         <h4>Questions</h4>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Question</th>
-              <th>Answer/s</th>
-              <th>Option1</th>
-              <th>Option2</th>
-              <th>Option3</th>
-              <th>Option4</th>
-              <th>Marks</th>
-              <th>Section</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>{this.renderSetQuestions()}</tbody>
-        </table>
-      </div>
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Option1</th>
+                <th>Option2</th>
+                <th>Option3</th>
+                <th>Option4</th>
+                <th>Option5</th>
+                <th>Answer/s</th>
+                <th>Level</th>
+                <th>Marks</th>
+                <th>Section</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>{this.renderSetQuestions()}</tbody>
+          </table>
+        </div>
+      </React.Fragment>
     );
   }
 
@@ -128,11 +135,13 @@ class ExamSettingForm extends React.Component {
           <tr key={ques.question + i + ""}>
             <td>{i}</td>
             <td>{ques.question}</td>
+            <td>{ques.option_a}</td>
+            <td>{ques.option_b}</td>
+            <td>{ques.option_c}</td>
+            <td>{ques.option_d}</td>
+            <td>{ques.option_e}</td>
             <td>{ques.ans}</td>
-            <td>{ques.option1}</td>
-            <td>{ques.option2}</td>
-            <td>{ques.option3}</td>
-            <td>{ques.option4}</td>
+            <td>{ques.difficulty_level}</td>
             <td>{ques.marks}</td>
             <td>{ques.section}</td>
             <td>
@@ -154,7 +163,7 @@ class ExamSettingForm extends React.Component {
     if (this.props.exam.question_array.length > 1) {
       if (window.confirm(" Are you sure to delete this question?")) {
         this.props.exam.question_array.splice(pos, 1);
-        // console.log(this.props.exam);
+        this.props.exam.total_marks -= parseInt(ques.marks);
         this.props.editExamSet(this.props.exam);
       }
     } else {
@@ -176,18 +185,21 @@ class ExamSettingForm extends React.Component {
             <i className="fa fa-wrench" aria-hidden="true" />
             Update Exam Set
           </button>
-          <div style={{ overflow: "auto" }}>
-            <h4>All other questions</h4>
+
+          <h4>All other questions</h4>
+          <div className="table-responsive">
             <table className="table">
               <thead>
                 <tr>
                   <th>#</th>
                   <th>Question</th>
-                  <th>Answer/s</th>
                   <th>Option1</th>
                   <th>Option2</th>
                   <th>Option3</th>
                   <th>Option4</th>
+                  <th>Option5</th>
+                  <th>Answer/s</th>
+                  <th>Level</th>
                   <th>Marks</th>
                   <th>Section</th>
                   <th>Delete</th>
@@ -231,11 +243,13 @@ class ExamSettingForm extends React.Component {
           <tr key={ques.question + i + ""}>
             <td>{i}</td>
             <td>{ques.question}</td>
+            <td>{ques.option_a}</td>
+            <td>{ques.option_b}</td>
+            <td>{ques.option_c}</td>
+            <td>{ques.option_d}</td>
+            <td>{ques.option_e}</td>
             <td>{ques.ans}</td>
-            <td>{ques.option1}</td>
-            <td>{ques.option2}</td>
-            <td>{ques.option3}</td>
-            <td>{ques.option4}</td>
+            <td>{ques.difficulty_level}</td>
             <td>{ques.marks}</td>
             <td>{ques.section}</td>
             <td>
@@ -254,8 +268,11 @@ class ExamSettingForm extends React.Component {
   }
 
   addQuestion(ques, pos) {
-    this.props.exam.question_array.push(ques.question_id);
+    // console.log(ques, pos);
     // console.log(this.props.exam);
+
+    this.props.exam.question_array.push(ques.question_id);
+    this.props.exam.total_marks += parseInt(ques.marks);
     this.props.editExamSet(this.props.exam);
   }
 
@@ -272,6 +289,17 @@ class ExamSettingForm extends React.Component {
       <React.Fragment>
         <div className="col-lg-12">
           {this.displayExamDetails()}
+
+          <button
+            onClick={this.updateExamSet}
+            className="btn btn-danger btn-sm"
+            style={{ marginBottom: 15 }}
+          >
+            <i className="fa fa-wrench" aria-hidden="true" />
+            Update Exam Set
+          </button>
+
+          <hr />
 
           {this.displayNonSetQuestions()}
         </div>

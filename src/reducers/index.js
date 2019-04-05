@@ -6,8 +6,10 @@ const user = (state=[], action) => {
 
   switch(action.type) {
 
-    case 'SET_USER' :
-        return [...state, action.payload]
+    case 'SET_USER' :{
+      console.log(action.payload);
+      return [...state, action.payload]
+    }
 
     case 'SET_USERS' : {
         action.payload = _.uniqBy(action.payload, 'name')
@@ -17,11 +19,9 @@ const user = (state=[], action) => {
     }
 
     case 'DELETE_USER' :{
-      // console.log(action.payload);
-      let temp = state;
-      temp.splice(action.payload, 1)
-      // console.log(temp);
-      return [...temp]
+      console.log(action.payload);
+      state.splice(action.payload, 1)
+      return [...state]
     }
 
     case 'EDIT_USER' : {
@@ -70,7 +70,7 @@ const examSet = (state=[], action) =>{
     case 'EDIT_EXAM_SET' : {
       // console.log(action.payload);
       let index =_.findIndex(state, {set_id: action.payload.set_id})
-      console.log(index);
+      // console.log(index);
       if(index === -1) {
         state.push(action.payload)
       } else {
@@ -113,11 +113,24 @@ const examUser = (state={}, action) => {
   }
 }
 
+const examSetForUser = (state={}, action) => {
+  
+  switch(action.type) {
+    case 'GET_SET_FOR_EXAM': {
+      state = action.payload
+      return state
+    }
+    default:
+    return state
+  }
+}
+
 export default combineReducers({
   form: form,
   user: user,
   examSet: examSet,
   examUser: examUser,
   question: question,
-  oneExamSet: oneExamSet
+  oneExamSet: oneExamSet,
+  examSetForUser: examSetForUser
 })

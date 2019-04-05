@@ -14,6 +14,10 @@ main.content {
 .toggleActive + form + .hide {
   display: none;
 }
+.btn {
+  min-width: 100px;
+  text-align: center;
+}
 .upload {
   display: inline-block;
   float: right;
@@ -56,6 +60,9 @@ th {
   #triangle-down {
     transform: rotate(-90deg);
   }
+}
+.card {
+  @extend %box-shadow;
 }
 .fa-sign-in,
 .fa-trash,
