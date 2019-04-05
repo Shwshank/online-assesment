@@ -45,8 +45,12 @@ class ExamSetting extends React.Component {
             <i className="fa fa-pencil" aria-hidden="true" />
             Edit
           </Link>
-          <p>Name : {this.props.examSetDetails.name} </p>
-          <p>Time: {this.props.examSetDetails.time}</p>
+          <p>
+            <strong>Name</strong> : {this.props.examSetDetails.name}{" "}
+          </p>
+          <p>
+            <strong>Time</strong> : {this.props.examSetDetails.time}
+          </p>
           {this.displaySetQuestions(questionsOnSet)}
         </div>
       );
