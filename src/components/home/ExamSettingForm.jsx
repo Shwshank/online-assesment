@@ -2,7 +2,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getExamSet, getQuestions, editExamSet } from "../../actions";
-
+import ExamSettingFormAllQuesionsTable from "./examSettingFormAllQuestionsTable";
+import ExamSettingFormQuestionTable from "./examSettingFormQuestionsTable";
 class ExamSettingForm extends React.Component {
   constructor(props) {
     super(props);
@@ -88,27 +89,9 @@ class ExamSettingForm extends React.Component {
     return (
       <React.Fragment>
         <h4>Questions</h4>
-        <div className="table-responsive">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Question</th>
-                <th>Option1</th>
-                <th>Option2</th>
-                <th>Option3</th>
-                <th>Option4</th>
-                <th>Option5</th>
-                <th>Answer/s</th>
-                <th>Level</th>
-                <th>Marks</th>
-                <th>Section</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>{this.renderSetQuestions()}</tbody>
-          </table>
-        </div>
+        <ExamSettingFormQuestionTable
+          onExamSettingFormQuestionTable={this.renderSetQuestions()}
+        />
       </React.Fragment>
     );
   }
@@ -179,7 +162,7 @@ class ExamSettingForm extends React.Component {
         <React.Fragment>
           <button
             onClick={this.updateExamSet}
-            className="btn btn-danger btn-sm"
+            className="btn btn-primary btn-sm"
             style={{ marginBottom: 15 }}
           >
             <i className="fa fa-wrench" aria-hidden="true" />
@@ -187,27 +170,9 @@ class ExamSettingForm extends React.Component {
           </button>
 
           <h4>All other questions</h4>
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Question</th>
-                  <th>Option1</th>
-                  <th>Option2</th>
-                  <th>Option3</th>
-                  <th>Option4</th>
-                  <th>Option5</th>
-                  <th>Answer/s</th>
-                  <th>Level</th>
-                  <th>Marks</th>
-                  <th>Section</th>
-                  <th>Delete</th>
-                </tr>
-              </thead>
-              <tbody>{this.renderNonSetQuestions()}</tbody>
-            </table>
-          </div>
+          <ExamSettingFormAllQuesionsTable
+            onExamSettingFormAllQuesionsTable={this.renderNonSetQuestions()}
+          />
         </React.Fragment>
       );
     } else {
@@ -289,15 +254,6 @@ class ExamSettingForm extends React.Component {
       <React.Fragment>
         <div className="col-lg-12">
           {this.displayExamDetails()}
-
-          <button
-            onClick={this.updateExamSet}
-            className="btn btn-danger btn-sm"
-            style={{ marginBottom: 15 }}
-          >
-            <i className="fa fa-wrench" aria-hidden="true" />
-            Update Exam Set
-          </button>
 
           <hr />
 

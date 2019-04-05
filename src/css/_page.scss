@@ -1,3 +1,17 @@
+body,
+.table {
+  color: $default-text-color !important;
+}
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active {
+  color: $defaultTextColor !important;
+  background-color: $primaryBgColor !important;
+  border-color: $primaryBgColor !important;
+}
+.margin-zero {
+  margin: 0;
+}
 h1,
 h2 {
   color: $secondaryTextColor;
