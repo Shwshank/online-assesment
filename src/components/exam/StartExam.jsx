@@ -114,20 +114,24 @@ class StartExam extends React.Component {
         i++;
         return (
           <React.Fragment key={i}>
-            <p>
-              <strong> Marks: {ques.marks} </strong>
-            </p>
-
             <div className="card" style={{ marginBottom: 30 }}>
-              <div className="card-body">
-                <strong>Q.{i} </strong> {ques.question}
-                {this.renderOptions(
-                  i,
-                  ques.question,
-                  ques.ans,
-                  ques.marks,
-                  ques.options
-                )}
+              <div
+                className="card-body card-body-question"
+                style={{ width: "90%" }}
+              >
+                <div className="">
+                  <strong>Q.{i} </strong> {ques.question}
+                  {this.renderOptions(
+                    i,
+                    ques.question,
+                    ques.ans,
+                    ques.marks,
+                    ques.options
+                  )}
+                  <p className="single-question-marks">
+                    <strong> Marks: {ques.marks} </strong>
+                  </p>
+                </div>
               </div>
             </div>
           </React.Fragment>

@@ -75,6 +75,15 @@ th {
     transform: rotate(-90deg);
   }
 }
+.card-body-question {
+  position: relative;
+  .single-question-marks {
+    position: absolute;
+    right: -5rem;
+    top: 1.25rem;
+    margin: 0;
+  }
+}
 .card {
   @extend %box-shadow;
 }
