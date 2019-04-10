@@ -7,14 +7,14 @@ const user = (state=[], action) => {
   switch(action.type) {
 
     case 'SET_USER' :{
-      console.log(action.payload);
+      // console.log(action.payload);
       return [...state, action.payload]
     }
 
     case 'SET_USERS' : {
-        action.payload = _.uniqBy(action.payload, 'name')
+        action.payload = _.uniqBy(action.payload, 'email')
         state = [...state, ...action.payload]
-        state = _.uniqBy(state, 'name')
+        state = _.uniqBy(state, 'email')
         return [...state]
     }
 
@@ -114,12 +114,25 @@ const examUser = (state={}, action) => {
 }
 
 const examSetForUser = (state={}, action) => {
-  
+
   switch(action.type) {
     case 'GET_SET_FOR_EXAM': {
       state = action.payload
       return state
     }
+    default:
+    return state
+  }
+}
+
+const responseArray = (state={}, action) => {
+
+  switch(action.type) {
+    case 'RESPONSE_ARRAY' : {
+      state= action.payload
+      return state
+    }
+
     default:
     return state
   }
@@ -132,5 +145,6 @@ export default combineReducers({
   examUser: examUser,
   question: question,
   oneExamSet: oneExamSet,
-  examSetForUser: examSetForUser
+  responseArray : responseArray,
+  examSetForUser: examSetForUser,
 })

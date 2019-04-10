@@ -22,8 +22,7 @@ class Exam extends React.Component {
           <div>
             <Router history={history}>
               <Switch>
-                <Route path="/exam/" exact component={IntroPage} />
-                <Route path="/exam/IntroPage" exact component={IntroPage} />
+                <Route path="/exam/IntroPage/:id" exact component={IntroPage} />
                 <Route path="/exam/StartExam" exact component={StartExam} />
                 <Route path="/exam/ExamResult/:id" exact component={ExamResult} />
               </Switch>

@@ -1,4 +1,4 @@
-import { getUsers, addNewUser, editUserAPI, deleteUserAPI, getAllQuestions, getAllExamSets, updateExamSet, getExamSetForExamAPI } from '../api/APIendpoint';
+import { getUsers, addNewUser, editUserAPI, deleteUserAPI, getAllQuestions, getAllExamSets, updateExamSet, getExamSetForExamAPI, getExamUserConformationDetails } from '../api/APIendpoint';
 
 import history from "../components/history";
 
@@ -132,32 +132,32 @@ export const getExamSets = () => async dispatch => {
   })
 }
 
-// export const getExamUserDetails =()=> async dispatch => {
-//   let userDetails = {}
+export const getExamUserDetails =(id)=> async dispatch => {
+  getExamUserConformationDetails(id).then(res=>{
+    // console.log(res);
+
+    dispatch({
+      type: 'GET_EXAM_USER',
+      payload: res
+    })
+  })
+}
+
+// export const getExamUserDetails =()=>{
+//   let userDetails = {"user_id":"u121", "name":"User Name1", "email":"useremail1@some.com", "phone":"", "status":"Taken", "marks":"10", "timeStamp":"22-2-2019", "set_id": "102"}
 //
-//   getExamUserConformationDetails().then(res=>{
-//     userDetails = res;
-//     dispatch({
+//   return({
 //       type: 'GET_EXAM_USER',
 //       payload: userDetails
 //     })
-//   })
 // }
 
-export const getExamUserDetails =()=>{
-  let userDetails = {"user_id":"u121", "name":"User Name1", "email":"useremail1@some.com", "phone":"", "status":"Taken", "marks":"10", "timeStamp":"22-2-2019", "set_id": "102"}
+export const getExamSetForExam = (token, user_id) => async dispatch =>{
 
-  return({
-      type: 'GET_EXAM_USER',
-      payload: userDetails
-    })
-}
-
-export const getExamSetForExam = () => async dispatch =>{
   let set = {}
 
-  getExamSetForExamAPI().then(res=>{
-    console.log(res);
+  getExamSetForExamAPI(token, user_id).then(res=>{
+    // console.log(res);
     set = res
       dispatch({
       type: 'GET_SET_FOR_EXAM',
@@ -173,6 +173,15 @@ export const clearExamSetForExam = () => {
     payload: set
   })
 }
+
+export const examResponse = (response)=>{
+  // console.log(response);
+  return({
+    type: 'RESPONSE_ARRAY',
+    payload: response
+  })
+}
+
 export function clearStore(){
   return {
     type:"CLEARSTORE"
