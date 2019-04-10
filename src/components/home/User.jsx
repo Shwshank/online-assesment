@@ -207,8 +207,9 @@ class User extends React.Component {
     reader.readAsDataURL(file);
     reader.onload = (event:any) => {
        console.log(reader.result);
-       uploadUserFile(reader.result).then(res=>{
+       uploadUserFile({file : reader.result}).then(res=>{
          console.log(res);
+         alert("Success "+res.success);
        })
     }
   }
@@ -226,7 +227,7 @@ class User extends React.Component {
         <div >
 
           <div >
-            
+
             <input
               type="file"
 

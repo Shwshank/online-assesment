@@ -45,6 +45,7 @@ class Questions extends React.Component {
        console.log(reader.result);
        uploadQuestionFile({file : reader.result}).then(res=>{
          console.log(res);
+         alert("Success "+res.success)
        })
     }
   }
