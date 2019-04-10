@@ -101,6 +101,7 @@ export const editUser = (user, exam) => async dispatch => {
   user.timeStamp = ""
 
   editUserAPI(user).then(res=>{
+    
     dispatch({
       type: "EDIT_USER",
       payload: {user: user}
