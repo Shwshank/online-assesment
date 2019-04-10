@@ -4,36 +4,58 @@ import { connect } from "react-redux";
 import { getExamUserDetails, getExamSetForExam } from "../../actions";
 
 class IntroPage extends React.Component {
-  componentDidMount() {
-    this.props.getExamUserDetails();
+
+  componentWillMount() {
+    // console.log(this.props.match.params.id);
+    let id = this.props.match.params.id;
+    id = id.substr(3)
+    // console.log(id);
+    this.props.getExamUserDetails(id);
   }
 
-  startExam(user) {
-    this.props.getExamSetForExam();
-    console.log(user);
-    if (user.user_id)
+  componentDidMount() {
+    // console.log(this.props);
+  }
+
+  startExam(token, user_id) {
+    if (user_id)
       if (window.confirm("Are you sure to start the exam now?")) {
+        // console.log(token);
+        // console.log(user_id);
+        this.props.getExamSetForExam(token, user_id);
         this.props.history.push("/exam/StartExam");
       }
   }
 
   userDetails() {
-    if (this.props.examUser.user_id) {
+    if (this.props.examUser.token) {
       return (
-        <div className="col-lg-12">
-          <h5> Please confirm user details</h5>
-          <p>{this.props.examUser.name}</p>
-          <p>{this.props.examUser.phone}</p>
-          <p>{this.props.examUser.email}</p>
-
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title">Exam Details</h5>
-              <p className="card-text">
-                Here are the exam rules, please go-through the content. If
-                aggree, please click on the continue button. Display some
-                graphic informcation here
-              </p>
+        <div className="content">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12">
+                <h5> Please confirm user details</h5>
+                <p>
+                  <strong>{this.props.examUser.user_details.name}</strong>
+                </p>
+                <p>{this.props.examUser.user_details.phone}</p>
+                <p>{this.props.examUser.user_details.email}</p>
+                <hr />
+                <h5> Exam Details </h5>
+                <p>
+                  Here are the exam rules, please go-through the content. If
+                  aggree, please click on the continue button. Display some
+                  graphic informcation here
+                </p>
+                <hr />
+                <button
+                  className="btn btn-primary btn-sm"
+                  onClick={this.startExam.bind(this, this.props.examUser.token, this.props.examUser.user_details.user_id)}
+                  style={{ marginBottom: 30 }}
+                >
+                  Continue
+                </button>
+              </div>
             </div>
           </div>
 

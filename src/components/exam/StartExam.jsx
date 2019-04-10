@@ -1,57 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
-
-import { clearExamSetForExam } from "../../actions";
+import Countdown from 'react-countdown-now';
+import { examResponse } from "../../actions";
+import MiddleLayer from "./MiddleLayer";
 
 class StartExam extends React.Component {
-  constructor(props) {
-    super(props);
-    let examJSON = {
-      set_id: "101",
-      name: "Some name1 here",
-      time: "1",
-      question: [
-        {
-          ans: "97",
-          difficulty_level: "Easy",
-          marks: "1",
-          option: ["129", "64", "48", "97", "None"],
-          q_id: "16d2746b48494275944c551768ccbe62",
-          question:
-            "6 different sweet varieties of count 32, 216, 136, 88, 184, 120 were ordered for a particular occasion. They need to be packed in such a way that each box has the same variety of sweet and the number of sweets in each box is also the same. What is the minimum number of boxes required to pack?",
-          section: "Quantitative"
-        },
-        {
-          ans: "90",
-          difficulty_level: "Easy",
-          marks: "2",
-          option: ["120", "60", "40", "90", "None"],
-          q_id: "16d2746b48494275944c551768ccbe60",
-          question:
-            "5 different sweet varieties of count 32, 216, 136, 88, 184, 120 werer of boxes required to pack?",
-          section: "Quantitative"
-        }
-      ]
-    };
-    this.state = { examJSON: examJSON };
-  }
 
   totalMarks = 0;
   resultArray = [];
 
-  componentDidMount() {
-    console.log(this.props.examSetForUser);
+  componentDidMount() {}
+
+  renderTime = () => {
+    // console.log(this.props);
+    if(this.props.examSetForUser.set_data){
+      if(this.props.examSetForUser.set_data.time) {
+        let timeAllowted = parseInt(this.props.examSetForUser.set_data.time) * 60 * 60 * 1000;
+        // console.log(timeAllowted);
+        return(
+          <Countdown date={Date.now() + timeAllowted} >
+            <MiddleLayer resultArray={this.resultArray}/>
+          </Countdown>
+        )
+      }
+    }
   }
 
-  // componentWillUnmount() {
-  //   if(window.confirm("Are you sure to quit the exam?")) {}
-  // }
+  onSiteChanged=(i, question, ans, marks, selected)=>{
 
-  onSiteChanged = (i, question, ans, marks, selected) => {
-    console.log(i);
-    console.log(selected);
-    console.log(ans);
-    console.log(parseInt(marks));
     let result = {
       sno: i,
       question: question,
@@ -75,9 +51,8 @@ class StartExam extends React.Component {
     } else {
       this.resultArray.push(result);
     }
+  }
 
-    console.log(this.resultArray);
-  };
 
   renderOptions = (i, question, ans, marks, options) => {
     let y = 0;
@@ -156,9 +131,7 @@ class StartExam extends React.Component {
           this.totalMarks += parseInt(this.resultArray[j].marks);
         }
       }
-      this.props.clearExamSetForExam();
-      console.log(this.totalMarks);
-      this.props.history.push("/exam/ExamResult/" + this.totalMarks);
+      this.props.history.push("/exam/ExamResult/"+this.totalMarks);
     }
   };
 
@@ -178,22 +151,33 @@ class StartExam extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <React.Fragment>
-        <div className="col-lg-12">{this.renderQuestion()}</div>
+  componentWillUnmount() {
+    this.props.examResponse(this.resultArray)
+    // console.log(this.props);
+  }
 
+  render() {
+    // console.log(Countdown);
+    return (
+      <div style={{ minHeight: 500 }}>
+        {this.renderTime()}
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12" />
+              {this.renderQuestion()}
+            </div>
+        </div>
         {this.displaySubmitButton()}
-      </React.Fragment>
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return { examUser: state.examUser, examSetForUser: state.examSetForUser };
+  return { examUser: state.examUser, examSetForUser: state.examSetForUser, responseArray: state.responseArray };
 };
 
 export default connect(
   mapStateToProps,
-  { clearExamSetForExam }
+  {examResponse}
 )(StartExam);

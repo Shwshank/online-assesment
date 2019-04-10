@@ -1,8 +1,8 @@
 import React from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
-
 import UserTable from "./userTable";
+import { uploadUserFile } from "../../api/APIendpoint"
 import {
   setUser,
   setUsers,
@@ -63,7 +63,7 @@ class User extends React.Component {
               onChange={opt => this.assignExamDropdown(opt, u)}
             />
 
-            <button
+            <button  data-test="delete_user_button"
               onClick={this.assignExam}
               className="btn btn-primary btn-sm"
               style={{ margin: "5px 0px 0px 0px" }}
@@ -71,7 +71,7 @@ class User extends React.Component {
               Assign
             </button>
 
-            <button
+            <button data-test="delete_user_button"
               onClick={this.deleteUser.bind(this, i, u)}
               className="btn btn-danger btn-sm float-right"
               style={{ margin: "5px 0px 0px 0px" }}
@@ -186,7 +186,7 @@ class User extends React.Component {
     user.timeStamp = "";
 
     await this.props.setUser(user);
-    alert("Created!");
+    alert("New user created")
     await this.setState({
       email: "",
       name: "",
@@ -197,29 +197,46 @@ class User extends React.Component {
     });
   };
 
+  uploadUsersViaFile = ($event)=>{
+    let files = $event.target.files || $event.srcElement.files;
+    let file = files[0];
+    console.log(file);
+    let formData = new FormData();
+    formData.append('file', file);
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event:any) => {
+       console.log(reader.result);
+       uploadUserFile(reader.result).then(res=>{
+         console.log(res);
+       })
+    }
+  }
+
   render() {
     return (
-      <React.Fragment>
-        <h4
+      <div data-test="user_div" >
+        <h4 data-test="user_heading"
           className={this.toggleClasses()}
           onClick={this.handleToggle}
           style={{ cursor: "pointer", marginBottom: 20 }}
         >
           User <span id="triangle-down" />
         </h4>
-        <form className="col-lg-6">
-          <div className="upload">
-            <i className="fa fa-upload" aria-hidden="true" />
+        <div >
+
+          <div >
+
             <input
               type="file"
-              multiple=""
-              className="fileUpload"
-              style={{ width: 100 }}
+
+              onChange={this.uploadUsersViaFile}
             />
           </div>
-        </form>
 
-        <div className="col-lg-6 hide" style={{ marginBottom: 15 }}>
+        </div>
+
+        <div data-test="add_user" className="col-lg-6 hide" style={{ marginBottom: 15 }}>
           <div className="card">
             <div className="card-header">
               <h5>Add an user </h5>
@@ -274,7 +291,7 @@ class User extends React.Component {
         <div className="col-lg-12">
           <UserTable onUserTable={this.renderUser()} />
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

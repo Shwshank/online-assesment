@@ -2,12 +2,12 @@ import _ from "lodash";
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 import { getQuestions } from "../../actions";
 import QuestionOnSetTable from "./questionOnSetTable";
 class ExamSetting extends React.Component {
   constructor(props) {
     super(props);
-    // console.log(props);
     this.state = {
       set_id: "",
       name: "",
@@ -19,11 +19,10 @@ class ExamSetting extends React.Component {
 
   componentDidMount() {
     this.props.getQuestions();
-    // console.log(this.props);
   }
 
   componentDidUpdate = () => {
-    // console.log(this.props.examSetDetails);
+    console.log(this.props);
   };
 
   handleLinkClick(set_id) {
@@ -130,3 +129,29 @@ export default connect(
   mapStateToProps,
   { getQuestions }
 )(ExamSetting);
+
+ExamSetting.propTypes = {
+  examSetDetails: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    question_array: PropTypes.array,
+    set_id: PropTypes.string,
+    time: PropTypes.string,
+    total_marks: PropTypes.number,
+  })),
+
+  getQuestions:PropTypes.func,
+
+  questions: PropTypes.arrayOf(PropTypes.shape({
+    ans: PropTypes.string,
+    difficulty_level: PropTypes.string,
+    image_url: PropTypes.string,
+    marks: PropTypes.string,
+    option_a: PropTypes.string,
+    option_b: PropTypes.string,
+    option_c: PropTypes.string,
+    option_d: PropTypes.string,
+    option_e: PropTypes.string,
+    question: PropTypes.string,
+    question_id: PropTypes.string
+  }))
+}

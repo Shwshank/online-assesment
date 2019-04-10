@@ -58,12 +58,32 @@ export const updateExamSet = async(examSet) =>{
   return response.data;
 }
 
-export const getExamUserConformationDetails = async() =>{
-  const response = await baseURL.get('/startExamMetaData');
+export const getExamUserConformationDetails = async(id) =>{
+
+  const response = await baseURL.post('/getUserInfo', {token_id: id});
   return response.data;
 }
 
-export const getExamSetForExamAPI = async() => {
-  const response = await baseURL.get('/setId=3884&userId=8387b0f2a74a4e7e862ddc3d2603130c');
+export const getExamSetForExamAPI = async(token, user_id) => {
+
+  const response = await baseURL.post('/getSet', {token: token, user_id:user_id});
+  return response.data;
+}
+
+export const submitExamSetAPI = async(result) => {
+
+  const response = await baseURL.post('/result', result);
+  return response.data;
+}
+
+export const uploadUserFile = async(file) => {
+
+  const response = await baseURL.post('/uploadUsers', file, header);
+  return response.data;
+}
+
+export const uploadQuestionFile = async(file) => {
+
+  const response = await baseURL.post('/uploadQtn', file, header);
   return response.data;
 }
