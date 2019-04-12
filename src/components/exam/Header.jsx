@@ -8,7 +8,7 @@ class Header extends React.Component {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-12">
-              <img className="logo" src="images/logo.png" alt="" />
+              <img className="logo" src="/images/logo.png" alt="" />
             </div>
           </div>
         </div>
