@@ -30,7 +30,6 @@ class App extends React.Component {
 
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
-            <Route path="/exam" component={Exam} />
             <Route path="/exam/IntroPage/:id" exact component={IntroPage} />
             <Route path="/exam/StartExam" exact component={StartExam} />
             <Route path="/exam/ExamResult/:id" exact component={ExamResult}/>
