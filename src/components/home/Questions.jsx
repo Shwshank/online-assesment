@@ -43,7 +43,7 @@ class Questions extends React.Component {
     formData.append("file", file);
     let reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = (event:any) => {
+    reader.onload = (event) => {
        console.log(reader.result);
        uploadQuestionFile({file : reader.result}).then(res=>{
          console.log(res);
