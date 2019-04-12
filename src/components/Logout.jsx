@@ -1,11 +1,11 @@
 import React from 'react';
-import history from './history';
+// import history from './history';
 
 class Logout extends React.Component {
 
   componentWillMount() {
     localStorage.clear();
-    history.push('/login');
+    window.location.replace("#/login")
   }
 
   render() {

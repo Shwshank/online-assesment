@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getQuestions } from "../../actions";
 import { uploadQuestionFile } from "../../api/APIendpoint"
+import Footer from "./Footer";
 
 class Questions extends React.Component {
   componentDidMount() {
@@ -52,7 +53,7 @@ class Questions extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         <div >
           <div >
 
@@ -84,7 +85,8 @@ class Questions extends React.Component {
             <tbody>{this.renderQuestions()}</tbody>
           </table>
         </div>
-      </React.Fragment>
+        <Footer/>
+      </div>
     );
   }
 }

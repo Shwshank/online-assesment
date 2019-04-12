@@ -46,7 +46,7 @@ class ExamSetting extends React.Component {
             Edit
           </Link>
           <p>Name : {this.props.examSetDetails.name} </p>
-          <p>Time: {this.props.examSetDetails.time}</p>
+          <p>Time: {this.props.examSetDetails.time} mins</p>
           <p>Marks: {this.props.examSetDetails.total_marks}</p>
           {this.displaySetQuestions(questionsOnSet)}
         </div>

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { getExamSet, getExamSets } from "../../actions";
 import ExamSetting from "./ExamSetting";
+import Footer from "./Footer";
 
 class ExamSet extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class ExamSet extends React.Component {
             <td>{i}</td>
             <td>{exam.name}</td>
             <td>{exam.question_array.length}</td>
-            <td>{exam.time}hr</td>
+            <td>{exam.time} mins</td>
             <td>{exam.total_marks}</td>
             <td>
               <button
@@ -62,12 +63,13 @@ class ExamSet extends React.Component {
       total_marks: 0
     };
     this.props.getExamSet(exam);
-    this.props.history.push("/home/examSetSettingForm/123");
+    // this.props.history.push("/home/examSetSettingForm/123");
+    window.location.replace("#/home/examSetSettingForm/123")
   };
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         <div className="col-12">
           <h4>Exam Set</h4>
           <button
@@ -97,7 +99,8 @@ class ExamSet extends React.Component {
         <div className="col-12">
           <ExamSetting examSetDetails={this.state.examSet} />
         </div>
-      </React.Fragment>
+        <Footer/>
+      </div>
     );
   }
 }

@@ -9,6 +9,7 @@ import {
   getExamSets,
   editUser
 } from "../../actions";
+import Footer from "./Footer";
 
 class User extends React.Component {
   counter = 1;
@@ -51,7 +52,7 @@ class User extends React.Component {
           <td>{u.email}</td>
           <td>{u.phone}</td>
           <td>
-            {u.status === "Assigned" ? u.status + ", Exam :" + u.set_id : ""}
+            {u.status === "" ?  "": u.status + ", Exam :" + u.set_id}
           </td>
           <td>{(parseInt(u.marks)>0) ? u.marks + ", Exam : " + u.set_id : ""}</td>
           <td>{u.timeStamp}</td>
@@ -307,6 +308,8 @@ class User extends React.Component {
             <tbody>{this.renderUser()}</tbody>
           </table>
         </div>
+
+        <Footer/>
       </div>
     );
   }

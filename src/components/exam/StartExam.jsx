@@ -21,7 +21,7 @@ class StartExam extends React.Component {
     // console.log(this.props);
     if(this.props.examSetForUser.set_data){
       if(this.props.examSetForUser.set_data.time) {
-        let timeAllowted = parseInt(this.props.examSetForUser.set_data.time) * 60 * 60 * 1000;
+        let timeAllowted = parseInt(this.props.examSetForUser.set_data.time) * 60  * 1000;
         // console.log(timeAllowted);
         return(
           <Countdown date={Date.now() + timeAllowted} >
@@ -122,7 +122,8 @@ class StartExam extends React.Component {
         }
       }
       // console.log(this.totalMarks);
-      this.props.history.push("/exam/ExamResult/"+this.totalMarks);
+      // this.props.history.push("/exam/ExamResult/"+this.totalMarks);
+      window.location.replace("#/exam/ExamResult/"+this.totalMarks)
     }
   }
 

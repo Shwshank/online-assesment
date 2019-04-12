@@ -6,7 +6,7 @@ import { getExamUserDetails, getExamSetForExam } from "../../actions";
 class IntroPage extends React.Component {
 
   componentWillMount() {
-    // console.log(this.props.match.params.id);
+    console.log(this.props.match.params.id);
     let id = this.props.match.params.id;
     id = id.substr(3)
     // console.log(id);
@@ -14,7 +14,7 @@ class IntroPage extends React.Component {
   }
 
   componentDidMount() {
-    // console.log(this.props);
+    console.log(this.props);
   }
 
   startExam(token, user_id) {
@@ -23,7 +23,8 @@ class IntroPage extends React.Component {
         // console.log(token);
         // console.log(user_id);
         this.props.getExamSetForExam(token, user_id);
-        this.props.history.push("/exam/StartExam");
+        // this.props.history.push("/exam/StartExam");
+        window.location.replace("#/exam/StartExam/")
       }
   }
 
@@ -40,6 +41,8 @@ class IntroPage extends React.Component {
                 </p>
                 <p>{this.props.examUser.user_details.phone}</p>
                 <p>{this.props.examUser.user_details.email}</p>
+                <p>Exam set id: {this.props.examUser.user_details.set_id}</p>
+                <p>Exam time: {this.props.examUser.user_details.time} Mins</p>
                 <hr />
                 <h5> Exam Details </h5>
                 <p>

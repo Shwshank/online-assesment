@@ -24,7 +24,8 @@ class MiddleLayer extends React.Component {
     }
       this.props.clearExamSetForExam()
       // console.log(this.totalMarks);
-      history.push("/exam/ExamResult/"+this.totalMarks);
+      // history.push("/exam/ExamResult/"+this.totalMarks);
+      window.location.replace("#/exam/ExamResult/"+this.totalMarks)
 
 
   }

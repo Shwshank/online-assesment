@@ -1,14 +1,8 @@
 import React from "react";
-import { Route, Router, Switch, Redirect } from "react-router-dom";
 
-import User from "./User";
 import Auth from "../Auth";
 import Header from "./Header";
-import Footer from "./Footer";
-import ExamSet from "./ExamSet";
-import history from "../history";
-import Questions from "./Questions";
-import ExamSettingForm from "./ExamSettingForm";
+
 
 class Home extends React.Component {
   constructor(props) {
@@ -18,7 +12,9 @@ class Home extends React.Component {
 
   componentWillMount() {
     if (!Auth()) {
-      history.push("/login");
+      window.location.replace("#/login")
+    } else{
+      window.location.replace("#/home/user")
     }
   }
 
@@ -26,24 +22,7 @@ class Home extends React.Component {
     return (
       <div data-test='home_div'>
         <Header/>
-        <Router history={history}>
-          <main className="content">
-            <div className="container">
-              <div className="row">
-                <Switch>
-                  <Route path="/" exact component={User} />
-                  <Route path="/home/" exact component={User} />
-                  <Route path="/home/user" exact component={User} />
-                  <Route path="/home/questions" exact component={Questions} />
-                  <Route path="/home/examSet" exact component={ExamSet} />
-                  <Route path="/home/examSetSettingForm/:id" exact component={ExamSettingForm} />
-                  <Redirect from="/home/*" to="/home" />
-                </Switch>
-              </div>
-            </div>
-          </main>
-        </Router>
-        <Footer/>
+
       </div>
     );
   }

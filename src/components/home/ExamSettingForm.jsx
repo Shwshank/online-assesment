@@ -49,7 +49,7 @@ class ExamSettingForm extends React.Component {
                     className="form-control"
                     value={this.props.exam.time}
                     onChange={this.setTimeChanged}
-                  />
+                  /> mins
                 </div>
                 <div className="form-group" style={{ marginBottom: 0 }}>
                   <label>Set ID:</label>
@@ -270,13 +270,14 @@ class ExamSettingForm extends React.Component {
     // console.log(this.props.exam);
     if (window.confirm("Are you sure to save the changes?")) {
       this.props.editExamSet(this.props.exam);
-      this.props.history.push("/home/examSet");
+      // this.props.history.push("/home/examSet");
+      window.location.replace("#/home/examSet")
     }
   };
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         <div className="col-lg-12">
           {this.displayExamDetails()}
 
@@ -292,7 +293,7 @@ class ExamSettingForm extends React.Component {
           <hr/>
           {this.displayNonSetQuestions()}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
