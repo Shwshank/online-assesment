@@ -1,5 +1,5 @@
 import React from "react";
-import history from "../history";
+// import history from "../history";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { clearStore } from "../../actions";
@@ -14,17 +14,21 @@ class Header extends React.Component {
 
   logout = () => {
     this.props.clearStore();
-    history.push("/logout");
+    window.location.replace("#/login")
   };
 
   goToUser() {
-    history.push("/home/user");
+    // history.push("/user");
+    console.log("user");
+      window.location.replace("#/home/user")
   }
   goToQuestions() {
-    history.push("/home/questions");
+    // history.push("/questions");
+    window.location.replace("#/home/questions")
   }
   goToExamSet() {
-    history.push("/home/examSet");
+    // history.push("/examSet");
+    window.location.replace("#/home/examSet")
   }
 
   render() {
@@ -39,20 +43,14 @@ class Header extends React.Component {
               <nav>
                 <ul className="nav float-right">
                   <li className="nav-item">
-                    <NavLink
-                      to="/home/user"
-                      className="nav-link"
-
-                    >
-                      User
+                    <NavLink to="/home/user" className="nav-link">
+                    User
                     </NavLink>
                   </li>
                   <li className="nav-item">
                     <NavLink
                       to="/home/questions"
-                      className="nav-link"
-                      onClick={this.goToQuestions}
-                    >
+                      className="nav-link">
                       Questions
                     </NavLink>
                   </li>
@@ -60,7 +58,6 @@ class Header extends React.Component {
                     <NavLink
                       to="/home/examSet"
                       className="nav-link"
-                      onClick={this.goToExamSet}
                     >
                       Exam Sets
                     </NavLink>
@@ -69,7 +66,6 @@ class Header extends React.Component {
                     <NavLink
                       to="/logout"
                       className="nav-link"
-                      onClick={this.logout}
                     >
                       Logout
                     </NavLink>

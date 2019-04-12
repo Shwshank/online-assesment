@@ -3,7 +3,7 @@ import combineReducers from '../reducers';
 describe('Reducer Test', ()=>{
 
   //Global default state
-  const defaultState = {"examSet": [], "examSetForUser": {}, "examUser": {}, "form": {}, "oneExamSet": {}, "question": [], "user": []};
+  const defaultState = {"examSet": [], "examSetForUser": {}, "examUser": {}, "form": {}, "oneExamSet": {}, "question": [], "responseArray": {}, "user": []};
 
   it('Should return default state', () => {
     const newState = combineReducers(undefined, {});

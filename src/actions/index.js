@@ -1,6 +1,6 @@
 import { getUsers, addNewUser, editUserAPI, deleteUserAPI, getAllQuestions, getAllExamSets, updateExamSet, getExamSetForExamAPI, getExamUserConformationDetails } from '../api/APIendpoint';
 
-import history from "../components/history";
+// import history from "../components/history";
 
 
 export const setUser = (newUser={}) => async dispatch => {
@@ -45,8 +45,7 @@ export const setUsers1 = () => async dispatch => {
       type: 'SET_USERS',
       payload:users
     });
-    console.log("/home");
-    history.push("/home");
+    window.location.replace("#/home/user")
   })
 }
 
@@ -101,6 +100,7 @@ export const editUser = (user, exam) => async dispatch => {
   user.timeStamp = ""
 
   editUserAPI(user).then(res=>{
+
     dispatch({
       type: "EDIT_USER",
       payload: {user: user}

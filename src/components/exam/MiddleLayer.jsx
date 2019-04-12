@@ -1,5 +1,5 @@
 import React from "react";
-import history from "../history";
+// import history from "../history";
 import { connect } from "react-redux";
 import { clearExamSetForExam } from "../../actions";
 // import ExamResult from "./ExamResult";
@@ -24,7 +24,8 @@ class MiddleLayer extends React.Component {
     }
       this.props.clearExamSetForExam()
       // console.log(this.totalMarks);
-      history.push("/exam/ExamResult/"+this.totalMarks);
+      // history.push("/exam/ExamResult/"+this.totalMarks);
+      window.location.replace("#/exam/ExamResult/"+this.totalMarks)
 
 
   }

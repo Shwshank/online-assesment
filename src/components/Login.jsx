@@ -1,6 +1,6 @@
 import React from "react";
 import Auth from "./Auth";
-import history from "./history";
+// import history from "./history";
 import { login } from "../api/APIendpoint";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -17,7 +17,7 @@ class Login extends React.Component {
 
   componentWillMount() {
     if (Auth()) {
-      history.push("/home");
+      window.location.replace("#/home/user")
     }
   }
 

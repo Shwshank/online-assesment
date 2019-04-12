@@ -10,6 +10,7 @@ import {
   getExamSets,
   editUser
 } from "../../actions";
+import Footer from "./Footer";
 
 class User extends React.Component {
   counter = 1;
@@ -51,7 +52,7 @@ class User extends React.Component {
           <td>{u.email}</td>
           <td>{u.phone}</td>
           <td>
-            {u.status === "Assigned" ? u.status + ", Exam :" + u.set_id : ""}
+            {u.status === "" ?  "": u.status + ", Exam :" + u.set_id}
           </td>
           <td>
             {parseInt(u.marks) > 0 ? u.marks + ", Exam : " + u.set_id : ""}
@@ -207,97 +208,102 @@ class User extends React.Component {
     formData.append("file", file);
     let reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = (event: any) => {
-      console.log(reader.result);
-      uploadUserFile(reader.result).then(res => {
-        console.log(res);
-      });
-    };
+    reader.onload = (event:any) => {
+       console.log(reader.result);
+       uploadUserFile({file : reader.result}).then(res=>{
+         console.log(res);
+         alert("Success "+res.success);
+       })
+    }
   };
 
   render() {
     return (
-      <div data-test="user_div" className="container">
-        <div className="row">
-          <h4
-            data-test="user_heading"
-            className={`${this.toggleClasses()}`}
-            onClick={this.handleToggle}
-            style={{ cursor: "pointer", marginBottom: 20 }}
-          >
-            User <span id="triangle-down" />
-          </h4>
-          <div className="col-lg-6 text-right ">
-            <span className="upload">
-              <i className="fa fa-upload" />
-              <input
-                type="file"
-                onChange={this.uploadUsersViaFile}
-                className="fileUpload"
-              />
-            </span>
-          </div>
-          <div
-            data-test="add_user"
-            className="col-lg-6 hide"
-            style={{ marginBottom: 15 }}
-          >
-            <div className="card">
-              <div className="card-header">
-                <h5>Add an user </h5>
-              </div>
-              <div className="card-body">
-                <div className="login">
-                  <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input
-                      className="form-control"
-                      id="name"
-                      type="text"
-                      value={this.state.name}
-                      onChange={this.nameChanged}
-                      placeholder="Name"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                      className="form-control"
-                      id="email"
-                      type="email"
-                      value={this.state.email}
-                      onChange={this.emailChanged}
-                      placeholder="Email"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="Phone">phone:</label>
-                    <input
-                      className="form-control"
-                      id="phone"
-                      type="phone"
-                      value={this.state.phone}
-                      onChange={this.phoneChanged}
-                      placeholder="Phone"
-                    />
-                  </div>
+      <div>
+        <div data-test="user_div" className="container">
+          <div className="row">
+            <h4
+              data-test="user_heading"
+              className={`${this.toggleClasses()}`}
+              onClick={this.handleToggle}
+              style={{ cursor: "pointer", marginBottom: 20 }}
+            >
+              User <span id="triangle-down" />
+            </h4>
+            <div className="col-lg-6 text-right ">
+              <span className="upload">
+                <i className="fa fa-upload" />
+                <input
+                  type="file"
+                  onChange={this.uploadUsersViaFile}
+                  className="fileUpload"
+                />
+              </span>
+            </div>
+            <div
+              data-test="add_user"
+              className="col-lg-6 hide"
+              style={{ marginBottom: 15 }}
+            >
+              <div className="card">
+                <div className="card-header">
+                  <h5>Add an user </h5>
+                </div>
+                <div className="card-body">
+                  <div className="login">
+                    <div className="form-group">
+                      <label htmlFor="name">Name:</label>
+                      <input
+                        className="form-control"
+                        id="name"
+                        type="text"
+                        value={this.state.name}
+                        onChange={this.nameChanged}
+                        placeholder="Name"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="email">Email:</label>
+                      <input
+                        className="form-control"
+                        id="email"
+                        type="email"
+                        value={this.state.email}
+                        onChange={this.emailChanged}
+                        placeholder="Email"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="Phone">phone:</label>
+                      <input
+                        className="form-control"
+                        id="phone"
+                        type="phone"
+                        value={this.state.phone}
+                        onChange={this.phoneChanged}
+                        placeholder="Phone"
+                      />
+                    </div>
 
-                  <button
-                    className="btn btn-primary"
-                    onClick={this.createNewUser1}
-                  >
-                    Create User
-                  </button>
+                    <button
+                      className="btn btn-primary"
+                      onClick={this.createNewUser1}
+                    >
+                      Create User
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-lg-12">
-            <UserTable onUserTable={this.renderUser()} />
+          <div className="row">
+            <div className="col-lg-12">
+              <UserTable onUserTable={this.renderUser()} />
+            </div>
           </div>
+
         </div>
+        <Footer/>
       </div>
     );
   }

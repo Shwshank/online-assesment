@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { getExamSet, getExamSets } from "../../actions";
 import ExamSetting from "./ExamSetting";
 import ExamSetTable from "../../components/home/examSetTable";
+import Footer from "./Footer";
+
 class ExamSet extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,7 @@ class ExamSet extends React.Component {
             <td>{i}</td>
             <td>{exam.name}</td>
             <td>{exam.question_array.length}</td>
-            <td>{exam.time}hr</td>
+            <td>{exam.time} mins</td>
             <td>{exam.total_marks}</td>
             <td>
               <button
@@ -57,17 +59,18 @@ class ExamSet extends React.Component {
     let exam = {
       set_id: "" + set_id,
       name: "Exam set " + set_id,
-      time: "1",
+      time: "30",
       question_array: [],
       total_marks: 0
     };
     this.props.getExamSet(exam);
-    this.props.history.push("/home/examSetSettingForm/123");
+    // this.props.history.push("/home/examSetSettingForm/123");
+    window.location.replace("#/home/examSetSettingForm/set_id")
   };
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -91,7 +94,8 @@ class ExamSet extends React.Component {
             </div>
           </div>
         </div>
-      </React.Fragment>
+        <Footer/>
+      </div>
     );
   }
 }

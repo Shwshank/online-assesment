@@ -37,7 +37,7 @@ class ExamSetting extends React.Component {
       );
 
       return (
-        <React.Fragment>
+        <div>
           <div className="card" style={{ marginBottom: 30 }}>
             <div className="card-body">
               <strong className="card-title" style={{ fontSize: 20 }}>
@@ -62,7 +62,7 @@ class ExamSetting extends React.Component {
                   <strong>Name :</strong> {this.props.examSetDetails.name}
                 </p>
                 <p>
-                  <strong>Time :</strong> {this.props.examSetDetails.time}
+                  <strong>Time :</strong> {this.props.examSetDetails.time} Mins
                 </p>
                 <p className="margin-zero">
                   <strong>Marks:</strong>
@@ -73,7 +73,7 @@ class ExamSetting extends React.Component {
           </div>
 
           {this.displaySetQuestions(questionsOnSet)}
-        </React.Fragment>
+        </div>
       );
     } else {
       return (

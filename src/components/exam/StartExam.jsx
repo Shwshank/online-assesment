@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import Countdown from "react-countdown-now";
 import { examResponse } from "../../actions";
 import MiddleLayer from "./MiddleLayer";
+import  Header  from "./Header";
+import  Footer  from "./Footer";
 
 class StartExam extends React.Component {
   constructor(props) {
@@ -28,27 +30,31 @@ class StartExam extends React.Component {
 
   renderTime = () => {
     // console.log(this.props);
-    if (this.props.examSetForUser.set_data) {
-      if (this.props.examSetForUser.set_data.time) {
-        let timeAllowted =
-          parseInt(this.props.examSetForUser.set_data.time) * 60 * 60 * 1000;
+    if(this.props.examSetForUser.set_data){
+      if(this.props.examSetForUser.set_data.time) {
+        let timeAllowted = parseInt(this.props.examSetForUser.set_data.time) * 60  * 1000;
+
         // console.log(timeAllowted);
         return (
-          <div className="container">
-            <div className="row">
-              <div className="col-12 text-center">
-                <strong
-                  onClick={event => this.handleToggle(event)}
-                  className={this.toggleClassesHandler()}
-                  style={{ position: "relative" }}
-                >
-                  <span id="triangle-down" />
-                  <Countdown date={Date.now() + timeAllowted}>
-                    <MiddleLayer resultArray={this.resultArray} />
-                  </Countdown>
-                </strong>
+          <div>
+            <Header/>
+            <div className="container">
+              <div className="row">
+                <div className="col-12 text-center">
+                  <strong
+                    onClick={event => this.handleToggle(event)}
+                    className={this.toggleClassesHandler()}
+                    style={{ position: "relative" }}
+                  >
+                    <span id="triangle-down" />
+                    <Countdown date={Date.now() + timeAllowted}>
+                      <MiddleLayer resultArray={this.resultArray} />
+                    </Countdown>
+                  </strong>
+                </div>
               </div>
             </div>
+            <Footer/>
           </div>
         );
       }
@@ -158,7 +164,9 @@ class StartExam extends React.Component {
           this.totalMarks += parseInt(this.resultArray[j].marks);
         }
       }
-      this.props.history.push("/exam/ExamResult/" + this.totalMarks);
+      // console.log(this.totalMarks);
+      // this.props.history.push("/exam/ExamResult/"+this.totalMarks);
+      window.location.replace("#/exam/ExamResult/"+this.totalMarks)
     }
   };
 
