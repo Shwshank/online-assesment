@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getQuestions } from "../../actions";
 import QuestionTable from "./questionTable";
-import { uploadQuestionFile } from "../../api/APIendpoint"
+import { uploadQuestionFile } from "../../api/APIendpoint";
 
 class Questions extends React.Component {
   componentDidMount() {
@@ -34,40 +34,44 @@ class Questions extends React.Component {
     }
   }
 
-  uploadQuestionsViaFile = ($event)=>{
+  uploadQuestionsViaFile = $event => {
     let files = $event.target.files || $event.srcElement.files;
     let file = files[0];
     console.log(file);
     let formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
     let reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = (event:any) => {
-       console.log(reader.result);
-       uploadQuestionFile({file : reader.result}).then(res=>{
-         console.log(res);
-       })
-    }
-  }
+    reader.onload = (event: any) => {
+      console.log(reader.result);
+      uploadQuestionFile({ file: reader.result }).then(res => {
+        console.log(res);
+      });
+    };
+  };
 
   render() {
     return (
-      <React.Fragment>
-        <div >
-          <div >
-
-            <input
-              type="file"
-              onChange={this.uploadQuestionsViaFile}
-            />
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12 text-right">
+            <span className="upload">
+              <i className="fa fa-upload" />
+              <input
+                type="file"
+                onChange={this.uploadQuestionsViaFile}
+                className="fileUpload"
+              />
+            </span>
           </div>
         </div>
-
-        <div className="col-lg-12">
-          <h4>Questions</h4>
-          <QuestionTable onQuestionTable={this.renderQuestions()} />
+        <div className="row">
+          <div className="col-lg-12">
+            <h4>Questions</h4>
+            <QuestionTable onQuestionTable={this.renderQuestions()} />
+          </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

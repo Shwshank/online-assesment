@@ -1,9 +1,22 @@
 $borderColor: #ccc;
-$primaryBgColor: #4db6ac;
+$primaryBgColor: #2f93a2;
 $defaultTextColor: #fff;
 $secondaryTextColor: #000;
-$cardHeaderBg: #f7f8fa;
-$default-text-color:#687178;
+$cardHeaderBg: #f1f1f1;
+$default-text-color: #687178;
+$btnBgColor: #039be5;
+$color1: rgb(189, 195, 199);
+$color2: rgb(44, 62, 80);
+$color3: rgb(33, 147, 176);
+$color4: rgb(109, 213, 237);
+$list: $color1, $color2;
+$list1: $color3, $color4;
+@mixin gradient($direction, $list) {
+  background: -webkit-linear-gradient($direction, $list);
+  background: -moz-linear-gradient($direction, $list);
+  background: -o-linear-gradient($direction, $list);
+  background: linear-gradient($direction, $list);
+}
 @import "header";
 @import "page";
 @import "footer";

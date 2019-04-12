@@ -6,8 +6,33 @@ body,
 .btn-primary:hover,
 .btn-primary:active {
   color: $defaultTextColor !important;
-  background-color: $primaryBgColor !important;
-  border-color: $primaryBgColor !important;
+  background-color: $btnBgColor !important;
+  border-color: $btnBgColor !important;
+}
+.accodian {
+  width: 140px !important;
+  display: inline-block;
+  margin: 0 0 15px;
+  cursor: pointer;
+  #triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid $btnBgColor;
+    top: 9px;
+    position: absolute;
+    left: auto;
+    right: 0;
+    transition: all 0.5s;
+    transform: rotate(0deg);
+  }
+  &.active #triangle-down {
+    transform: rotate(-90deg);
+  }
+  &.active span:last-child {
+    opacity: 0;
+  }
 }
 .margin-zero {
   margin: 0;
@@ -25,7 +50,7 @@ main.content {
 .toggleActive {
   position: relative;
 }
-.toggleActive + form + .hide {
+.toggleActive + div + .hide {
   display: none;
 }
 .btn {
@@ -45,7 +70,7 @@ main.content {
 i.fa.fa-upload {
   color: $defaultTextColor;
   padding: 10px 42px;
-  background: $primaryBgColor;
+  background: $btnBgColor;
   cursor: pointer;
 }
 .card-header {

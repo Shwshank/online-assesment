@@ -1,11 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
-import Countdown from 'react-countdown-now';
+import Countdown from "react-countdown-now";
 import { examResponse } from "../../actions";
 import MiddleLayer from "./MiddleLayer";
 
 class StartExam extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      toggle: false
+    };
+  }
 
+  handleToggle = event => {
+    event.preventDefault();
+    let toggle = !this.state.toggle;
+    this.setState({ toggle });
+  };
+  toggleClassesHandler = () => {
+    const classes = this.state.toggle ? "active accodian" : "accodian";
+    return classes;
+  };
   totalMarks = 0;
   resultArray = [];
 
@@ -13,21 +28,34 @@ class StartExam extends React.Component {
 
   renderTime = () => {
     // console.log(this.props);
-    if(this.props.examSetForUser.set_data){
-      if(this.props.examSetForUser.set_data.time) {
-        let timeAllowted = parseInt(this.props.examSetForUser.set_data.time) * 60 * 60 * 1000;
+    if (this.props.examSetForUser.set_data) {
+      if (this.props.examSetForUser.set_data.time) {
+        let timeAllowted =
+          parseInt(this.props.examSetForUser.set_data.time) * 60 * 60 * 1000;
         // console.log(timeAllowted);
-        return(
-          <Countdown date={Date.now() + timeAllowted} >
-            <MiddleLayer resultArray={this.resultArray}/>
-          </Countdown>
-        )
+        return (
+          <div className="container">
+            <div className="row">
+              <div className="col-12 text-center">
+                <strong
+                  onClick={event => this.handleToggle(event)}
+                  className={this.toggleClassesHandler()}
+                  style={{ position: "relative" }}
+                >
+                  <span id="triangle-down" />
+                  <Countdown date={Date.now() + timeAllowted}>
+                    <MiddleLayer resultArray={this.resultArray} />
+                  </Countdown>
+                </strong>
+              </div>
+            </div>
+          </div>
+        );
       }
     }
-  }
+  };
 
-  onSiteChanged=(i, question, ans, marks, selected)=>{
-
+  onSiteChanged = (i, question, ans, marks, selected) => {
     let result = {
       sno: i,
       question: question,
@@ -51,8 +79,7 @@ class StartExam extends React.Component {
     } else {
       this.resultArray.push(result);
     }
-  }
-
+  };
 
   renderOptions = (i, question, ans, marks, options) => {
     let y = 0;
@@ -131,53 +158,59 @@ class StartExam extends React.Component {
           this.totalMarks += parseInt(this.resultArray[j].marks);
         }
       }
-      this.props.history.push("/exam/ExamResult/"+this.totalMarks);
+      this.props.history.push("/exam/ExamResult/" + this.totalMarks);
     }
   };
 
   displaySubmitButton() {
     if (this.props.examSetForUser.template_data) {
       return (
-        <div className="col-lg-12">
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={this.submitExam}
-            style={{ marginBottom: 30 }}
-          >
-            Submit
-          </button>
+        <div className="row">
+          <div className="col-lg-12">
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={this.submitExam}
+              style={{ marginBottom: 30 }}
+            >
+              Submit
+            </button>
+          </div>
         </div>
       );
     }
   }
 
   componentWillUnmount() {
-    this.props.examResponse(this.resultArray)
+    this.props.examResponse(this.resultArray);
     // console.log(this.props);
   }
 
   render() {
     // console.log(Countdown);
+
     return (
       <div style={{ minHeight: 500 }}>
         {this.renderTime()}
         <div className="container">
           <div className="row">
-            <div className="col-lg-12" />
-              {this.renderQuestion()}
-            </div>
+            <div className="col-lg-12">{this.renderQuestion()}</div>
+          </div>
+          {this.displaySubmitButton()}
         </div>
-        {this.displaySubmitButton()}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return { examUser: state.examUser, examSetForUser: state.examSetForUser, responseArray: state.responseArray };
+  return {
+    examUser: state.examUser,
+    examSetForUser: state.examSetForUser,
+    responseArray: state.responseArray
+  };
 };
 
 export default connect(
   mapStateToProps,
-  {examResponse}
+  { examResponse }
 )(StartExam);

@@ -24,26 +24,26 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div data-test='home_div'>
-        <Header/>
+      <div data-test="home_div">
+        <Header />
         <Router history={history}>
           <main className="content">
-            <div className="container">
-              <div className="row">
-                <Switch>
-                  <Route path="/" exact component={User} />
-                  <Route path="/home/" exact component={User} />
-                  <Route path="/home/user" exact component={User} />
-                  <Route path="/home/questions" exact component={Questions} />
-                  <Route path="/home/examSet" exact component={ExamSet} />
-                  <Route path="/home/examSetSettingForm/:id" exact component={ExamSettingForm} />
-                  <Redirect from="/home/*" to="/home" />
-                </Switch>
-              </div>
-            </div>
+            <Switch>
+              <Route path="/" exact component={User} />
+              <Route path="/home/" exact component={User} />
+              <Route path="/home/user" exact component={User} />
+              <Route path="/home/questions" exact component={Questions} />
+              <Route path="/home/examSet" exact component={ExamSet} />
+              <Route
+                path="/home/examSetSettingForm/:id"
+                exact
+                component={ExamSettingForm}
+              />
+              <Redirect from="/home/*" to="/home" />
+            </Switch>
           </main>
         </Router>
-        <Footer/>
+        <Footer />
       </div>
     );
   }

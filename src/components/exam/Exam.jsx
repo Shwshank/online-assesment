@@ -15,19 +15,18 @@ class Exam extends React.Component {
   }
 
   render() {
-
-    return(
+    return (
       <div>
-        <Header/>
-          <div>
-            <Router history={history}>
-              <Switch>
-                <Route path="/exam/IntroPage/:id" exact component={IntroPage} />
-                <Route path="/exam/StartExam" exact component={StartExam} />
-                <Route path="/exam/ExamResult/:id" exact component={ExamResult} />
-              </Switch>
-            </Router>
-          </div>
+        <Header />
+        <main className="content">
+          <Router history={history}>
+            <Switch>
+              <Route path="/exam/IntroPage/:id" exact component={IntroPage} />
+              <Route path="/exam/StartExam" exact component={StartExam} />
+              <Route path="/exam/ExamResult/:id" exact component={ExamResult} />
+            </Switch>
+          </Router>
+        </main>
         <Footer />
       </div>
     );

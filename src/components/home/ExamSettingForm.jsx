@@ -251,15 +251,17 @@ class ExamSettingForm extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <div className="col-lg-12">
-          {this.displayExamDetails()}
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12">
+            {this.displayExamDetails()}
 
-          <hr />
+            <hr />
 
-          {this.displayNonSetQuestions()}
+            {this.displayNonSetQuestions()}
+          </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

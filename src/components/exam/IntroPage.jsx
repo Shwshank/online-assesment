@@ -4,11 +4,10 @@ import { connect } from "react-redux";
 import { getExamUserDetails, getExamSetForExam } from "../../actions";
 
 class IntroPage extends React.Component {
-
   componentWillMount() {
     // console.log(this.props.match.params.id);
     let id = this.props.match.params.id;
-    id = id.substr(3)
+    id = id.substr(3);
     // console.log(id);
     this.props.getExamUserDetails(id);
   }
@@ -30,42 +29,39 @@ class IntroPage extends React.Component {
   userDetails() {
     if (this.props.examUser.token) {
       return (
-        <div className="content">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <h5> Please confirm user details</h5>
-                <p>
-                  <strong>{this.props.examUser.user_details.name}</strong>
-                </p>
-                <p>{this.props.examUser.user_details.phone}</p>
-                <p>{this.props.examUser.user_details.email}</p>
-                <hr />
-                <h5> Exam Details </h5>
-                <p>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <h5> Please confirm user details</h5>
+              <p>
+                <strong>{this.props.examUser.user_details.name}</strong>
+              </p>
+              <p>{this.props.examUser.user_details.phone}</p>
+              <p>{this.props.examUser.user_details.email}</p>
+              <hr />
+              <div className="card">
+                <div className="card-body">
+                  <h5>Exam Details </h5>
                   Here are the exam rules, please go-through the content. If
                   aggree, please click on the continue button. Display some
                   graphic informcation here
-                </p>
-                <hr />
-                <button
-                  className="btn btn-primary btn-sm"
-                  onClick={this.startExam.bind(this, this.props.examUser.token, this.props.examUser.user_details.user_id)}
-                  style={{ marginBottom: 30 }}
-                >
-                  Continue
-                </button>
+                </div>
               </div>
+
+              <hr />
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={this.startExam.bind(
+                  this,
+                  this.props.examUser.token,
+                  this.props.examUser.user_details.user_id
+                )}
+                style={{ marginBottom: 30 }}
+              >
+                Continue
+              </button>
             </div>
           </div>
-
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={this.startExam.bind(this, this.props.examUser)}
-            style={{ margin: "30px 0" }}
-          >
-            Continue
-          </button>
         </div>
       );
     } else {

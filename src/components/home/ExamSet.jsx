@@ -68,24 +68,28 @@ class ExamSet extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="col-12">
-          <h4>
-            Exam Set
-            <button
-              onClick={this.newExamSet}
-              className="btn btn-primary btn-sm float-right"
-              style={{ marginBottom: 15 }}
-            >
-              <i className="fa fa-cog" aria-hidden="true" />
-              New Set
-            </button>
-          </h4>
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h4>
+                Exam Set
+                <button
+                  onClick={this.newExamSet}
+                  className="btn btn-primary btn-sm float-right"
+                  style={{ marginBottom: 15 }}
+                >
+                  <i className="fa fa-cog" aria-hidden="true" />
+                  New Set
+                </button>
+              </h4>
 
-          <ExamSetTable onExamSetTable={this.renderExamSets()} />
-        </div>
+              <ExamSetTable onExamSetTable={this.renderExamSets()} />
+            </div>
 
-        <div className="col-12">
-          <ExamSetting examSetDetails={this.state.examSet} />
+            <div className="col-12">
+              <ExamSetting examSetDetails={this.state.examSet} />
+            </div>
+          </div>
         </div>
       </React.Fragment>
     );
