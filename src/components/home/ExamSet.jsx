@@ -30,7 +30,7 @@ class ExamSet extends React.Component {
             <td>{exam.question_array.length}</td>
             <td>{exam.time} mins</td>
             <td>{exam.total_marks}</td>
-            <td>
+            <td align="right">
               <button
                 className="btn btn-primary btn-sm"
                 onClick={this.examDetails.bind(this, exam, exam.set_id, i)}
@@ -65,37 +65,41 @@ class ExamSet extends React.Component {
     };
     this.props.getExamSet(exam);
     // this.props.history.push("/home/examSetSettingForm/123");
-    window.location.replace("#/home/examSetSettingForm/set_id")
+    window.location.replace("#/home/examSetSettingForm/set_id");
   };
 
   render() {
     return (
-      <div>
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <h4>
-                Exam Set
-                <button
-                  onClick={this.newExamSet}
-                  className="btn btn-primary btn-sm float-right"
-                  style={{ marginBottom: 15 }}
-                >
-                  <i className="fa fa-cog" aria-hidden="true" />
-                  New Set
-                </button>
-              </h4>
+      <main>
+        <div className="content">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-lg-12">
+                <h4>
+                  Exam Set
+                  <button
+                    onClick={this.newExamSet}
+                    className="btn btn-primary btn-sm float-right"
+                    style={{ marginBottom: 15 }}
+                  >
+                    <i className="fa fa-cog" aria-hidden="true" />
+                    New Set
+                  </button>
+                </h4>
 
-              <ExamSetTable onExamSetTable={this.renderExamSets()} />
-            </div>
+                <div className="exam-set-table">
+                  <ExamSetTable onExamSetTable={this.renderExamSets()} />
+                </div>
+              </div>
 
-            <div className="col-12">
-              <ExamSetting examSetDetails={this.state.examSet} />
+              <div className="col-lg-12">
+                <ExamSetting examSetDetails={this.state.examSet} />
+              </div>
             </div>
           </div>
         </div>
-        <Footer/>
-      </div>
+        <Footer />
+      </main>
     );
   }
 }

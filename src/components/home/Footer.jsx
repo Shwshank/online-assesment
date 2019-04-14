@@ -5,9 +5,9 @@ class Footer extends React.Component {
   render() {
     return (
       <footer className="footer">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
-            <p>
+            <p className="col-lg-12">
               &copy; powered by <strong>QCI</strong>
             </p>
           </div>

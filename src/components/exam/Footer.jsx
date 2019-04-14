@@ -5,7 +5,7 @@ class Footer extends React.Component {
   render() {
     return (
       <footer className="footer">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
             <div className="col-lg-12">
               <p>

@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import Countdown from "react-countdown-now";
 import { examResponse } from "../../actions";
 import MiddleLayer from "./MiddleLayer";
-import  Header  from "./Header";
-import  Footer  from "./Footer";
+import Header from "./Header";
+import Footer from "./Footer";
 
 class StartExam extends React.Component {
   constructor(props) {
@@ -30,15 +30,16 @@ class StartExam extends React.Component {
 
   renderTime = () => {
     // console.log(this.props);
-    if(this.props.examSetForUser.set_data){
-      if(this.props.examSetForUser.set_data.time) {
-        let timeAllowted = parseInt(this.props.examSetForUser.set_data.time) * 60  * 1000;
+    if (this.props.examSetForUser.set_data) {
+      if (this.props.examSetForUser.set_data.time) {
+        let timeAllowted =
+          parseInt(this.props.examSetForUser.set_data.time) * 60 * 1000;
 
         // console.log(timeAllowted);
         return (
           <div>
-            <Header/>
-            <div className="container">
+            <Header />
+            <div className="container-fluid">
               <div className="row">
                 <div className="col-12 text-center">
                   <strong
@@ -54,7 +55,6 @@ class StartExam extends React.Component {
                 </div>
               </div>
             </div>
-            <Footer/>
           </div>
         );
       }
@@ -166,7 +166,7 @@ class StartExam extends React.Component {
       }
       // console.log(this.totalMarks);
       // this.props.history.push("/exam/ExamResult/"+this.totalMarks);
-      window.location.replace("#/exam/ExamResult/"+this.totalMarks)
+      window.location.replace("#/exam/ExamResult/" + this.totalMarks);
     }
   };
 
@@ -197,14 +197,15 @@ class StartExam extends React.Component {
     // console.log(Countdown);
 
     return (
-      <div style={{ minHeight: 500 }}>
+      <div className="content">
         {this.renderTime()}
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
             <div className="col-lg-12">{this.renderQuestion()}</div>
           </div>
           {this.displaySubmitButton()}
         </div>
+        <Footer />
       </div>
     );
   }

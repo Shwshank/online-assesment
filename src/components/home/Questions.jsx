@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getQuestions } from "../../actions";
 import QuestionTable from "./questionTable";
-import { uploadQuestionFile } from "../../api/APIendpoint"
+import { uploadQuestionFile } from "../../api/APIendpoint";
 import Footer from "./Footer";
 
 class Questions extends React.Component {
@@ -43,40 +43,42 @@ class Questions extends React.Component {
     formData.append("file", file);
     let reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = (event:any) => {
-       console.log(reader.result);
-       uploadQuestionFile({file : reader.result}).then(res=>{
-         console.log(res);
-         alert("Success "+res.success)
-       })
-    }
+    reader.onload = event => {
+      console.log(reader.result);
+      uploadQuestionFile({ file: reader.result }).then(res => {
+        console.log(res);
+        alert("Success " + res.success);
+      });
+    };
   };
 
   render() {
     return (
-      <div>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12 text-right">
-              <span className="upload">
-                <i className="fa fa-upload" />
-                <input
-                  type="file"
-                  onChange={this.uploadQuestionsViaFile}
-                  className="fileUpload"
-                />
-              </span>
+      <main>
+        <div className="content">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-lg-12 text-right">
+                <span className="upload">
+                  <i className="fa fa-upload" />
+                  <input
+                    type="file"
+                    onChange={this.uploadQuestionsViaFile}
+                    className="fileUpload"
+                  />
+                </span>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="col-lg-12">
-              <h4>Questions</h4>
-              <QuestionTable onQuestionTable={this.renderQuestions()} />
+            <div className="row">
+              <div className="col-lg-12">
+                <h4>Questions</h4>
+                <QuestionTable onQuestionTable={this.renderQuestions()} />
+              </div>
             </div>
           </div>
         </div>
-        <Footer/>
-      </div>
+        <Footer />
+      </main>
     );
   }
 }

@@ -9,32 +9,32 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     // console.log(props);
-    this.state={value:''}
+    this.state = { value: "" };
   }
 
   logout = () => {
     this.props.clearStore();
-    window.location.replace("#/login")
+    window.location.replace("#/login");
   };
 
   goToUser() {
     // history.push("/user");
     console.log("user");
-      window.location.replace("#/home/user")
+    window.location.replace("#/home/user");
   }
   goToQuestions() {
     // history.push("/questions");
-    window.location.replace("#/home/questions")
+    window.location.replace("#/home/questions");
   }
   goToExamSet() {
     // history.push("/examSet");
-    window.location.replace("#/home/examSet")
+    window.location.replace("#/home/examSet");
   }
 
   render() {
     return (
       <header className="header">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row align-items-center">
             <div className="col-lg-2">
               <img className="logo" src="/images/logo.png" alt="logo" />
@@ -44,29 +44,21 @@ class Header extends React.Component {
                 <ul className="nav float-right">
                   <li className="nav-item">
                     <NavLink to="/home/user" className="nav-link">
-                    User
+                      User
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink
-                      to="/home/questions"
-                      className="nav-link">
+                    <NavLink to="/home/questions" className="nav-link">
                       Questions
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink
-                      to="/home/examSet"
-                      className="nav-link"
-                    >
+                    <NavLink to="/home/examSet" className="nav-link">
                       Exam Sets
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink
-                      to="/logout"
-                      className="nav-link"
-                    >
+                    <NavLink to="/logout" className="nav-link">
                       Logout
                     </NavLink>
                   </li>

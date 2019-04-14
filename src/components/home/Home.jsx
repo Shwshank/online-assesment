@@ -10,9 +10,9 @@ class Home extends React.Component {
 
   componentWillMount() {
     if (!Auth()) {
-      window.location.replace("#/login")
-    } else{
-      window.location.replace("#/home/user")
+      window.location.replace("#/login");
+    } else {
+      window.location.replace("#/home/user");
     }
   }
 

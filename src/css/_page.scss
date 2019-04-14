@@ -44,8 +44,15 @@ h2 {
 label {
   font-weight: 600;
 }
-main.content {
+.content {
   min-height: 80vh;
+}
+.exam-set-table thead {
+  th {
+    &:last-child {
+      text-align: right;
+    }
+  }
 }
 .toggleActive {
   position: relative;
