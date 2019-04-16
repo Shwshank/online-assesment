@@ -55,7 +55,7 @@ class User extends React.Component {
             {u.status === "" ?  "": u.status + ", Exam :" + u.set_id}
           </td>
           <td>
-            {parseInt(u.marks) > 0 ? u.marks + ", Exam : " + u.set_id : ""}
+            {parseInt(u.marks) > -1 ? u.marks + ", Exam : " + u.set_id : ""}
           </td>
           <td>{u.timeStamp}</td>
           <td>

@@ -15,6 +15,11 @@ export const login = async (email, password) =>{
   // console.log(response.data);
 
   if(response.data.success) {
+
+    header = {
+        headers: {'Authorization': response.data.token+""}
+    };
+
     localStorage.setItem("token", response.data.token+"")
     return true
   } else {
@@ -23,6 +28,8 @@ export const login = async (email, password) =>{
 }
 
 export const getUsers = async() =>{
+
+  console.log(header);
   const response = await baseURL.get('/uploadUsers', header);
   return response.data.user_data;
 }

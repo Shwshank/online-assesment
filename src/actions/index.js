@@ -40,7 +40,7 @@ export const setUsers1 = () => async dispatch => {
 
   getUsers().then(res=>{
     users = res;
-    // console.log(res);
+    console.log(res);
     dispatch({
       type: 'SET_USERS',
       payload:users
