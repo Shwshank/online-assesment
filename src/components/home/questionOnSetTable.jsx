@@ -16,7 +16,7 @@ class QuestionOnSetTable extends Component {
   ];
   render() {
     const { onQuestionOnSetTable } = this.props;
-    return <Table data={onQuestionOnSetTable} columns={this.columns} />;
+    return <Table data={onQuestionOnSetTable} columns={this.columns} id="questionOnSetTable"/>;
   }
 }
 

@@ -11,7 +11,7 @@ class ExamSetTable extends Component {
   ];
   render() {
     const { onExamSetTable } = this.props;
-    return <Table data={onExamSetTable} columns={this.columns} />;
+    return <Table data={onExamSetTable} columns={this.columns} id="examSetTable"/>;
   }
 }
 

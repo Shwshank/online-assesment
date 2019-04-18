@@ -40,7 +40,7 @@ export const setUsers1 = () => async dispatch => {
 
   getUsers().then(res=>{
     users = res;
-    console.log(res);
+    // console.log(res);
     dispatch({
       type: 'SET_USERS',
       payload:users
@@ -51,9 +51,9 @@ export const setUsers1 = () => async dispatch => {
 
 export const deleteUser = (user, position) => async dispatch =>{
 
-  console.log(position);
+  // console.log(position);
   deleteUserAPI({user_id: user.user_id}).then(res=>{
-    console.log(res);
+    // console.log(res);
     dispatch({
       type: 'DELETE_USER',
       payload: position

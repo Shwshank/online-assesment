@@ -4,11 +4,13 @@ import { getQuestions } from "../../actions";
 import QuestionTable from "./questionTable";
 import { uploadQuestionFile } from "../../api/APIendpoint"
 import Footer from "./Footer";
+import $ from 'jquery'
 
 class Questions extends React.Component {
   componentDidMount() {
     this.props.getQuestions();
     // console.log(this.props);
+    $('#questionTable').DataTable();
   }
 
   renderQuestions() {
@@ -16,6 +18,7 @@ class Questions extends React.Component {
       let i = 0;
       return this.props.questions.map(ques => {
         i++;
+        $('#questionTable').DataTable();
         return (
           <tr key={ques.question + i + ""}>
             <td>{i}</td>

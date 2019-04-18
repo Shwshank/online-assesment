@@ -11,6 +11,11 @@ import {
   editUser
 } from "../../actions";
 import Footer from "./Footer";
+import $ from 'jquery'
+import DataTable from "datatables.net";
+// import { getUsers } from '../../api/APIendpoint';
+// var $ = window.$;
+$.DataTable = DataTable
 
 class User extends React.Component {
   counter = 1;
@@ -31,9 +36,10 @@ class User extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.props.getExamSets();
     this.props.setUsers();
+    $('#userTable').DataTable();
   }
 
   renderUser() {
@@ -45,6 +51,7 @@ class User extends React.Component {
     let i = 0;
     return this.props.users.map(u => {
       i++;
+      $('#userTable').DataTable();
       return (
         <tr key={u.name + u.email + i + ""}>
           <td>{i}</td>

@@ -18,7 +18,7 @@ class ExamSettingFormQuestionTable extends Component {
   render() {
     const { onExamSettingFormQuestionTable } = this.props;
     return (
-      <Table data={onExamSettingFormQuestionTable} columns={this.columns} />
+      <Table data={onExamSettingFormQuestionTable} columns={this.columns}  id="examSettingFormQuestionTable"/>
     );
   }
 }

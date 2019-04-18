@@ -29,7 +29,7 @@ export const login = async (email, password) =>{
 
 export const getUsers = async() =>{
 
-  console.log(header);
+  // console.log(header);
   const response = await baseURL.get('/uploadUsers', header);
   return response.data.user_data;
 }

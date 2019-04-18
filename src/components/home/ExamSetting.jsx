@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { getQuestions } from "../../actions";
 import QuestionOnSetTable from "./questionOnSetTable";
+import $ from 'jquery'
+
 class ExamSetting extends React.Component {
   constructor(props) {
     super(props);
@@ -97,6 +99,7 @@ class ExamSetting extends React.Component {
   renderQuestions(questionsOnSet) {
     let i = 0;
     return questionsOnSet.map(ques => {
+      $('#questionOnSetTable').DataTable();
       i++;
       return (
         <tr key={ques.question + i + ""}>
