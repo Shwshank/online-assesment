@@ -16,7 +16,7 @@ class UserTable extends Component {
 
     return (
       <React.Fragment>
-        <Table data={onUserTable} columns={this.columns} />
+        <Table data={onUserTable} columns={this.columns} id="userTable"/>
       </React.Fragment>
     );
   }

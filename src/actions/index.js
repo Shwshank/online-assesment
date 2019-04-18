@@ -51,9 +51,9 @@ export const setUsers1 = () => async dispatch => {
 
 export const deleteUser = (user, position) => async dispatch =>{
 
-  console.log(position);
+  // console.log(position);
   deleteUserAPI({user_id: user.user_id}).then(res=>{
-    console.log(res);
+    // console.log(res);
     dispatch({
       type: 'DELETE_USER',
       payload: position
@@ -78,6 +78,20 @@ export const getQuestions = () => async dispatch => {
   })
 }
 
+export const tempExamSet = () => async dispatch => {
+  let set = {
+    set_id: "",
+    name: "",
+    time: "",
+    question: [],
+    total_marks: 0
+  }
+  return({
+    type: 'TEMP_EXAM_SET',
+    payload: set
+  })
+}
+
 export const editExamSet = (updatedExamSet) => async dispatch => {
 
   updateExamSet(updatedExamSet).then(res=>{
@@ -89,7 +103,14 @@ export const editExamSet = (updatedExamSet) => async dispatch => {
       console.log(err);
     })
   })
+}
 
+export const editExamSetTemp = (updatedExamSet) =>  {
+
+  return({
+    type: "EDIT_EXAM_SET",
+    payload: updatedExamSet
+  })
 }
 
 export const editUser = (user, exam) => async dispatch => {

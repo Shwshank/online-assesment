@@ -5,6 +5,7 @@ import { getExamSet, getExamSets } from "../../actions";
 import ExamSetting from "./ExamSetting";
 import ExamSetTable from "../../components/home/examSetTable";
 import Footer from "./Footer";
+import $ from 'jquery'
 
 class ExamSet extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class ExamSet extends React.Component {
       let i = 0;
       return this.props.examSet.map(exam => {
         i++;
+        $('#examSetTable').DataTable();
         return (
           <tr key={exam.set_id + i + ""}>
             <td>{i}</td>

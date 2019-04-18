@@ -22,13 +22,13 @@ class Login extends React.Component {
   }
 
   onLogin = () => {
-    // console.log(this.state);
+
     login(this.state.email, this.state.password).then(res => {
-      // console.log(res);
+
       if (res) {
         this.props.getExamSets();
         this.props.setUsers1();
-        // history.push("/home");
+
       } else {
         alert("Invalid credentials!");
       }

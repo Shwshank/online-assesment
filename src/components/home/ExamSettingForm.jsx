@@ -1,8 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getExamSet, getQuestions, editExamSet } from "../../actions";
+import { getExamSet, getQuestions, editExamSet, editExamSetTemp,
+getExamSets } from "../../actions";
 import ExamSettingFormAllQuesionsTable from "./examSettingFormAllQuestionsTable";
 import ExamSettingFormQuestionTable from "./examSettingFormQuestionsTable";
+import $ from 'jquery'
+
 class ExamSettingForm extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +22,10 @@ class ExamSettingForm extends React.Component {
   componentDidUpdate() {
     // console.log(this.props);
     this.displayExamDetails();
+  }
+
+  componentWillUnmount() {
+    this.props.getExamSets();
   }
 
   displayExamDetails() {
@@ -112,6 +119,7 @@ class ExamSettingForm extends React.Component {
     if (set_questions) {
       let i = 0;
       return set_questions.map(ques => {
+        $('#examSettingFormAllQuesionsTable').DataTable();
         i++;
         return (
           <tr key={ques.question + i + ""}>
@@ -146,7 +154,9 @@ class ExamSettingForm extends React.Component {
       if (window.confirm(" Are you sure to delete this question?")) {
         this.props.exam.question_array.splice(pos, 1);
         this.props.exam.total_marks -= parseInt(ques.marks);
-        this.props.editExamSet(this.props.exam);
+        this.props.editExamSetTemp(this.props.exam);
+
+
       }
     } else {
       alert(
@@ -203,6 +213,7 @@ class ExamSettingForm extends React.Component {
       let i = 0;
       return this.nonSetQuestions.map(ques => {
         i++;
+        $('#examSettingFormQuestionTable').DataTable();
         return (
           <tr key={ques.question + i + ""}>
             <td>{i}</td>
@@ -237,7 +248,7 @@ class ExamSettingForm extends React.Component {
 
     this.props.exam.question_array.push(ques.question_id);
     this.props.exam.total_marks += parseInt(ques.marks);
-    this.props.editExamSet(this.props.exam);
+    this.props.editExamSetTemp(this.props.exam);
   }
 
   updateExamSet = () => {
@@ -265,10 +276,10 @@ class ExamSettingForm extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { questions: state.question, exam: state.oneExamSet };
+  return { questions: state.question, exam: state.oneExamSet, temp: state.oneExamSet };
 };
 
 export default connect(
   mapStateToProps,
-  { getQuestions, getExamSet, editExamSet }
+  { getQuestions, getExamSet, editExamSet, editExamSetTemp, getExamSets }
 )(ExamSettingForm);

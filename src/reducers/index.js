@@ -62,7 +62,8 @@ const examSet = (state=[], action) =>{
 
     case 'GET_EXAMSET':{
       action.payload = _.uniqBy(action.payload, 'set_id')
-      state = [...state, ...action.payload]
+      state = [...action.payload]
+      // state = [...state, ...action.payload]
       state = _.uniqBy(state, 'set_id')
       return [...state]
     }
@@ -94,6 +95,18 @@ const oneExamSet = (state={}, action) =>{
         state = action.payload[0]
       }
       // console.log(state);
+      return state
+    }
+    default:
+    return state
+  }
+}
+
+const tempSet = (state={}, action) => {
+
+  switch (action.type) {
+    case 'TEMP_EXAM_SET': {
+      state = action.payload
       return state
     }
     default:
@@ -141,6 +154,7 @@ const responseArray = (state={}, action) => {
 export default combineReducers({
   form: form,
   user: user,
+  tempSet: tempSet,
   examSet: examSet,
   examUser: examUser,
   question: question,

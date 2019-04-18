@@ -11,6 +11,11 @@ import {
   editUser
 } from "../../actions";
 import Footer from "./Footer";
+import $ from 'jquery'
+import DataTable from "datatables.net";
+// import { getUsers } from '../../api/APIendpoint';
+// var $ = window.$;
+$.DataTable = DataTable
 
 class User extends React.Component {
   counter = 1;
@@ -31,9 +36,10 @@ class User extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.props.getExamSets();
     this.props.setUsers();
+    $('#userTable').DataTable();
   }
 
   renderUser() {
@@ -45,6 +51,7 @@ class User extends React.Component {
     let i = 0;
     return this.props.users.map(u => {
       i++;
+      $('#userTable').DataTable();
       return (
         <tr key={u.name + u.email + i + ""}>
           <td>{i}</td>
@@ -53,7 +60,7 @@ class User extends React.Component {
           <td>{u.phone}</td>
           <td>{u.status === "" ? "" : u.status + ", Exam :" + u.set_id}</td>
           <td>
-            {parseInt(u.marks) > 0 ? u.marks + ", Exam : " + u.set_id : ""}
+            {parseInt(u.marks) > -1 ? u.marks + ", Exam : " + u.set_id : ""}
           </td>
           <td>{u.timeStamp}</td>
           <td>
@@ -206,13 +213,12 @@ class User extends React.Component {
     formData.append("file", file);
     let reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = event => {
-      console.log(reader.result);
-      uploadUserFile({ file: reader.result }).then(res => {
-        console.log(res);
-        alert("Success " + res.success);
-      });
-    };
+    reader.onload = (event) => {
+       console.log(reader.result);
+       uploadUserFile({file : reader.result}).then(res=>{
+         alert("Success "+res.success);
+       })
+    }
   };
 
   render() {

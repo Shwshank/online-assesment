@@ -3,10 +3,13 @@ import { connect } from "react-redux";
 import Countdown from "react-countdown-now";
 import { examResponse } from "../../actions";
 import MiddleLayer from "./MiddleLayer";
-import Header from "./Header";
-import Footer from "./Footer";
+import  Header  from "./Header";
 
 class StartExam extends React.Component {
+
+  time1 = 0;
+  time2 = 0;
+
   constructor(props) {
     super();
     this.state = {
@@ -19,6 +22,7 @@ class StartExam extends React.Component {
     let toggle = !this.state.toggle;
     this.setState({ toggle });
   };
+
   toggleClassesHandler = () => {
     const classes = this.state.toggle ? "active accodian" : "accodian";
     return classes;
@@ -26,7 +30,16 @@ class StartExam extends React.Component {
   totalMarks = 0;
   resultArray = [];
 
-  componentDidMount() {}
+  componentDidMount() {
+    // if (window.performance) {
+    //   if (performance.navigation.type === 1) {
+    //     this.time2 = performance.now();
+    //     console.log(this.time1);
+    //     console.log(this.time2);
+    //     console.log(this.time2 - this.time1);
+    //   }
+    // }
+  }
 
   renderTime = () => {
     // console.log(this.props);
@@ -205,7 +218,6 @@ class StartExam extends React.Component {
           </div>
           {this.displaySubmitButton()}
         </div>
-        <Footer />
       </div>
     );
   }
